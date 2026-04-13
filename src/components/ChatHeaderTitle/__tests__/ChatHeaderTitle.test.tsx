@@ -29,7 +29,7 @@ describe('ChatHeaderTitle', () => {
       chatSessionStore.resetActiveSession();
       chatSessionStore.sessions = [];
     });
-    const {getByText} = render(<ChatHeaderTitle />);
+    const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
     expect(getByText('Chat')).toBeTruthy();
   });
 
@@ -47,7 +47,7 @@ describe('ChatHeaderTitle', () => {
       });
     });
 
-    const {getByText} = render(<ChatHeaderTitle />);
+    const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
     expect(getByText('Test Session')).toBeTruthy();
   });
 
@@ -57,7 +57,7 @@ describe('ChatHeaderTitle', () => {
       modelStore.setActiveModel(basicModel.id);
     });
 
-    const {getByText} = render(<ChatHeaderTitle />);
+    const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
     expect(getByText('basic model')).toBeTruthy();
   });
 
@@ -68,7 +68,9 @@ describe('ChatHeaderTitle', () => {
       modelStore.setActiveModel(basicModel.id);
     });
 
-    const {getByText, rerender} = render(<ChatHeaderTitle />);
+    const {getByText, rerender} = render(<ChatHeaderTitle />, {
+      withNavigation: true,
+    });
     expect(getByText('basic model')).toBeTruthy();
 
     // Change model
@@ -96,7 +98,7 @@ describe('ChatHeaderTitle', () => {
       characterProfileStore.selectedCharacterId = 'character-1';
     });
 
-    const {getByText} = render(<ChatHeaderTitle />);
+    const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
     expect(getByText('目前角色：測試角色')).toBeTruthy();
     expect(getByText('Thinking：開')).toBeTruthy();
     expect(getByText('角色提示詞：已啟用')).toBeTruthy();
@@ -132,7 +134,7 @@ describe('ChatHeaderTitle', () => {
       });
     });
 
-    const {getByText} = render(<ChatHeaderTitle />);
+    const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
     expect(getByText('目前角色：未選擇角色')).toBeTruthy();
     expect(getByText('Thinking：開')).toBeTruthy();
     expect(getByText('角色提示詞：已啟用')).toBeTruthy();
