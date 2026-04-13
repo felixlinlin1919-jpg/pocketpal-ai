@@ -8,8 +8,8 @@ export const characterText = {
   rolePromptDisabled: '角色提示詞：未啟用',
   thinkingOn: 'Thinking：開',
   thinkingOff: 'Thinking：關',
-  noAvatar: '尚未設定頭像',
-  noBackground: '尚未設定背景圖',
+  noAvatar: '未設定頭像',
+  noBackground: '未設定背景圖',
   currentRole: '目前角色',
   currentlyActive: '目前使用中',
 } as const;

@@ -143,20 +143,10 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 16,
       backgroundColor: theme.colors.background,
       padding: 16,
-      gap: 20,
+      gap: 18,
     },
     sectionBlock: {
-      gap: 12,
-      paddingBottom: 4,
-    },
-    sectionHeader: {
-      gap: 4,
-    },
-    sectionTitle: {
-      color: theme.colors.onSurface,
-    },
-    sectionDescription: {
-      color: theme.colors.onSurfaceVariant,
+      gap: 14,
     },
     fieldGroup: {
       gap: 8,
@@ -236,7 +226,6 @@ export const createStyles = (theme: Theme) =>
     },
     switchTextContainer: {
       flex: 1,
-      gap: 4,
     },
     submitButton: {
       marginTop: 8,

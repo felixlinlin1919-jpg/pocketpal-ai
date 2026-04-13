@@ -183,15 +183,6 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
       <ScrollView contentContainerStyle={styles.editorScrollContent}>
         <Card style={styles.editorCard}>
           <View style={styles.sectionBlock}>
-            <View style={styles.sectionHeader}>
-              <Text variant="titleMedium" style={styles.sectionTitle}>
-                角色資料
-              </Text>
-              <Text variant="bodySmall" style={styles.sectionDescription}>
-                設定角色名稱與聊天時顯示的基本資訊。
-              </Text>
-            </View>
-
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
                 名稱
@@ -201,22 +192,10 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 onChangeText={setName}
                 placeholder="請輸入角色名稱"
               />
-              <Text variant="bodySmall" style={styles.fieldHint}>
-                會顯示在聊天頁、角色列表與快速切換選單。
-              </Text>
             </View>
           </View>
 
           <View style={styles.sectionBlock}>
-            <View style={styles.sectionHeader}>
-              <Text variant="titleMedium" style={styles.sectionTitle}>
-                聊天設定
-              </Text>
-              <Text variant="bodySmall" style={styles.sectionDescription}>
-                這些設定會在聊天時優先套用到目前角色。
-              </Text>
-            </View>
-
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
                 角色提示詞
@@ -228,9 +207,6 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 multiline
                 numberOfLines={6}
               />
-              <Text variant="bodySmall" style={styles.fieldHint}>
-                送出訊息時，會優先使用這張角色卡的提示詞。
-              </Text>
             </View>
 
             <View style={styles.switchRow}>
@@ -238,24 +214,12 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 <Text variant="titleSmall" style={styles.fieldLabel}>
                   啟用 Thinking
                 </Text>
-                <Text variant="bodySmall" style={styles.fieldHint}>
-                  開啟後，這張角色卡會優先使用自己的 Thinking 設定。
-                </Text>
               </View>
               <Switch value={thinkingEnabled} onValueChange={setThinkingEnabled} />
             </View>
           </View>
 
           <View style={styles.sectionBlock}>
-            <View style={styles.sectionHeader}>
-              <Text variant="titleMedium" style={styles.sectionTitle}>
-                外觀設定
-              </Text>
-              <Text variant="bodySmall" style={styles.sectionDescription}>
-                設定聊天頁中顯示的頭像與背景圖。
-              </Text>
-            </View>
-
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
                 頭像
@@ -273,9 +237,6 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                   清除頭像
                 </Button>
               </View>
-              <Text variant="bodySmall" style={styles.fieldHint}>
-                可手動輸入圖片網址、本機路徑，或直接從裝置選擇圖片。
-              </Text>
               <View style={styles.previewSection}>
                 <Text variant="bodySmall" style={styles.previewLabel}>
                   頭像預覽
@@ -324,9 +285,6 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                   清除背景圖
                 </Button>
               </View>
-              <Text variant="bodySmall" style={styles.fieldHint}>
-                會套用在聊天頁背景，系統會自動加上遮罩保持可讀性。
-              </Text>
               <View style={styles.previewSection}>
                 <Text variant="bodySmall" style={styles.previewLabel}>
                   背景預覽

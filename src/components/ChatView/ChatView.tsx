@@ -957,7 +957,6 @@ export const ChatView = observer(
                 imageStyle={styles.characterBackgroundImage}
                 resizeMode="cover"
                 onError={() => setBackgroundLoadFailed(true)}
-                pointerEvents="none"
                 testID="chat-background-image">
                 <View style={styles.characterBackgroundOverlay} />
               </ImageBackground>
