@@ -52,6 +52,11 @@ export const ChatHeaderTitle: React.FC = observer(() => {
     setMenuVisible(false);
   }, []);
 
+  const handleClearCharacter = React.useCallback(() => {
+    characterProfileStore.setSelectedCharacter(undefined);
+    setMenuVisible(false);
+  }, []);
+
   return (
     <Menu
       visible={menuVisible}
@@ -93,6 +98,22 @@ export const ChatHeaderTitle: React.FC = observer(() => {
         </Pressable>
       }>
       <Menu.Item label="快速切換角色" isGroupLabel />
+      <Menu.Item
+        label="不使用角色"
+        onPress={handleClearCharacter}
+        leadingIcon="account-off-outline"
+        trailingIcon={
+          !selectedCharacter
+            ? () => (
+                <Text style={styles.menuStatusText} variant="bodySmall">
+                  使用預設聊天設定
+                </Text>
+              )
+            : undefined
+        }
+        style={styles.clearRoleItem}
+      />
+      {characterProfiles.length > 0 && <Menu.Separator />}
       {characterProfiles.map(profile => {
         const profileAvatarSource = getCharacterImageSource(profile.avatar);
         return (
@@ -127,7 +148,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
           />
         );
       })}
-      {characterProfiles.length > 0 && <Menu.Separator />}
+      <Menu.Separator />
       <Menu.Item
         label="管理角色卡"
         onPress={handleOpenManager}

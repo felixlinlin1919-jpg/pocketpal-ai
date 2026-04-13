@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from '../../../../jest/test-utils';
+import {fireEvent, render} from '../../../../jest/test-utils';
 import {ChatHeaderTitle} from '../ChatHeaderTitle';
 import {
   characterProfileStore,
@@ -138,5 +138,37 @@ describe('ChatHeaderTitle', () => {
     expect(getByText('目前角色：未選擇角色')).toBeTruthy();
     expect(getByText('Thinking：開')).toBeTruthy();
     expect(getByText('角色提示詞：已啟用')).toBeTruthy();
+  });
+
+  it('clears selected character from quick switch menu', () => {
+    runInAction(() => {
+      characterProfileStore.profiles = [
+        {
+          id: 'character-1',
+          name: '測試角色',
+          systemPrompt: '你是一個測試角色',
+          thinkingEnabled: true,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      ] as any;
+      characterProfileStore.selectedCharacterId = 'character-1';
+      chatSessionStore.newChatCompletionSettings = {
+        ...chatSessionStore.newChatCompletionSettings,
+        enable_thinking: false,
+      };
+    });
+
+    const {getByTestId, getByText} = render(<ChatHeaderTitle />, {
+      withNavigation: true,
+    });
+
+    fireEvent.press(getByTestId('chat-header-role-trigger'));
+    fireEvent.press(getByText('不使用角色'));
+
+    expect(characterProfileStore.selectedCharacterId).toBeUndefined();
+    expect(getByText('目前角色：未選擇角色')).toBeTruthy();
+    expect(getByText('Thinking：開')).toBeTruthy();
+    expect(getByText('角色提示詞：未啟用')).toBeTruthy();
   });
 });
