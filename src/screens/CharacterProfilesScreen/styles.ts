@@ -56,7 +56,7 @@ export const createStyles = (theme: Theme) =>
     },
     profileRow: {
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       gap: 12,
     },
     avatar: {
@@ -77,11 +77,57 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
       gap: 4,
     },
+    titleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      gap: 8,
+    },
     profileName: {
       color: theme.colors.onSurface,
+      flexShrink: 1,
     },
     profileMeta: {
       color: theme.colors.onSurfaceVariant,
+    },
+    selectedBadge: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      borderRadius: 999,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      backgroundColor: theme.colors.primary,
+    },
+    selectedBadgeText: {
+      color: theme.colors.onPrimary,
+    },
+    statusRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+      marginTop: 4,
+    },
+    statusChip: {
+      borderRadius: 999,
+      paddingHorizontal: 10,
+      paddingVertical: 4,
+      backgroundColor: theme.colors.surfaceVariant,
+    },
+    statusChipText: {
+      color: theme.colors.onSurfaceVariant,
+    },
+    statusChipWarning: {
+      backgroundColor: `${theme.colors.error}18`,
+    },
+    statusChipWarningText: {
+      color: theme.colors.error,
+    },
+    hiddenBackgroundProbe: {
+      position: 'absolute',
+      width: 1,
+      height: 1,
+      opacity: 0,
     },
     actionRow: {
       flexDirection: 'row',
@@ -107,6 +153,10 @@ export const createStyles = (theme: Theme) =>
     },
     fieldHint: {
       color: theme.colors.onSurfaceVariant,
+    },
+    pickerActionRow: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
     },
     previewSection: {
       gap: 8,

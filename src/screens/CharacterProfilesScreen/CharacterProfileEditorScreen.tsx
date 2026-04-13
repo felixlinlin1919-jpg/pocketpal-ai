@@ -4,6 +4,7 @@ import {observer} from 'mobx-react-lite';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, Card, Switch, Text} from 'react-native-paper';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 import {UserCircleIcon} from '../../assets/icons';
 import {TextInput} from '../../components';
@@ -59,6 +60,45 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
   React.useEffect(() => {
     setBackgroundPreviewFailed(false);
   }, [background]);
+
+  const handlePickImage = async (
+    type: 'avatar' | 'background',
+  ): Promise<void> => {
+    try {
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        selectionLimit: 1,
+        includeBase64: false,
+      });
+
+      if (result.didCancel) {
+        return;
+      }
+
+      const asset = result.assets?.[0];
+      const selectedUri = asset?.uri;
+
+      if (!selectedUri) {
+        Alert.alert(
+          type === 'avatar' ? '無法選擇頭像' : '無法選擇背景圖',
+          '找不到可用的圖片路徑。',
+        );
+        return;
+      }
+
+      if (type === 'avatar') {
+        setAvatar(selectedUri);
+      } else {
+        setBackground(selectedUri);
+      }
+    } catch (error) {
+      console.error(`Failed to pick ${type} image:`, error);
+      Alert.alert(
+        type === 'avatar' ? '無法選擇頭像' : '無法選擇背景圖',
+        '請稍後再試。',
+      );
+    }
+  };
 
   const handleSave = () => {
     if (!name.trim()) {
@@ -143,8 +183,15 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
               onChangeText={setAvatar}
               placeholder="目前先輸入圖片路徑，後續可接圖片挑選器"
             />
+            <View style={styles.pickerActionRow}>
+              <Button
+                mode="outlined"
+                onPress={() => handlePickImage('avatar')}>
+                選擇頭像
+              </Button>
+            </View>
             <Text variant="bodySmall" style={styles.fieldHint}>
-              這一版先保留文字路徑欄位，後續可直接擴充成 image picker。
+              可手動輸入路徑，也可直接從裝置選擇圖片。
             </Text>
             <View style={styles.previewSection}>
               <Text variant="bodySmall" style={styles.previewLabel}>
@@ -182,6 +229,13 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
               onChangeText={setBackground}
               placeholder="目前先輸入背景圖片路徑，後續可接圖片挑選器"
             />
+            <View style={styles.pickerActionRow}>
+              <Button
+                mode="outlined"
+                onPress={() => handlePickImage('background')}>
+                選擇背景圖
+              </Button>
+            </View>
             <View style={styles.previewSection}>
               <Text variant="bodySmall" style={styles.previewLabel}>
                 背景預覽
