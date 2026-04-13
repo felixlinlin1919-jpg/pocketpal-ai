@@ -8,6 +8,7 @@ import {
   Modal,
 } from 'react-native';
 import {IconButton} from 'react-native-paper';
+import {observer} from 'mobx-react-lite';
 
 import ParsedText from 'react-native-parsed-text';
 import {
@@ -17,6 +18,7 @@ import {
 } from '@flyerhq/react-native-link-preview';
 
 import {useTheme} from '../../hooks';
+import {characterProfileStore} from '../../store';
 
 import {styles} from './styles';
 import {MarkdownView} from '../MarkdownView';
@@ -48,7 +50,7 @@ export interface TextMessageProps extends TextMessageTopLevelProps {
   showName: boolean;
 }
 
-export const TextMessage = ({
+const TextMessageBase = ({
   enableAnimation,
   message,
   messageWidth,
@@ -84,6 +86,12 @@ export const TextMessage = ({
   // Extract imageUris from the message if available
   const imageUris = (message as any).imageUris || [];
   const hasImages = imageUris && imageUris.length > 0;
+  const selectedCharacter = characterProfileStore.selectedCharacter;
+  const fallbackAuthorName = getUserName(message.author);
+  const resolvedHeaderName =
+    message.author.id !== user?.id
+      ? selectedCharacter?.name?.trim() || fallbackAuthorName
+      : fallbackAuthorName;
 
   const handleEmailPress = (email: string) => {
     try {
@@ -213,7 +221,7 @@ export const TextMessage = ({
             width: previewData?.image ? messageWidth : undefined,
           }}
           enableAnimation={enableAnimation}
-          header={showName ? getUserName(message.author) : undefined}
+          header={showName ? resolvedHeaderName : undefined}
           onPreviewDataFetched={handlePreviewDataFetched}
           previewData={previewData}
           renderDescription={renderPreviewDescription}
@@ -233,7 +241,7 @@ export const TextMessage = ({
           {
             // Tested inside the link preview
             /* istanbul ignore next */ showName
-              ? renderPreviewHeader(getUserName(message.author))
+              ? renderPreviewHeader(resolvedHeaderName)
               : null
           }
 
@@ -275,3 +283,5 @@ export const TextMessage = ({
     </>
   );
 };
+
+export const TextMessage = observer(TextMessageBase);

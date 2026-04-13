@@ -25,7 +25,10 @@ export const styles = ({
         message.author,
         theme.colors.userAvatarNameColors,
       ),
-      marginBottom: 6,
+      fontSize: 12,
+      opacity: 0.88,
+      marginBottom: 4,
+      marginLeft: 2,
     },
     titleText: {
       ...(user?.id === message.author.id

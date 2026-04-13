@@ -190,6 +190,7 @@ export const ChatScreen: React.FC = observer(() => {
         isStreaming={modelStore.isStreaming}
         sendButtonVisibilityMode="always"
         showUserAvatars={true}
+        showUserNames={true}
         showImageUpload={true}
         isVisionEnabled={multimodalEnabled}
         initialInputText={pendingMessage || undefined}
