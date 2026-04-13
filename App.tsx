@@ -34,7 +34,6 @@ import {
   ChatScreen,
   ModelsScreen,
   SettingsScreen,
-  BenchmarkScreen,
   AboutScreen,
   CharacterProfilesNavigator,
 
@@ -112,14 +111,6 @@ const App = observer(() => {
                         headerRight: () => <ModelsHeaderRight />,
                         headerStyle: styles.headerWithoutDivider,
                         title: currentL10n.screenTitles.models,
-                      }}
-                    />
-                    <Drawer.Screen
-                      name={ROUTES.BENCHMARK}
-                      component={gestureHandlerRootHOC(BenchmarkScreen)}
-                      options={{
-                        headerStyle: styles.headerWithoutDivider,
-                        title: currentL10n.screenTitles.benchmark,
                       }}
                     />
                     <Drawer.Screen

@@ -4,6 +4,7 @@ import React, {useContext, useState} from 'react';
 import {Text, Button, Switch, ActivityIndicator} from 'react-native-paper';
 
 import {Sheet} from '../Sheet/Sheet';
+import {appVariant} from '../../config/appVariant';
 
 import {submitContentReport} from '../../api/feedback';
 
@@ -110,6 +111,31 @@ export const ContentReportSheet: React.FC<ContentReportSheetProps> = ({
   const getCategoryLabel = (category: ReportCategory) => {
     return l10n.components.contentReportSheet.categories[category];
   };
+
+  if (!appVariant.cloudFeaturesEnabled) {
+    return (
+      <Sheet
+        title="內容檢舉"
+        isVisible={isVisible}
+        onClose={handleClose}
+        snapPoints={['38%']}>
+        <Sheet.ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.section}>
+            <Text variant="bodyMedium" style={styles.infoNote}>
+              {`${appVariant.unavailableMessage}。${appVariant.officialOnlyMessage}。`}
+            </Text>
+          </View>
+        </Sheet.ScrollView>
+        <Sheet.Actions>
+          <View style={styles.actionsContainer}>
+            <Button mode="contained" onPress={handleClose} style={styles.button}>
+              {l10n.common.close}
+            </Button>
+          </View>
+        </Sheet.Actions>
+      </Sheet>
+    );
+  }
 
   return (
     <Sheet

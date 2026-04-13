@@ -1,29 +1,18 @@
-import React, {useState, useContext} from 'react';
-import {
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-  Linking,
-  Platform,
-} from 'react-native';
+import React, {useContext} from 'react';
+import {View, ScrollView, TouchableOpacity, Alert, Linking} from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {Text, Button, SegmentedButtons} from 'react-native-paper';
+import {Text, Button} from 'react-native-paper';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {BuildInfo} from 'llama.rn';
-
-import {submitFeedback} from '../../api/feedback';
 
 import {
   CopyIcon,
   GithubIcon,
-  ChevronRightIcon,
-  HeartIcon,
 } from '../../assets/icons';
 
-import {Sheet, TextInput} from '../../components';
+import {appVariant} from '../../config/appVariant';
 import {useTheme} from '../../hooks';
 import {createStyles} from './styles';
 import {L10nContext} from '../../utils';
@@ -32,27 +21,16 @@ const GithubButtonIcon = ({color}: {color: string}) => (
   <GithubIcon stroke={color} />
 );
 
-const ChevronRightButtonIcon = ({color}: {color: string}) => (
-  <ChevronRightIcon stroke={color} />
-);
-
 export const AboutScreen: React.FC = () => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const styles = createStyles(theme, insets);
   const l10n = useContext(L10nContext);
-  const [showFeedback, setShowFeedback] = useState(false);
 
   const [appInfo, setAppInfo] = React.useState({
     version: '',
     build: '',
   });
-
-  const [useCase, setUseCase] = useState('');
-  const [featureRequests, setFeatureRequests] = useState('');
-  const [generalFeedback, setGeneralFeedback] = useState('');
-  const [usageFrequency, setUsageFrequency] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   React.useEffect(() => {
     const version = DeviceInfo.getVersion();
@@ -72,36 +50,6 @@ export const AboutScreen: React.FC = () => {
     );
   };
 
-  const handleSubmit = async () => {
-    if (!useCase && !featureRequests && !generalFeedback) {
-      Alert.alert(l10n.feedback.validation.required);
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      await submitFeedback({
-        useCase,
-        featureRequests,
-        generalFeedback,
-        usageFrequency,
-      });
-      Alert.alert('Success', l10n.feedback.success);
-      setShowFeedback(false);
-      // Clear form
-      setUseCase('');
-      setFeatureRequests('');
-      setGeneralFeedback('');
-      setUsageFrequency('');
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : l10n.feedback.error.general;
-      Alert.alert('Error', errorMessage);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -114,6 +62,11 @@ export const AboutScreen: React.FC = () => {
               <Text variant="bodyMedium" style={styles.description}>
                 {l10n.about.description}
               </Text>
+              <View style={styles.buildBadge}>
+                <Text style={styles.buildBadgeText}>
+                  {`${appVariant.label} · ${appVariant.shortLabel}`}
+                </Text>
+              </View>
               <View style={styles.versionContainer}>
                 <TouchableOpacity
                   style={styles.versionButton}
@@ -136,9 +89,9 @@ export const AboutScreen: React.FC = () => {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{l10n.about.supportProject}</Text>
+            <Text style={styles.sectionTitle}>專案來源</Text>
             <Text variant="bodyMedium" style={styles.description}>
-              {l10n.about.supportProjectDescription}
+              此版本以 PocketPal AI 為基礎調整，定位為本機自用版。
             </Text>
             <Button
               mode="outlined"
@@ -149,121 +102,22 @@ export const AboutScreen: React.FC = () => {
               icon={GithubButtonIcon}>
               {l10n.about.githubButton}
             </Button>
-            {Platform.OS !== 'ios' && (
-              <>
-                <Text style={styles.orText}>{l10n.about.orText}</Text>
-                <TouchableOpacity
-                  style={styles.supportButton}
-                  onPress={() =>
-                    Linking.openURL('https://www.buymeacoffee.com/aghorbani')
-                  }>
-                  <HeartIcon stroke={theme.colors.onPrimary} />
-                  <Text style={styles.supportButtonText}>
-                    {l10n.about.sponsorButton}
-                  </Text>
-                </TouchableOpacity>
-              </>
-            )}
-            <Text style={styles.orText}>{l10n.about.orBy}</Text>
-            <Button
-              mode="outlined"
-              style={styles.actionButton}
-              contentStyle={styles.feedbackButtonContent}
-              icon={ChevronRightButtonIcon}
-              onPress={() => setShowFeedback(true)}>
-              {l10n.feedback.shareThoughtsButton}
-            </Button>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>自用版狀態</Text>
+            <Text variant="bodyMedium" style={styles.description}>
+              雲端回饋、內容檢舉、排行榜與官方驗證流程已停用，不影響本地聊天與角色功能。
+            </Text>
+            <View style={styles.noticeCard}>
+              <Text style={styles.noticeTitle}>未啟用的功能</Text>
+              <Text style={styles.noticeText}>
+                {`${appVariant.unavailableMessage}，${appVariant.officialOnlyMessage}。`}
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>
-
-      <Sheet
-        title={l10n.feedback.title}
-        isVisible={showFeedback}
-        displayFullHeight
-        onClose={() => setShowFeedback(false)}>
-        <Sheet.ScrollView contentContainerStyle={styles.feedbackForm}>
-          <View style={styles.field}>
-            <Text style={styles.label}>{l10n.feedback.useCase.label}</Text>
-            <TextInput
-              defaultValue={useCase}
-              onChangeText={setUseCase}
-              placeholder={l10n.feedback.useCase.placeholder}
-              multiline
-              numberOfLines={4}
-            />
-          </View>
-
-          <View style={styles.field}>
-            <Text style={styles.label}>
-              {l10n.feedback.featureRequests.label}
-            </Text>
-            <TextInput
-              defaultValue={featureRequests}
-              onChangeText={setFeatureRequests}
-              placeholder={l10n.feedback.featureRequests.placeholder}
-              multiline
-              numberOfLines={4}
-            />
-          </View>
-
-          <View style={styles.field}>
-            <Text style={styles.label}>
-              {l10n.feedback.generalFeedback.label}
-            </Text>
-            <TextInput
-              defaultValue={generalFeedback}
-              onChangeText={setGeneralFeedback}
-              placeholder={l10n.feedback.generalFeedback.placeholder}
-              multiline
-              numberOfLines={4}
-            />
-          </View>
-
-          <View style={styles.field}>
-            <Text style={styles.label}>
-              {l10n.feedback.usageFrequency.label}
-            </Text>
-            <SegmentedButtons
-              value={usageFrequency}
-              onValueChange={setUsageFrequency}
-              buttons={[
-                {
-                  value: 'daily',
-                  label: l10n.feedback.usageFrequency.options.daily,
-                },
-                {
-                  value: 'weekly',
-                  label: l10n.feedback.usageFrequency.options.weekly,
-                },
-                {
-                  value: 'monthly',
-                  label: l10n.feedback.usageFrequency.options.monthly,
-                },
-                {
-                  value: 'rarely',
-                  label: l10n.feedback.usageFrequency.options.rarely,
-                },
-              ]}
-              style={styles.segmentedButtons}
-            />
-          </View>
-        </Sheet.ScrollView>
-        <Sheet.Actions>
-          <View style={styles.secondaryButtons}>
-            <Button mode="text" onPress={() => setShowFeedback(false)}>
-              {l10n.common.cancel}
-            </Button>
-          </View>
-          <Button
-            mode="contained"
-            onPress={handleSubmit}
-            loading={isSubmitting}
-            disabled={isSubmitting}>
-            {l10n.feedback.submit}
-          </Button>
-        </Sheet.Actions>
-      </Sheet>
     </SafeAreaView>
   );
 };

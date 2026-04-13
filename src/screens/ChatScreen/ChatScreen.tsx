@@ -9,6 +9,7 @@ import {
   ModelErrorReportSheet,
 } from '../../components';
 import {PalSheet} from '../../components/PalsSheets';
+import {appVariant} from '../../config/appVariant';
 
 import {useChatSession} from '../../hooks';
 import {usePendingMessage} from '../../hooks/useDeepLinking';
@@ -218,7 +219,9 @@ export const ChatScreen: React.FC = observer(() => {
         <ErrorSnackbar
           error={modelStore.modelLoadError}
           onDismiss={() => modelStore.clearModelLoadError()}
-          onReport={handleReportModelError}
+          onReport={
+            appVariant.cloudFeaturesEnabled ? handleReportModelError : undefined
+          }
         />
       )}
       <ModelErrorReportSheet

@@ -6,6 +6,7 @@ import DeviceInfo from 'react-native-device-info';
 import {Text, Button, Checkbox, ActivityIndicator} from 'react-native-paper';
 
 import {submitModelLoadErrorReport} from '../../api/feedback';
+import {appVariant} from '../../config/appVariant';
 
 import {useTheme} from '../../hooks';
 
@@ -233,6 +234,29 @@ export const ModelErrorReportSheet: React.FC<ModelErrorReportSheetProps> = ({
           : []),
       ]
     : [];
+
+  if (!appVariant.cloudFeaturesEnabled) {
+    return (
+      <Sheet
+        title="錯誤回報"
+        isVisible={isVisible}
+        onClose={handleClose}
+        snapPoints={['40%']}>
+        <Sheet.ScrollView contentContainerStyle={styles.container}>
+          <Text variant="bodyMedium" style={styles.privacyNote}>
+            {`${appVariant.unavailableMessage}。${appVariant.officialOnlyMessage}。`}
+          </Text>
+        </Sheet.ScrollView>
+        <Sheet.Actions>
+          <View style={styles.actionsContainer}>
+            <Button mode="contained" onPress={handleClose} style={styles.button}>
+              {l10n.common.close}
+            </Button>
+          </View>
+        </Sheet.Actions>
+      </Sheet>
+    );
+  }
 
   return (
     <Sheet

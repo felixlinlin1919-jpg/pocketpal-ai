@@ -46,6 +46,17 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       marginBottom: theme.spacing.default,
       lineHeight: 24,
     },
+    buildBadge: {
+      alignSelf: 'flex-start',
+      backgroundColor: theme.colors.primaryContainer,
+      borderRadius: 999,
+      paddingHorizontal: theme.spacing.default,
+      paddingVertical: 6,
+    },
+    buildBadgeText: {
+      ...theme.fonts.labelMedium,
+      color: theme.colors.onPrimaryContainer,
+    },
     versionContainer: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -86,56 +97,21 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       borderWidth: 1,
       borderColor: theme.colors.surfaceVariant,
     },
-    orText: {
+    noticeCard: {
+      marginTop: theme.spacing.default,
+      borderRadius: theme.borders.default,
+      padding: theme.spacing.default,
+      backgroundColor: theme.colors.surfaceContainerHigh,
+      gap: theme.spacing.default / 2,
+      borderWidth: 1,
+      borderColor: theme.colors.surfaceVariant,
+    },
+    noticeTitle: {
+      ...theme.fonts.titleSmall,
+      color: theme.colors.onSurface,
+    },
+    noticeText: {
       ...theme.fonts.bodyMedium,
       color: theme.colors.onSurfaceVariant,
-      textAlign: 'center',
-      marginVertical: theme.spacing.default,
-      opacity: 0.7,
-    },
-    supportButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.primary,
-      padding: theme.spacing.default,
-      borderRadius: theme.borders.default,
-      gap: theme.spacing.default / 2,
-      shadowColor: theme.colors.primary,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.2,
-      shadowRadius: 4,
-      elevation: 2,
-    },
-    supportButtonText: {
-      ...theme.fonts.titleMedium,
-      color: theme.colors.onPrimary,
-      letterSpacing: 0.5,
-    },
-    feedbackButtonContent: {
-      flexDirection: 'row-reverse',
-    },
-    feedbackForm: {
-      padding: theme.spacing.default,
-    },
-    field: {
-      marginBottom: theme.spacing.default,
-    },
-    label: {
-      ...theme.fonts.labelMedium,
-      color: theme.colors.onSurface,
-      marginBottom: theme.spacing.default / 2,
-    },
-    segmentedButtons: {
-      marginTop: theme.spacing.default / 2,
-    },
-    submitButton: {
-      marginTop: theme.spacing.default,
-    },
-    secondaryButtons: {
-      flexDirection: 'row',
     },
   });

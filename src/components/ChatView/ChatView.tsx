@@ -33,6 +33,7 @@ import Reanimated, {
 import {useComponentSize} from '../KeyboardAccessoryView/hooks';
 
 import {useTheme, useMessageActions, usePrevious} from '../../hooks';
+import {appVariant} from '../../config/appVariant';
 
 import ImageView from './ImageView';
 import {createStyles} from './styles';
@@ -623,15 +624,17 @@ export const ChatView = observer(
         });
       }
 
-      baseItems.push({
-        label: reportContentLabel,
-        onPress: () => {
-          setIsReportSheetVisible(true);
-          handleMenuDismiss();
-        },
-        icon: () => <AlertIcon stroke={theme.colors.primary} />,
-        disabled: false,
-      });
+      if (appVariant.cloudFeaturesEnabled) {
+        baseItems.push({
+          label: reportContentLabel,
+          onPress: () => {
+            setIsReportSheetVisible(true);
+            handleMenuDismiss();
+          },
+          icon: () => <AlertIcon stroke={theme.colors.primary} />,
+          disabled: false,
+        });
+      }
 
       return baseItems;
     }, [
@@ -649,6 +652,7 @@ export const ChatView = observer(
       regenerateWithLabel,
       editLabel,
       reportContentLabel,
+      appVariant.cloudFeaturesEnabled,
     ]);
 
     // ============ RENDER FUNCTIONS ============

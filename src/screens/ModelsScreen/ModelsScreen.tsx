@@ -16,6 +16,7 @@ import {ModelCard} from './ModelCard';
 import {createStyles} from './styles';
 import {HFModelSearch} from './HFModelSearch';
 import {ModelAccordion} from './ModelAccordion';
+import {appVariant} from '../../config/appVariant';
 import {
   DownloadErrorDialog,
   ErrorSnackbar,
@@ -390,7 +391,9 @@ export const ModelsScreen: React.FC = observer(() => {
           error={activeError}
           onDismiss={handleDismissError}
           onRetry={handleRetryAction}
-          onReport={handleReportModelError}
+          onReport={
+            appVariant.cloudFeaturesEnabled ? handleReportModelError : undefined
+          }
         />
       )}
 
