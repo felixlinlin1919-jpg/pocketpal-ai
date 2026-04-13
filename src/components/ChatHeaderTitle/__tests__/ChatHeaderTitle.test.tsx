@@ -171,4 +171,16 @@ describe('ChatHeaderTitle', () => {
     expect(getByText('Thinking：開')).toBeTruthy();
     expect(getByText('角色提示詞：未啟用')).toBeTruthy();
   });
+
+  it('shows create and manage actions in quick switch menu', () => {
+    const {getByTestId, getByText} = render(<ChatHeaderTitle />, {
+      withNavigation: true,
+    });
+
+    fireEvent.press(getByTestId('chat-header-role-trigger'));
+
+    expect(getByText('新增角色')).toBeTruthy();
+    expect(getByText('管理角色卡')).toBeTruthy();
+    expect(getByText('使用預設聊天設定')).toBeTruthy();
+  });
 });

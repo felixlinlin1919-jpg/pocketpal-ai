@@ -49,4 +49,7 @@ export const styles = StyleSheet.create({
   clearRoleItem: {
     opacity: 0.9,
   },
+  createRoleItem: {
+    opacity: 0.96,
+  },
 });

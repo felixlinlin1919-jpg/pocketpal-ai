@@ -12,6 +12,7 @@ import {
   palStore,
 } from '../../store';
 import {Menu} from '..';
+import {characterText} from '../../constants/characterText';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
 import {ROUTES} from '../../utils/navigationConstants';
 import {L10nContext} from '../../utils';
@@ -39,12 +40,24 @@ export const ChatHeaderTitle: React.FC = observer(() => {
   const resolvedRolePromptEnabled = selectedCharacter
     ? !!selectedCharacter.systemPrompt?.trim()
     : !!activePal?.systemPrompt?.trim();
-  const selectedCharacterName = selectedCharacter?.name?.trim() || '未選擇角色';
+  const selectedCharacterName =
+    selectedCharacter?.name?.trim() || characterText.noneSelected;
   const characterProfiles = characterProfileStore.characterProfiles;
 
   const handleOpenManager = React.useCallback(() => {
     setMenuVisible(false);
     navigation.navigate(ROUTES.CHARACTER_PROFILES);
+  }, [navigation]);
+
+  const handleCreateCharacter = React.useCallback(() => {
+    setMenuVisible(false);
+    navigation.navigate(ROUTES.CHARACTER_PROFILES, {
+      screen: 'CharacterProfileEditor',
+      params: {
+        autoSelectOnSave: true,
+        returnToChatOnSave: true,
+      },
+    });
   }, [navigation]);
 
   const handleSelectCharacter = React.useCallback((characterId: string) => {
@@ -78,11 +91,13 @@ export const ChatHeaderTitle: React.FC = observer(() => {
               </Text>
             )}
             <Text numberOfLines={1} style={styles.subtitle} variant="bodySmall">
-              {`目前角色：${selectedCharacterName}`}
+              {`${characterText.currentRole}：${selectedCharacterName}`}
             </Text>
             <View style={styles.statusRow}>
               <Text numberOfLines={1} style={styles.statusText} variant="bodySmall">
-                {`Thinking：${resolvedThinkingEnabled ? '開' : '關'}`}
+                {resolvedThinkingEnabled
+                  ? characterText.thinkingOn
+                  : characterText.thinkingOff}
               </Text>
               <Text
                 numberOfLines={1}
@@ -91,7 +106,9 @@ export const ChatHeaderTitle: React.FC = observer(() => {
                 {'•'}
               </Text>
               <Text numberOfLines={1} style={styles.statusText} variant="bodySmall">
-                {`角色提示詞：${resolvedRolePromptEnabled ? '已啟用' : '未啟用'}`}
+                {resolvedRolePromptEnabled
+                  ? characterText.rolePromptEnabled
+                  : characterText.rolePromptDisabled}
               </Text>
             </View>
           </View>
@@ -99,19 +116,25 @@ export const ChatHeaderTitle: React.FC = observer(() => {
       }>
       <Menu.Item label="快速切換角色" isGroupLabel />
       <Menu.Item
-        label="不使用角色"
+        label={characterText.noRole}
         onPress={handleClearCharacter}
         leadingIcon="account-off-outline"
         trailingIcon={
           !selectedCharacter
             ? () => (
                 <Text style={styles.menuStatusText} variant="bodySmall">
-                  使用預設聊天設定
+                  {characterText.defaultChatSettings}
                 </Text>
               )
             : undefined
         }
         style={styles.clearRoleItem}
+      />
+      <Menu.Item
+        label={characterText.addCharacter}
+        onPress={handleCreateCharacter}
+        leadingIcon="account-plus-outline"
+        style={styles.createRoleItem}
       />
       {characterProfiles.length > 0 && <Menu.Separator />}
       {characterProfiles.map(profile => {
@@ -140,7 +163,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
               profile.id === selectedCharacter?.id
                 ? () => (
                     <Text style={styles.menuStatusText} variant="bodySmall">
-                      目前使用中
+                      {characterText.currentlyActive}
                     </Text>
                   )
                 : undefined
@@ -150,7 +173,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
       })}
       <Menu.Separator />
       <Menu.Item
-        label="管理角色卡"
+        label={characterText.manageCharacters}
         onPress={handleOpenManager}
         leadingIcon="account-cog-outline"
       />

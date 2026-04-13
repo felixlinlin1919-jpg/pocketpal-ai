@@ -143,7 +143,20 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 16,
       backgroundColor: theme.colors.background,
       padding: 16,
-      gap: 16,
+      gap: 20,
+    },
+    sectionBlock: {
+      gap: 12,
+      paddingBottom: 4,
+    },
+    sectionHeader: {
+      gap: 4,
+    },
+    sectionTitle: {
+      color: theme.colors.onSurface,
+    },
+    sectionDescription: {
+      color: theme.colors.onSurfaceVariant,
     },
     fieldGroup: {
       gap: 8,
@@ -158,6 +171,7 @@ export const createStyles = (theme: Theme) =>
       flexDirection: 'row',
       justifyContent: 'flex-start',
       gap: 8,
+      flexWrap: 'wrap',
     },
     previewSection: {
       gap: 8,

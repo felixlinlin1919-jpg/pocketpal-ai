@@ -12,6 +12,7 @@ import {Button, Card, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 
 import {CheckCircleIcon, UserCircleIcon} from '../../assets/icons';
+import {characterText} from '../../constants/characterText';
 import {useCharacterProfiles, useTheme} from '../../hooks';
 import {CharacterProfile} from '../../types/character';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
@@ -184,13 +185,13 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
               目前選擇角色
             </Text>
             <Text variant="headlineSmall" style={styles.summaryValue}>
-              {selectedCharacter?.name ?? '尚未選擇角色'}
+              {selectedCharacter?.name ?? characterText.noneSelected}
             </Text>
             <Button
               mode="contained"
               style={styles.addButton}
               onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
-              新增角色
+              {characterText.addCharacter}
             </Button>
           </Card>
         }
@@ -198,12 +199,12 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
           <Card style={styles.emptyCard}>
             <Text variant="titleMedium">尚未建立角色卡</Text>
             <Text variant="bodyMedium" style={styles.emptyText}>
-              先新增一張角色卡，後續就能接入聊天背景、頭像與系統提示詞。
+              建立角色後，可套用專屬提示詞、頭像與聊天背景。
             </Text>
             <Button
               mode="contained"
               onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
-              新增角色
+              {characterText.addCharacter}
             </Button>
           </Card>
         }

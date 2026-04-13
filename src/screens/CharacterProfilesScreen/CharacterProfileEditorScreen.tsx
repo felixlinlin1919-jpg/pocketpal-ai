@@ -8,7 +8,9 @@ import {launchImageLibrary} from 'react-native-image-picker';
 
 import {UserCircleIcon} from '../../assets/icons';
 import {TextInput} from '../../components';
+import {characterText} from '../../constants/characterText';
 import {useCharacterProfiles, useTheme} from '../../hooks';
+import {ROUTES} from '../../utils/navigationConstants';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
 
 import {createStyles} from './styles';
@@ -16,6 +18,8 @@ import {createStyles} from './styles';
 type EditorRouteParams = {
   CharacterProfileEditor: {
     profileId?: string;
+    autoSelectOnSave?: boolean;
+    returnToChatOnSave?: boolean;
   };
 };
 
@@ -29,6 +33,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
     getCharacterProfile,
     addCharacterProfile,
     updateCharacterProfile,
+    setSelectedCharacter,
   } = useCharacterProfiles();
 
   const profileId = route.params?.profileId;
@@ -50,6 +55,8 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
     React.useState(false);
 
   const isEditing = !!existingProfile;
+  const shouldAutoSelectOnSave = route.params?.autoSelectOnSave ?? !isEditing;
+  const shouldReturnToChatOnSave = route.params?.returnToChatOnSave ?? false;
   const avatarSource = getCharacterImageSource(avatar);
   const backgroundSource = getCharacterImageSource(background);
 
@@ -131,9 +138,23 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
     };
 
     if (existingProfile) {
-      updateCharacterProfile(existingProfile.id, payload);
+      const updatedProfile = updateCharacterProfile(existingProfile.id, payload);
+
+      if (updatedProfile && shouldAutoSelectOnSave) {
+        setSelectedCharacter(updatedProfile.id);
+      }
     } else {
-      addCharacterProfile(payload);
+      const createdProfile = addCharacterProfile(payload);
+
+      if (shouldAutoSelectOnSave) {
+        setSelectedCharacter(createdProfile.id);
+      }
+    }
+
+    if (shouldReturnToChatOnSave) {
+      navigation.popToTop();
+      navigation.getParent()?.navigate(ROUTES.CHAT);
+      return;
     }
 
     navigation.goBack();
@@ -161,140 +182,178 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>
       <ScrollView contentContainerStyle={styles.editorScrollContent}>
         <Card style={styles.editorCard}>
-          <View style={styles.fieldGroup}>
-            <Text variant="titleSmall" style={styles.fieldLabel}>
-              名稱
-            </Text>
-            <TextInput
-              value={name}
-              onChangeText={setName}
-              placeholder="請輸入角色名稱"
-            />
-          </View>
-
-          <View style={styles.fieldGroup}>
-            <Text variant="titleSmall" style={styles.fieldLabel}>
-              系統提示詞
-            </Text>
-            <TextInput
-              value={systemPrompt}
-              onChangeText={setSystemPrompt}
-              placeholder="請輸入系統提示詞"
-              multiline
-              numberOfLines={6}
-            />
-          </View>
-
-          <View style={styles.fieldGroup}>
-            <Text variant="titleSmall" style={styles.fieldLabel}>
-              頭像路徑
-            </Text>
-            <TextInput
-              value={avatar}
-              onChangeText={setAvatar}
-              placeholder="目前先輸入圖片路徑，後續可接圖片挑選器"
-            />
-            <View style={styles.pickerActionRow}>
-              <Button
-                mode="outlined"
-                onPress={() => handlePickImage('avatar')}>
-                選擇頭像
-              </Button>
-              <Button
-                mode="text"
-                onPress={() => handleClearImage('avatar')}>
-                清除頭像
-              </Button>
-            </View>
-            <Text variant="bodySmall" style={styles.fieldHint}>
-              可手動輸入路徑，也可直接從裝置選擇圖片。
-            </Text>
-            <View style={styles.previewSection}>
-              <Text variant="bodySmall" style={styles.previewLabel}>
-                頭像預覽
+          <View style={styles.sectionBlock}>
+            <View style={styles.sectionHeader}>
+              <Text variant="titleMedium" style={styles.sectionTitle}>
+                角色資料
               </Text>
-              {avatarSource && !avatarPreviewFailed ? (
-                <Image
-                  source={avatarSource}
-                  style={styles.avatarPreview}
-                  onError={() => setAvatarPreviewFailed(true)}
-                />
-              ) : (
-                <View style={styles.avatarPreviewPlaceholder}>
-                  <UserCircleIcon
-                    width={28}
-                    height={28}
-                    stroke={theme.colors.onSurfaceVariant}
-                  />
-                  <Text variant="bodySmall" style={styles.previewHint}>
-                    {avatar.trim()
-                      ? '無法載入頭像'
-                      : '尚未設定頭像路徑'}
-                  </Text>
-                </View>
-              )}
-            </View>
-          </View>
-
-          <View style={styles.fieldGroup}>
-            <Text variant="titleSmall" style={styles.fieldLabel}>
-              背景路徑
-            </Text>
-            <TextInput
-              value={background}
-              onChangeText={setBackground}
-              placeholder="目前先輸入背景圖片路徑，後續可接圖片挑選器"
-            />
-            <View style={styles.pickerActionRow}>
-              <Button
-                mode="outlined"
-                onPress={() => handlePickImage('background')}>
-                選擇背景圖
-              </Button>
-              <Button
-                mode="text"
-                onPress={() => handleClearImage('background')}>
-                清除背景圖
-              </Button>
-            </View>
-            <View style={styles.previewSection}>
-              <Text variant="bodySmall" style={styles.previewLabel}>
-                背景預覽
+              <Text variant="bodySmall" style={styles.sectionDescription}>
+                設定角色名稱與聊天時顯示的基本資訊。
               </Text>
-              {backgroundSource && !backgroundPreviewFailed ? (
-                <ImageBackground
-                  source={backgroundSource}
-                  style={styles.backgroundPreview}
-                  imageStyle={styles.backgroundPreviewImage}
-                  resizeMode="cover"
-                  onError={() => setBackgroundPreviewFailed(true)}>
-                  <View style={styles.backgroundPreviewOverlay} />
-                  <Text variant="bodySmall" style={styles.backgroundPreviewText}>
-                    背景預覽
-                  </Text>
-                </ImageBackground>
-              ) : (
-                <View style={styles.backgroundPreviewPlaceholder}>
-                  <Text variant="bodySmall" style={styles.previewHint}>
-                    {background.trim()
-                      ? '無法載入背景圖'
-                      : '尚未設定背景路徑'}
-                  </Text>
-                </View>
-              )}
             </View>
-          </View>
 
-          <View style={styles.switchRow}>
-            <View style={styles.switchTextContainer}>
+            <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
-                啟用 thinking
+                名稱
               </Text>
+              <TextInput
+                value={name}
+                onChangeText={setName}
+                placeholder="請輸入角色名稱"
+              />
               <Text variant="bodySmall" style={styles.fieldHint}>
-                先保留角色卡層級的 thinking 開關，後續再接到聊天流程。
+                會顯示在聊天頁、角色列表與快速切換選單。
               </Text>
             </View>
-            <Switch value={thinkingEnabled} onValueChange={setThinkingEnabled} />
+          </View>
+
+          <View style={styles.sectionBlock}>
+            <View style={styles.sectionHeader}>
+              <Text variant="titleMedium" style={styles.sectionTitle}>
+                聊天設定
+              </Text>
+              <Text variant="bodySmall" style={styles.sectionDescription}>
+                這些設定會在聊天時優先套用到目前角色。
+              </Text>
+            </View>
+
+            <View style={styles.fieldGroup}>
+              <Text variant="titleSmall" style={styles.fieldLabel}>
+                角色提示詞
+              </Text>
+              <TextInput
+                value={systemPrompt}
+                onChangeText={setSystemPrompt}
+                placeholder="請輸入角色提示詞"
+                multiline
+                numberOfLines={6}
+              />
+              <Text variant="bodySmall" style={styles.fieldHint}>
+                送出訊息時，會優先使用這張角色卡的提示詞。
+              </Text>
+            </View>
+
+            <View style={styles.switchRow}>
+              <View style={styles.switchTextContainer}>
+                <Text variant="titleSmall" style={styles.fieldLabel}>
+                  啟用 Thinking
+                </Text>
+                <Text variant="bodySmall" style={styles.fieldHint}>
+                  開啟後，這張角色卡會優先使用自己的 Thinking 設定。
+                </Text>
+              </View>
+              <Switch value={thinkingEnabled} onValueChange={setThinkingEnabled} />
+            </View>
+          </View>
+
+          <View style={styles.sectionBlock}>
+            <View style={styles.sectionHeader}>
+              <Text variant="titleMedium" style={styles.sectionTitle}>
+                外觀設定
+              </Text>
+              <Text variant="bodySmall" style={styles.sectionDescription}>
+                設定聊天頁中顯示的頭像與背景圖。
+              </Text>
+            </View>
+
+            <View style={styles.fieldGroup}>
+              <Text variant="titleSmall" style={styles.fieldLabel}>
+                頭像
+              </Text>
+              <TextInput
+                value={avatar}
+                onChangeText={setAvatar}
+                placeholder="可輸入圖片網址或本機路徑"
+              />
+              <View style={styles.pickerActionRow}>
+                <Button mode="outlined" onPress={() => handlePickImage('avatar')}>
+                  選擇頭像
+                </Button>
+                <Button mode="text" onPress={() => handleClearImage('avatar')}>
+                  清除頭像
+                </Button>
+              </View>
+              <Text variant="bodySmall" style={styles.fieldHint}>
+                可手動輸入圖片網址、本機路徑，或直接從裝置選擇圖片。
+              </Text>
+              <View style={styles.previewSection}>
+                <Text variant="bodySmall" style={styles.previewLabel}>
+                  頭像預覽
+                </Text>
+                {avatarSource && !avatarPreviewFailed ? (
+                  <Image
+                    source={avatarSource}
+                    style={styles.avatarPreview}
+                    onError={() => setAvatarPreviewFailed(true)}
+                  />
+                ) : (
+                  <View style={styles.avatarPreviewPlaceholder}>
+                    <UserCircleIcon
+                      width={28}
+                      height={28}
+                      stroke={theme.colors.onSurfaceVariant}
+                    />
+                    <Text variant="bodySmall" style={styles.previewHint}>
+                      {avatar.trim()
+                        ? '無法載入頭像'
+                        : characterText.noAvatar}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </View>
+
+            <View style={styles.fieldGroup}>
+              <Text variant="titleSmall" style={styles.fieldLabel}>
+                背景圖
+              </Text>
+              <TextInput
+                value={background}
+                onChangeText={setBackground}
+                placeholder="可輸入圖片網址或本機路徑"
+              />
+              <View style={styles.pickerActionRow}>
+                <Button
+                  mode="outlined"
+                  onPress={() => handlePickImage('background')}>
+                  選擇背景圖
+                </Button>
+                <Button
+                  mode="text"
+                  onPress={() => handleClearImage('background')}>
+                  清除背景圖
+                </Button>
+              </View>
+              <Text variant="bodySmall" style={styles.fieldHint}>
+                會套用在聊天頁背景，系統會自動加上遮罩保持可讀性。
+              </Text>
+              <View style={styles.previewSection}>
+                <Text variant="bodySmall" style={styles.previewLabel}>
+                  背景預覽
+                </Text>
+                {backgroundSource && !backgroundPreviewFailed ? (
+                  <ImageBackground
+                    source={backgroundSource}
+                    style={styles.backgroundPreview}
+                    imageStyle={styles.backgroundPreviewImage}
+                    resizeMode="cover"
+                    onError={() => setBackgroundPreviewFailed(true)}>
+                    <View style={styles.backgroundPreviewOverlay} />
+                    <Text variant="bodySmall" style={styles.backgroundPreviewText}>
+                      背景預覽
+                    </Text>
+                  </ImageBackground>
+                ) : (
+                  <View style={styles.backgroundPreviewPlaceholder}>
+                    <Text variant="bodySmall" style={styles.previewHint}>
+                      {background.trim()
+                        ? '無法載入背景圖'
+                        : characterText.noBackground}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </View>
           </View>
 
           <Button

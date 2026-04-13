@@ -1,0 +1,15 @@
+export const characterText = {
+  noneSelected: '未選擇角色',
+  noRole: '不使用角色',
+  defaultChatSettings: '使用預設聊天設定',
+  addCharacter: '新增角色',
+  manageCharacters: '管理角色卡',
+  rolePromptEnabled: '角色提示詞：已啟用',
+  rolePromptDisabled: '角色提示詞：未啟用',
+  thinkingOn: 'Thinking：開',
+  thinkingOff: 'Thinking：關',
+  noAvatar: '尚未設定頭像',
+  noBackground: '尚未設定背景圖',
+  currentRole: '目前角色',
+  currentlyActive: '目前使用中',
+} as const;
