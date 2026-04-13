@@ -14,7 +14,13 @@ import {useChatSession} from '../../hooks';
 import {usePendingMessage} from '../../hooks/useDeepLinking';
 import {Pal} from '../../types/pal';
 
-import {modelStore, chatSessionStore, palStore, uiStore} from '../../store';
+import {
+  characterProfileStore,
+  modelStore,
+  chatSessionStore,
+  palStore,
+  uiStore,
+} from '../../store';
 import {hasVideoCapability} from '../../utils/pal-capabilities';
 
 import {L10nContext} from '../../utils';
@@ -115,7 +121,11 @@ export const ChatScreen: React.FC = observer(() => {
     let cancelled = false;
     chatSessionStore.getCurrentCompletionSettings().then(settings => {
       if (!cancelled) {
-        setThinkingEnabled(settings.enable_thinking ?? true);
+        setThinkingEnabled(
+          characterProfileStore.selectedCharacter?.thinkingEnabled ??
+            settings.enable_thinking ??
+            true,
+        );
       }
     });
     return () => {
@@ -128,6 +138,8 @@ export const ChatScreen: React.FC = observer(() => {
     activeSession?.completionSettings,
     chatSessionStore.newChatCompletionSettings,
     activePalId,
+    characterProfileStore.selectedCharacter?.id,
+    characterProfileStore.selectedCharacter?.thinkingEnabled,
   ]);
 
   // Show loading bubble only during the thinking phase (inferencing but not streaming)

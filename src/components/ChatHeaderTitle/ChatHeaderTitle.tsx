@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 import {Text} from 'react-native-paper';
 
 import {styles} from './styles';
-import {chatSessionStore, modelStore} from '../../store';
+import {characterProfileStore, chatSessionStore, modelStore} from '../../store';
 import {L10nContext} from '../../utils';
 
 export const ChatHeaderTitle: React.FC = observer(() => {
@@ -14,6 +14,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
     session => session.id === activeSessionId,
   );
   const activeModel = modelStore.activeModel;
+  const selectedCharacter = characterProfileStore.selectedCharacter;
 
   return (
     <View style={styles.container}>
@@ -25,6 +26,9 @@ export const ChatHeaderTitle: React.FC = observer(() => {
           {activeModel?.name}
         </Text>
       )}
+      <Text numberOfLines={1} variant="bodySmall">
+        {`目前角色：${selectedCharacter?.name ?? '未選擇角色'}`}
+      </Text>
     </View>
   );
 });

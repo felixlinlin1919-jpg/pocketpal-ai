@@ -1,5 +1,6 @@
 import {LlamaContext} from 'llama.rn';
 import {renderHook, act, waitFor} from '@testing-library/react-native';
+import {runInAction} from 'mobx';
 
 import {textMessage} from '../../../jest/fixtures';
 import {sessionFixtures} from '../../../jest/fixtures/chatSessions';
@@ -12,7 +13,12 @@ import {
 
 import {useChatSession} from '../useChatSession';
 
-import {chatSessionStore, modelStore, palStore} from '../../store';
+import {
+  characterProfileStore,
+  chatSessionStore,
+  modelStore,
+  palStore,
+} from '../../store';
 
 import {l10n} from '../../locales';
 import {assistant} from '../../utils/chat';
@@ -27,6 +33,8 @@ beforeEach(() => {
 
   // Reset mock stores to a known baseline between tests
   palStore.pals = [] as any;
+  characterProfileStore.profiles = [];
+  characterProfileStore.selectedCharacterId = undefined;
   chatSessionStore.sessions = sessionFixtures as any;
   chatSessionStore.activeSessionId = 'session-1';
 
@@ -302,6 +310,91 @@ describe('useChatSession', () => {
     expect(systemMessage.content).toBe(
       'You are Gandalf, a wizard in Middle-earth.',
     );
+  });
+
+  it('should prefer selected character system prompt over existing fallback logic', async () => {
+    runInAction(() => {
+      characterProfileStore.profiles = [
+        {
+          id: 'character-1',
+          name: '角色一',
+          systemPrompt: '你現在是角色卡指定的系統提示詞。',
+          thinkingEnabled: false,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      ] as any;
+      characterProfileStore.selectedCharacterId = 'character-1';
+    });
+
+    const testModel = {
+      ...mockBasicModel,
+      id: 'test-model-character-prompt',
+      chatTemplate: {
+        ...mockBasicModel.chatTemplate,
+        systemPrompt: '這是模型原本的系統提示詞',
+      },
+    };
+
+    modelStore.models = [testModel];
+    modelStore.setActiveModel(testModel.id);
+
+    let capturedMessages: any[] = [];
+    if (modelStore.context) {
+      modelStore.context.completion = jest
+        .fn()
+        .mockImplementation((params, _onData) => {
+          capturedMessages = params.messages || [];
+          return Promise.resolve({timings: {total: 100}, usage: {}});
+        });
+    }
+
+    const {result} = renderHook(() =>
+      useChatSession({current: null}, textMessage.author, mockAssistant),
+    );
+
+    await act(async () => {
+      await result.current.handleSendPress(textMessage);
+    });
+
+    const systemMessage = capturedMessages.find(msg => msg.role === 'system');
+    expect(systemMessage.content).toBe('你現在是角色卡指定的系統提示詞。');
+  });
+
+  it('should prefer selected character thinking setting during completion', async () => {
+    runInAction(() => {
+      characterProfileStore.profiles = [
+        {
+          id: 'character-2',
+          name: '角色二',
+          systemPrompt: '角色二提示詞',
+          thinkingEnabled: false,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      ] as any;
+      characterProfileStore.selectedCharacterId = 'character-2';
+    });
+
+    let capturedParams: any;
+    if (modelStore.context) {
+      modelStore.context.completion = jest
+        .fn()
+        .mockImplementation((params, _onData) => {
+          capturedParams = params;
+          return Promise.resolve({timings: {total: 100}, usage: {}});
+        });
+    }
+
+    const {result} = renderHook(() =>
+      useChatSession({current: null}, textMessage.author, mockAssistant),
+    );
+
+    await act(async () => {
+      await result.current.handleSendPress(textMessage);
+    });
+
+    expect(capturedParams.enable_thinking).toBe(false);
   });
 
   it('should save completionResult with reasoning_content after completion', async () => {

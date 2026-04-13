@@ -6,7 +6,13 @@ import {chatSessionRepository} from '../repositories/ChatSessionRepository';
 
 import {randId} from '../utils';
 import {L10nContext} from '../utils';
-import {chatSessionStore, modelStore, palStore, uiStore} from '../store';
+import {
+  characterProfileStore,
+  chatSessionStore,
+  modelStore,
+  palStore,
+  uiStore,
+} from '../store';
 
 import {MessageType, User} from '../utils/types';
 import {createMultimodalWarning} from '../utils/errors';
@@ -29,6 +35,7 @@ const prepareCompletion = async ({
   isMultimodalEnabled,
   l10n,
   currentMessages,
+  selectedCharacterThinkingEnabled,
 }: {
   imageUris: string[];
   message: MessageType.PartialText;
@@ -39,9 +46,16 @@ const prepareCompletion = async ({
   isMultimodalEnabled: boolean;
   l10n: any;
   currentMessages: MessageType.Any[];
+  selectedCharacterThinkingEnabled?: boolean;
 }) => {
-  const sessionCompletionSettings =
+  const baseSessionCompletionSettings =
     await chatSessionStore.getCurrentCompletionSettings();
+  const sessionCompletionSettings = {
+    ...baseSessionCompletionSettings,
+    ...(selectedCharacterThinkingEnabled !== undefined
+      ? {enable_thinking: selectedCharacterThinkingEnabled}
+      : {}),
+  };
   const stopWords = toJS(modelStore.activeModel?.stopWords);
 
   // Check if we have images and if multimodal is enabled
@@ -243,8 +257,10 @@ export const useChatSession = (
     const pal = activeSession?.activePalId
       ? palStore.pals.find(p => p.id === activeSession.activePalId)
       : null;
+    const selectedCharacter = characterProfileStore.selectedCharacter;
 
     const systemMessages = resolveSystemMessages({
+      character: selectedCharacter,
       pal,
       model: modelStore.activeModel,
     });
@@ -260,6 +276,7 @@ export const useChatSession = (
       isMultimodalEnabled,
       l10n,
       currentMessages,
+      selectedCharacterThinkingEnabled: selectedCharacter?.thinkingEnabled,
     });
 
     currentMessageInfo.current = messageInfo;

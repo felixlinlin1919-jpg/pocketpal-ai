@@ -1,13 +1,17 @@
 import React from 'react';
 import {render} from '../../../../jest/test-utils';
 import {ChatHeaderTitle} from '../ChatHeaderTitle';
-import {chatSessionStore, modelStore} from '../../../store';
+import {characterProfileStore, chatSessionStore, modelStore} from '../../../store';
 import {runInAction} from 'mobx';
 import {basicModel, downloadedModel} from '../../../../jest/fixtures/models';
 
 describe('ChatHeaderTitle', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    runInAction(() => {
+      characterProfileStore.profiles = [];
+      characterProfileStore.selectedCharacterId = undefined;
+    });
   });
 
   it('renders "Chat" when no active session exists', () => {
@@ -65,5 +69,24 @@ describe('ChatHeaderTitle', () => {
 
     rerender(<ChatHeaderTitle />);
     expect(getByText('downloaded model')).toBeTruthy();
+  });
+
+  it('renders selected character name when available', () => {
+    runInAction(() => {
+      characterProfileStore.profiles = [
+        {
+          id: 'character-1',
+          name: '測試角色',
+          systemPrompt: '你是一個測試角色',
+          thinkingEnabled: true,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      ] as any;
+      characterProfileStore.selectedCharacterId = 'character-1';
+    });
+
+    const {getByText} = render(<ChatHeaderTitle />);
+    expect(getByText('目前角色：測試角色')).toBeTruthy();
   });
 });
