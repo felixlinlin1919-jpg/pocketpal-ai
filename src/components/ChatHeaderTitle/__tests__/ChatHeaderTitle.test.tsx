@@ -1,7 +1,12 @@
 import React from 'react';
 import {render} from '../../../../jest/test-utils';
 import {ChatHeaderTitle} from '../ChatHeaderTitle';
-import {characterProfileStore, chatSessionStore, modelStore} from '../../../store';
+import {
+  characterProfileStore,
+  chatSessionStore,
+  modelStore,
+  palStore,
+} from '../../../store';
 import {runInAction} from 'mobx';
 import {basicModel, downloadedModel} from '../../../../jest/fixtures/models';
 
@@ -11,6 +16,11 @@ describe('ChatHeaderTitle', () => {
     runInAction(() => {
       characterProfileStore.profiles = [];
       characterProfileStore.selectedCharacterId = undefined;
+      palStore.pals = [] as any;
+      chatSessionStore.newChatCompletionSettings = {
+        ...chatSessionStore.newChatCompletionSettings,
+        enable_thinking: false,
+      };
     });
   });
 
@@ -88,5 +98,43 @@ describe('ChatHeaderTitle', () => {
 
     const {getByText} = render(<ChatHeaderTitle />);
     expect(getByText('目前角色：測試角色')).toBeTruthy();
+    expect(getByText('Thinking：開')).toBeTruthy();
+    expect(getByText('角色提示詞：已啟用')).toBeTruthy();
+  });
+
+  it('falls back to current settings when no selected character exists', () => {
+    runInAction(() => {
+      palStore.pals = [
+        {
+          id: 'pal-1',
+          name: '測試 Pal',
+          type: 'local',
+          source: 'local',
+          systemPrompt: '你是一個有提示詞的 Pal',
+          isSystemPromptChanged: false,
+          useAIPrompt: false,
+          parameters: {},
+          parameterSchema: [],
+        },
+      ] as any;
+      Object.assign(chatSessionStore, {
+        activeSessionId: 'session-1',
+        sessions: [
+          {
+            id: 'session-1',
+            title: 'Test Session',
+            date: new Date().toISOString(),
+            messages: [],
+            activePalId: 'pal-1',
+            completionSettings: {enable_thinking: true},
+          },
+        ],
+      });
+    });
+
+    const {getByText} = render(<ChatHeaderTitle />);
+    expect(getByText('目前角色：未選擇角色')).toBeTruthy();
+    expect(getByText('Thinking：開')).toBeTruthy();
+    expect(getByText('角色提示詞：已啟用')).toBeTruthy();
   });
 });
