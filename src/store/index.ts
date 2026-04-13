@@ -1,4 +1,5 @@
 export * from './ChatSessionStore';
+export * from './CharacterProfileStore';
 export * from './ModelStore';
 export * from './UIStore';
 export * from './HFStore';

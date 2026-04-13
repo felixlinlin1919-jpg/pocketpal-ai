@@ -20,6 +20,7 @@ import {
   ShareIcon,
   TrashIcon,
   AppInfoIcon,
+  UserCircleIcon,
 } from '../../assets/icons';
 import {L10nContext} from '../../utils';
 import {t} from '../../locales';
@@ -529,6 +530,19 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
               onPress={() => props.navigation.navigate(ROUTES.SETTINGS)}
               style={styles.menuDrawerItem}
               testID="drawer-item-settings"
+            />
+            <Drawer.Item
+              label="角色卡管理"
+              icon={() => (
+                <UserCircleIcon
+                  width={24}
+                  height={24}
+                  stroke={theme.colors.primary}
+                />
+              )}
+              onPress={() => props.navigation.navigate(ROUTES.CHARACTER_PROFILES)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-character-profiles"
             />
             <Drawer.Item
               label={l10n.components.sidebarContent.menuItems.appInfo}

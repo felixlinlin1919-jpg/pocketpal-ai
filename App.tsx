@@ -36,6 +36,7 @@ import {
   SettingsScreen,
   BenchmarkScreen,
   AboutScreen,
+  CharacterProfilesNavigator,
 
   // Dev tools screen. Only available in debug mode.
   DevToolsScreen,
@@ -127,6 +128,16 @@ const App = observer(() => {
                       options={{
                         headerStyle: styles.headerWithoutDivider,
                         title: currentL10n.screenTitles.settings,
+                      }}
+                    />
+                    <Drawer.Screen
+                      name={ROUTES.CHARACTER_PROFILES}
+                      component={gestureHandlerRootHOC(
+                        CharacterProfilesNavigator,
+                      )}
+                      options={{
+                        headerShown: false,
+                        title: '角色卡管理',
                       }}
                     />
                     <Drawer.Screen
