@@ -1,12 +1,14 @@
 import React from 'react';
-import {Alert, ScrollView, View} from 'react-native';
+import {Alert, Image, ImageBackground, ScrollView, View} from 'react-native';
 import {observer} from 'mobx-react-lite';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, Card, Switch, Text} from 'react-native-paper';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
+import {UserCircleIcon} from '../../assets/icons';
 import {TextInput} from '../../components';
 import {useCharacterProfiles, useTheme} from '../../hooks';
+import {getCharacterImageSource} from '../../utils/characterImageSource';
 
 import {createStyles} from './styles';
 
@@ -42,8 +44,21 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
   const [background, setBackground] = React.useState(
     existingProfile?.background ?? '',
   );
+  const [avatarPreviewFailed, setAvatarPreviewFailed] = React.useState(false);
+  const [backgroundPreviewFailed, setBackgroundPreviewFailed] =
+    React.useState(false);
 
   const isEditing = !!existingProfile;
+  const avatarSource = getCharacterImageSource(avatar);
+  const backgroundSource = getCharacterImageSource(background);
+
+  React.useEffect(() => {
+    setAvatarPreviewFailed(false);
+  }, [avatar]);
+
+  React.useEffect(() => {
+    setBackgroundPreviewFailed(false);
+  }, [background]);
 
   const handleSave = () => {
     if (!name.trim()) {
@@ -131,6 +146,31 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
             <Text variant="bodySmall" style={styles.fieldHint}>
               這一版先保留文字路徑欄位，後續可直接擴充成 image picker。
             </Text>
+            <View style={styles.previewSection}>
+              <Text variant="bodySmall" style={styles.previewLabel}>
+                頭像預覽
+              </Text>
+              {avatarSource && !avatarPreviewFailed ? (
+                <Image
+                  source={avatarSource}
+                  style={styles.avatarPreview}
+                  onError={() => setAvatarPreviewFailed(true)}
+                />
+              ) : (
+                <View style={styles.avatarPreviewPlaceholder}>
+                  <UserCircleIcon
+                    width={28}
+                    height={28}
+                    stroke={theme.colors.onSurfaceVariant}
+                  />
+                  <Text variant="bodySmall" style={styles.previewHint}>
+                    {avatar.trim()
+                      ? '無法載入頭像'
+                      : '尚未設定頭像路徑'}
+                  </Text>
+                </View>
+              )}
+            </View>
           </View>
 
           <View style={styles.fieldGroup}>
@@ -142,6 +182,32 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
               onChangeText={setBackground}
               placeholder="目前先輸入背景圖片路徑，後續可接圖片挑選器"
             />
+            <View style={styles.previewSection}>
+              <Text variant="bodySmall" style={styles.previewLabel}>
+                背景預覽
+              </Text>
+              {backgroundSource && !backgroundPreviewFailed ? (
+                <ImageBackground
+                  source={backgroundSource}
+                  style={styles.backgroundPreview}
+                  imageStyle={styles.backgroundPreviewImage}
+                  resizeMode="cover"
+                  onError={() => setBackgroundPreviewFailed(true)}>
+                  <View style={styles.backgroundPreviewOverlay} />
+                  <Text variant="bodySmall" style={styles.backgroundPreviewText}>
+                    背景預覽
+                  </Text>
+                </ImageBackground>
+              ) : (
+                <View style={styles.backgroundPreviewPlaceholder}>
+                  <Text variant="bodySmall" style={styles.previewHint}>
+                    {background.trim()
+                      ? '無法載入背景圖'
+                      : '尚未設定背景路徑'}
+                  </Text>
+                </View>
+              )}
+            </View>
           </View>
 
           <View style={styles.switchRow}>

@@ -108,6 +108,61 @@ export const createStyles = (theme: Theme) =>
     fieldHint: {
       color: theme.colors.onSurfaceVariant,
     },
+    previewSection: {
+      gap: 8,
+      marginTop: 4,
+    },
+    previewLabel: {
+      color: theme.colors.onSurfaceVariant,
+    },
+    previewHint: {
+      color: theme.colors.onSurfaceVariant,
+      textAlign: 'center',
+    },
+    avatarPreview: {
+      width: 72,
+      height: 72,
+      borderRadius: 36,
+      backgroundColor: theme.colors.surfaceVariant,
+    },
+    avatarPreviewPlaceholder: {
+      width: 72,
+      height: 72,
+      borderRadius: 36,
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 6,
+      padding: 8,
+      backgroundColor: theme.colors.surfaceVariant,
+    },
+    backgroundPreview: {
+      height: 120,
+      borderRadius: 14,
+      overflow: 'hidden',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.colors.surfaceVariant,
+    },
+    backgroundPreviewImage: {
+      opacity: 0.28,
+    },
+    backgroundPreviewOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: theme.dark
+        ? 'rgba(0, 0, 0, 0.34)'
+        : 'rgba(255, 255, 255, 0.50)',
+    },
+    backgroundPreviewText: {
+      color: theme.colors.onSurface,
+    },
+    backgroundPreviewPlaceholder: {
+      height: 120,
+      borderRadius: 14,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 16,
+      backgroundColor: theme.colors.surfaceVariant,
+    },
     switchRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
