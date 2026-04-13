@@ -67,7 +67,7 @@ export const createStyles = ({
     inputWrapper: {
       flexDirection: 'row',
       alignItems: 'flex-start',
-      gap: 13,
+      gap: 10,
       flexShrink: 1,
     },
     input: {
@@ -76,6 +76,7 @@ export const createStyles = ({
       flex: 1,
       maxHeight: 150,
       paddingVertical: 0,
+      minHeight: 24,
     },
     marginRight: {
       marginRight: 16,
@@ -83,20 +84,22 @@ export const createStyles = ({
     inputContainer: {
       flex: 1,
       flexDirection: 'column',
-      borderRadius: 12,
+      borderRadius: 24,
       overflow: 'hidden',
+      borderWidth: 1,
+      borderColor: `${String(theme.colors.outlineVariant)}88`,
     },
     textInputArea: {
       flex: 1,
-      paddingHorizontal: 24,
-      paddingTop: 20,
-      paddingBottom: 8,
+      paddingHorizontal: 18,
+      paddingTop: 16,
+      paddingBottom: 6,
     },
     controlBar: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: 24,
+      paddingHorizontal: 16,
       paddingVertical: 10,
       minHeight: 36,
     },
@@ -121,8 +124,8 @@ export const createStyles = ({
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: 12,
-      borderTopLeftRadius: 12,
-      borderTopRightRadius: 12,
+      borderTopLeftRadius: 24,
+      borderTopRightRadius: 24,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.outlineVariant,
       zIndex: 10, // Ensure edit bar stays above other elements
@@ -137,8 +140,8 @@ export const createStyles = ({
       flex: 1,
       flexDirection: 'row',
       alignItems: 'flex-end',
-      paddingHorizontal: 24,
-      paddingVertical: 20,
+      paddingHorizontal: 18,
+      paddingVertical: 16,
       marginTop: isEditMode ? 28 : 0,
     },
     palNameWrapper: {
@@ -164,8 +167,9 @@ export const createStyles = ({
     },
     // Image preview styles
     imagePreviewContainer: {
-      marginVertical: 8,
-      paddingHorizontal: 16,
+      marginTop: 10,
+      marginBottom: 2,
+      paddingHorizontal: 14,
     },
     imagePreviewContainerEditMode: {
       marginTop: 36, // Account for edit bar height (28px) + extra spacing (8px)
@@ -180,7 +184,7 @@ export const createStyles = ({
     previewImage: {
       width: 80,
       height: 80,
-      borderRadius: 8,
+      borderRadius: 14,
       backgroundColor: theme.colors.surfaceVariant,
     },
     removeImageButton: {
@@ -222,7 +226,7 @@ export const createStyles = ({
       borderRadius: 24,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 8,
+      marginBottom: 2,
     },
 
     // Compact Video Button (for right side)

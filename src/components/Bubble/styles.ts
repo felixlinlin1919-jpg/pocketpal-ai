@@ -17,20 +17,35 @@ export const styles = ({
     contentContainer: {
       backgroundColor:
         !currentUserIsAuthor || message.type === 'image'
-          ? 'transparent' //theme.colors.secondary
+          ? `${String(theme.colors.surface)}E6`
           : theme.colors.authorBubbleBackground,
-      borderBottomLeftRadius:
-        currentUserIsAuthor || roundBorder
+      borderRadius: theme.borders.messageBorderRadius,
+      borderBottomLeftRadius: currentUserIsAuthor
+        ? theme.borders.messageBorderRadius
+        : roundBorder
           ? theme.borders.messageBorderRadius
-          : 0,
+          : 8,
       borderBottomRightRadius: currentUserIsAuthor
         ? roundBorder
           ? theme.borders.messageBorderRadius
-          : 0
+          : 8
         : theme.borders.messageBorderRadius,
-      borderColor: 'transparent',
-      borderRadius: theme.borders.messageBorderRadius,
+      borderTopLeftRadius: 22,
+      borderTopRightRadius: 22,
+      borderColor: !currentUserIsAuthor
+        ? `${String(theme.colors.outlineVariant)}AA`
+        : 'transparent',
+      borderWidth: !currentUserIsAuthor ? 1 : 0,
       overflow: 'hidden',
+      paddingTop: 2,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      shadowOpacity: currentUserIsAuthor ? 0.12 : 0.07,
+      shadowRadius: 8,
+      elevation: 2,
     },
     dateHeader0: {
       alignItems: 'center',
@@ -40,9 +55,10 @@ export const styles = ({
     },
     dateHeaderContainer: {
       textAlign: 'right',
-      paddingBottom: 12,
-      marginTop: -8,
-      marginLeft: 20,
+      paddingBottom: 8,
+      marginTop: -4,
+      marginLeft: 16,
+      marginRight: 4,
       flexDirection: 'row', // Added to align items horizontally
       alignItems: 'center', // Align items vertically centered
     },

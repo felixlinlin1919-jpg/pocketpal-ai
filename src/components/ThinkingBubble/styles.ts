@@ -12,9 +12,9 @@ export const createStyles = (theme: Theme) => {
       ...Platform.select({
         ios: {
           shadowColor: shadowColor,
-          shadowOffset: {width: 0, height: 2},
-          shadowOpacity: 0.4,
-          shadowRadius: 12,
+          shadowOffset: {width: 0, height: 4},
+          shadowOpacity: 0.12,
+          shadowRadius: 10,
         },
         android: {
           // No need here, shadows come from elevation in the inner container
@@ -22,10 +22,11 @@ export const createStyles = (theme: Theme) => {
       }),
     },
     container: {
-      marginVertical: 16, // Increased margin for better elevation appearance
-      borderRadius: 20,
+      marginTop: 12,
+      marginBottom: 8,
+      borderRadius: 18,
       overflow: 'hidden',
-      backgroundColor: bubbleBackground,
+      backgroundColor: `${String(bubbleBackground)}F2`,
       borderWidth: 1,
       borderColor: bubbleBorderColor,
       // Platform-specific styles to ensure consistent layout behavior
@@ -34,15 +35,15 @@ export const createStyles = (theme: Theme) => {
           // No need here, shadows come from parrent container - overflow: 'hidden', will hide the shadow
         },
         android: {
-          elevation: 8, // Moderate elevation
+          elevation: 3,
         },
       }),
     },
     collapsedContainer: {
-      height: 30, // Reduced height for more compact appearance
-      width: 140,
+      height: 34,
+      width: 156,
       alignSelf: 'flex-start',
-      opacity: 0.65, // Slightly reduced opacity
+      opacity: 0.92,
       justifyContent: 'center',
       // Reduced shadow/elevation for collapsed state
       ...Platform.select({
@@ -56,16 +57,17 @@ export const createStyles = (theme: Theme) => {
       }),
     },
     partialContainer: {
-      height: 150,
+      maxHeight: 168,
     },
     headerContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: 16,
-      paddingVertical: 8,
-      borderBottomWidth: 0,
-      backgroundColor: 'transparent',
+      paddingVertical: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: `${String(bubbleBorderColor)}99`,
+      backgroundColor: `${String(theme.colors.surface)}55`,
     },
     collapsedHeaderContainer: {
       paddingHorizontal: 14,
@@ -74,7 +76,7 @@ export const createStyles = (theme: Theme) => {
     },
     headerText: {
       color: textColor,
-      letterSpacing: 0.5,
+      letterSpacing: 0.3,
     },
     chevronContainer: {
       width: 28,
@@ -93,7 +95,8 @@ export const createStyles = (theme: Theme) => {
     },
     contentContainer: {
       paddingHorizontal: 16,
-      paddingBottom: 16,
+      paddingTop: 12,
+      paddingBottom: 14,
       backgroundColor: 'transparent',
       borderRadius: 0,
     },

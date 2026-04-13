@@ -17,30 +17,30 @@ const styles = ({
 }) =>
   StyleSheet.create({
     container: {
-      alignItems: 'flex-end',
+      alignItems: currentUserIsAuthor ? 'flex-end' : 'flex-start',
       alignSelf: currentUserIsAuthor ? 'flex-end' : 'flex-start',
-      justifyContent: !currentUserIsAuthor ? 'flex-end' : 'flex-start',
-      flex: 1,
+      justifyContent: currentUserIsAuthor ? 'flex-end' : 'flex-start',
       flexDirection: 'row',
-      marginBottom: message.type === 'dateHeader' ? 0 : 4 + message.offset,
-      marginLeft: 20,
+      marginBottom: message.type === 'dateHeader' ? 0 : 10 + message.offset,
+      marginHorizontal: 12,
     },
     contentContainer: {
       backgroundColor:
         !currentUserIsAuthor || message.type === 'image'
           ? theme.colors.secondary
           : theme.colors.primary,
-      borderBottomLeftRadius:
-        currentUserIsAuthor || roundBorder
+      borderRadius: theme.borders.messageBorderRadius,
+      borderBottomLeftRadius: currentUserIsAuthor
+        ? theme.borders.messageBorderRadius
+        : roundBorder
           ? theme.borders.messageBorderRadius
-          : 0,
+          : 8,
       borderBottomRightRadius: currentUserIsAuthor
         ? roundBorder
           ? theme.borders.messageBorderRadius
-          : 0
+          : 8
         : theme.borders.messageBorderRadius,
       borderColor: 'transparent',
-      borderRadius: theme.borders.messageBorderRadius,
       overflow: 'hidden',
     },
     dateHeader: {
@@ -51,6 +51,7 @@ const styles = ({
     },
     pressable: {
       maxWidth: messageWidth,
+      flexShrink: 1,
     },
   });
 

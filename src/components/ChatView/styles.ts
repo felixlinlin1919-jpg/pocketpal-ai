@@ -12,6 +12,9 @@ export const createStyles = ({theme}: {theme: Theme}) =>
     },
     flatListContentContainer: {
       flexGrow: 1,
+      paddingHorizontal: 8,
+      paddingTop: 12,
+      paddingBottom: 16,
     },
     footer: {
       height: 16,
@@ -30,10 +33,10 @@ export const createStyles = ({theme}: {theme: Theme}) =>
     },
     scrollToBottomButton: {
       position: 'absolute',
-      right: 16,
+      right: 18,
       backgroundColor: theme.colors.primary,
-      width: 35,
-      height: 35,
+      width: 40,
+      height: 40,
       borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
@@ -47,16 +50,15 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       elevation: 5,
     },
     inputContainer: {
-      borderTopLeftRadius: theme.borders.inputBorderRadius,
-      borderTopRightRadius: theme.borders.inputBorderRadius,
+      borderRadius: 24,
       position: 'absolute',
       zIndex: 10,
-      left: 0,
-      right: 0,
-      bottom: 0,
+      left: 10,
+      right: 10,
+      bottom: 8,
       ...(!theme.dark
         ? {
-            boxShadow: `0px -2px 8px ${theme.colors.shadow}1A`,
+            boxShadow: `0px 8px 24px ${theme.colors.shadow}22`,
           }
         : {}),
     },
@@ -71,13 +73,13 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       zIndex: 0,
     },
     characterBackgroundImage: {
-      opacity: 0.22,
+      opacity: 0.18,
     },
     characterBackgroundOverlay: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor: theme.dark
-        ? 'rgba(0, 0, 0, 0.38)'
-        : 'rgba(255, 255, 255, 0.62)',
+        ? 'rgba(8, 12, 16, 0.56)'
+        : 'rgba(248, 250, 252, 0.78)',
     },
     headerWrapper: {
       zIndex: 100,
