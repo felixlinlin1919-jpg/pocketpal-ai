@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, View} from 'react-native';
+import {Image, Platform, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {createStyles} from './styles';
@@ -11,8 +11,10 @@ import {
 } from 'react-native-safe-area-context';
 import {getDefaultHeaderHeight} from '@react-navigation/elements';
 import {useTheme} from '../../hooks';
-import {chatSessionStore} from '../../store';
+import {characterProfileStore, chatSessionStore} from '../../store';
 import {HeaderLeft} from '../HeaderLeft';
+import {UserCircleIcon} from '../../assets/icons';
+import {getCharacterImageSource} from '../../utils/characterImageSource';
 
 export const ChatHeader: React.FC = observer(() => {
   const theme = useTheme();
@@ -34,11 +36,34 @@ export const ChatHeader: React.FC = observer(() => {
   const headerStyle = chatSessionStore?.shouldShowHeaderDivider
     ? styles.headerWithDivider
     : styles.headerWithoutDivider;
+  const selectedCharacter = characterProfileStore.selectedCharacter;
+  const avatarSource = getCharacterImageSource(selectedCharacter?.avatar);
+  const [avatarLoadFailed, setAvatarLoadFailed] = React.useState(false);
+
+  React.useEffect(() => {
+    setAvatarLoadFailed(false);
+  }, [selectedCharacter?.avatar]);
 
   return (
     <View testID="header-view" style={[styles.container, headerStyle]}>
       <View style={styles.leftSection}>
         <HeaderLeft />
+        {avatarSource && !avatarLoadFailed ? (
+          <Image
+            source={avatarSource}
+            style={styles.characterAvatar}
+            testID="chat-header-avatar"
+            onError={() => setAvatarLoadFailed(true)}
+          />
+        ) : (
+          <View style={styles.characterAvatarFallback} testID="chat-header-avatar-fallback">
+            <UserCircleIcon
+              width={20}
+              height={20}
+              stroke={theme.colors.onSurfaceVariant}
+            />
+          </View>
+        )}
         <ChatHeaderTitle />
       </View>
       <HeaderRight />

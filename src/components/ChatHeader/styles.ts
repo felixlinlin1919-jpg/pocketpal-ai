@@ -26,6 +26,20 @@ export const createStyles = ({
       gap: 10,
       flexShrink: 1,
     },
+    characterAvatar: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: theme.colors.surfaceVariant,
+    },
+    characterAvatarFallback: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.surfaceVariant,
+    },
     menuIcon: {
       height: 40,
       width: 40,

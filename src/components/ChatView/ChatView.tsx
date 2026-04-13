@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   FlatList,
   FlatListProps,
+  ImageBackground,
   InteractionManager,
   LayoutAnimation,
   StatusBar,
@@ -36,7 +37,7 @@ import {useTheme, useMessageActions, usePrevious} from '../../hooks';
 import ImageView from './ImageView';
 import {createStyles} from './styles';
 
-import {chatSessionStore, modelStore} from '../../store';
+import {characterProfileStore, chatSessionStore, modelStore} from '../../store';
 
 import {MessageType, User} from '../../utils/types';
 import {Pal} from '../../types/pal';
@@ -46,6 +47,7 @@ import {
   UserContext,
   L10nContext,
 } from '../../utils';
+import {getCharacterImageSource} from '../../utils/characterImageSource';
 import {hasVideoCapability} from '../../utils/pal-capabilities';
 
 import {
@@ -925,6 +927,15 @@ export const ChatView = observer(
     const inputBackgroundColor = activePal?.color?.[1]
       ? activePal.color?.[1]
       : theme.colors.surface;
+    const selectedCharacter = characterProfileStore.selectedCharacter;
+    const backgroundSource = getCharacterImageSource(
+      selectedCharacter?.background,
+    );
+    const [backgroundLoadFailed, setBackgroundLoadFailed] = React.useState(false);
+
+    React.useEffect(() => {
+      setBackgroundLoadFailed(false);
+    }, [selectedCharacter?.background]);
 
     // ============ COMPONENT RENDER ============
     return (
@@ -939,6 +950,18 @@ export const ChatView = observer(
 
           {/* Main chat container */}
           <Reanimated.View style={styles.chatContainer}>
+            {backgroundSource && !backgroundLoadFailed && (
+              <ImageBackground
+                source={backgroundSource}
+                style={styles.characterBackground}
+                imageStyle={styles.characterBackgroundImage}
+                resizeMode="cover"
+                onError={() => setBackgroundLoadFailed(true)}
+                pointerEvents="none"
+                testID="chat-background-image">
+                <View style={styles.characterBackgroundOverlay} />
+              </ImageBackground>
+            )}
             {customContent}
             {renderChatList()}
 

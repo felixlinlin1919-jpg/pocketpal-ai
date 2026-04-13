@@ -66,6 +66,19 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       backgroundColor: theme.colors.background,
       zIndex: 0,
     },
+    characterBackground: {
+      ...StyleSheet.absoluteFillObject,
+      zIndex: 0,
+    },
+    characterBackgroundImage: {
+      opacity: 0.22,
+    },
+    characterBackgroundOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: theme.dark
+        ? 'rgba(0, 0, 0, 0.38)'
+        : 'rgba(255, 255, 255, 0.62)',
+    },
     headerWrapper: {
       zIndex: 100,
     },
