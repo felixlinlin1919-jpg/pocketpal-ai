@@ -100,6 +100,17 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
     }
   };
 
+  const handleClearImage = (type: 'avatar' | 'background') => {
+    if (type === 'avatar') {
+      setAvatar('');
+      setAvatarPreviewFailed(false);
+      return;
+    }
+
+    setBackground('');
+    setBackgroundPreviewFailed(false);
+  };
+
   const handleSave = () => {
     if (!name.trim()) {
       Alert.alert('名稱未填寫', '請輸入角色名稱。');
@@ -189,6 +200,11 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 onPress={() => handlePickImage('avatar')}>
                 選擇頭像
               </Button>
+              <Button
+                mode="text"
+                onPress={() => handleClearImage('avatar')}>
+                清除頭像
+              </Button>
             </View>
             <Text variant="bodySmall" style={styles.fieldHint}>
               可手動輸入路徑，也可直接從裝置選擇圖片。
@@ -234,6 +250,11 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 mode="outlined"
                 onPress={() => handlePickImage('background')}>
                 選擇背景圖
+              </Button>
+              <Button
+                mode="text"
+                onPress={() => handleClearImage('background')}>
+                清除背景圖
               </Button>
             </View>
             <View style={styles.previewSection}>

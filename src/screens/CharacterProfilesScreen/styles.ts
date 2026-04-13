@@ -157,6 +157,7 @@ export const createStyles = (theme: Theme) =>
     pickerActionRow: {
       flexDirection: 'row',
       justifyContent: 'flex-start',
+      gap: 8,
     },
     previewSection: {
       gap: 8,
