@@ -1,35 +1,59 @@
 import {StyleSheet} from 'react-native';
 
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     safeArea: {
       flex: 1,
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.background,
     },
     contentContainer: {
       padding: 16,
       gap: 16,
     },
+    headerStack: {
+      gap: 14,
+    },
     summaryCard: {
-      borderRadius: 16,
-      backgroundColor: theme.colors.background,
-      padding: 16,
+      ...design.cardStyle,
+      padding: 20,
       gap: 8,
+    },
+    summaryEyebrow: {
+      ...design.sectionTitle,
+    },
+    summaryHeading: {
+      color: theme.colors.onSurface,
     },
     summaryTitle: {
       color: theme.colors.onSurfaceVariant,
+      marginTop: 8,
     },
     summaryValue: {
       color: theme.colors.onSurface,
     },
+    summaryCaption: {
+      color: theme.colors.onSurfaceVariant,
+    },
     addButton: {
       alignSelf: 'flex-start',
+      marginTop: 4,
+    },
+    searchBlock: {
+      ...design.cardStyle,
+      padding: 16,
+      gap: 8,
+    },
+    searchLabel: {
+      ...design.sectionTitle,
     },
     emptyCard: {
-      borderRadius: 16,
-      backgroundColor: theme.colors.background,
+      ...design.cardStyle,
       padding: 24,
       alignItems: 'center',
       gap: 12,
@@ -43,16 +67,33 @@ export const createStyles = (theme: Theme) =>
       paddingBottom: 24,
     },
     card: {
-      borderRadius: 16,
-      backgroundColor: theme.colors.background,
+      ...design.cardStyle,
+      overflow: 'hidden',
     },
     selectedCard: {
       borderWidth: 1,
       borderColor: theme.colors.primary,
+      shadowOpacity: theme.dark ? 0.28 : 0.12,
     },
     cardPressable: {
       padding: 16,
       gap: 16,
+      position: 'relative',
+      overflow: 'hidden',
+    },
+    cardBackgroundPreview: {
+      ...StyleSheet.absoluteFillObject,
+      opacity: 0.15,
+    },
+    cardBackgroundFallback: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: design.mutedSurface,
+    },
+    cardBackgroundOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: theme.dark
+        ? 'rgba(10, 12, 18, 0.82)'
+        : 'rgba(255,255,255,0.84)',
     },
     profileRow: {
       flexDirection: 'row',
@@ -64,6 +105,8 @@ export const createStyles = (theme: Theme) =>
       height: 56,
       borderRadius: 28,
       backgroundColor: theme.colors.surfaceVariant,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     avatarPlaceholder: {
       width: 56,
@@ -72,10 +115,12 @@ export const createStyles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.surfaceVariant,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     infoContainer: {
       flex: 1,
-      gap: 4,
+      gap: 6,
     },
     titleRow: {
       flexDirection: 'row',
@@ -112,7 +157,9 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 999,
       paddingHorizontal: 10,
       paddingVertical: 4,
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.mutedSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
     },
     statusChipText: {
       color: theme.colors.onSurfaceVariant,
@@ -139,9 +186,47 @@ export const createStyles = (theme: Theme) =>
       gap: 16,
       paddingBottom: 32,
     },
+    editorHeroBackground: {
+      ...StyleSheet.absoluteFillObject,
+    },
+    editorHeroOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: theme.dark
+        ? 'rgba(10, 12, 18, 0.74)'
+        : 'rgba(255,255,255,0.80)',
+    },
+    editorHeroFallback: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: design.mutedSurface,
+    },
+    editorHeroContent: {
+      gap: 8,
+      position: 'relative',
+      zIndex: 1,
+    },
+    editorAvatarWrap: {
+      marginBottom: 6,
+    },
+    editorAvatar: {
+      width: 84,
+      height: 84,
+      borderRadius: 42,
+      borderWidth: 2,
+      borderColor: 'rgba(255,255,255,0.14)',
+      backgroundColor: theme.colors.surfaceVariant,
+    },
+    editorAvatarFallback: {
+      width: 84,
+      height: 84,
+      borderRadius: 42,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.surfaceVariant,
+      borderWidth: 2,
+      borderColor: design.cardBorderColor,
+    },
     editorCard: {
-      borderRadius: 16,
-      backgroundColor: theme.colors.background,
+      ...design.cardStyle,
       padding: 16,
       gap: 18,
     },
@@ -169,6 +254,8 @@ export const createStyles = (theme: Theme) =>
     },
     previewLabel: {
       color: theme.colors.onSurfaceVariant,
+      letterSpacing: 0.6,
+      textTransform: 'uppercase',
     },
     previewHint: {
       color: theme.colors.onSurfaceVariant,
@@ -231,9 +318,9 @@ export const createStyles = (theme: Theme) =>
       marginTop: 8,
     },
     helperCard: {
-      borderRadius: 16,
-      backgroundColor: theme.colors.background,
+      ...design.cardStyle,
       padding: 16,
       gap: 8,
     },
-  });
+    };
+  })());

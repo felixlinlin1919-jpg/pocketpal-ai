@@ -1,9 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {EdgeInsets} from 'react-native-safe-area-context';
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: Theme, insets: EdgeInsets) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     safeArea: {
       flex: 1,
       backgroundColor: theme.colors.background,
@@ -14,23 +18,14 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       paddingBottom: theme.spacing.default + insets.bottom,
     },
     card: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: theme.borders.default,
+      ...design.cardStyle,
       overflow: 'hidden',
-      shadowColor: theme.colors.shadow,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 4,
     },
     header: {
       padding: theme.spacing.default * 2,
-      backgroundColor: theme.colors.surfaceContainerHighest,
+      backgroundColor: design.mutedSurface,
       borderBottomWidth: 1,
-      borderBottomColor: theme.colors.surfaceVariant,
+      borderBottomColor: design.subtleBorderColor,
     },
     headerContent: {
       gap: theme.spacing.default,
@@ -48,14 +43,14 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     },
     buildBadge: {
       alignSelf: 'flex-start',
-      backgroundColor: theme.colors.primaryContainer,
+      backgroundColor: 'rgba(96, 165, 250, 0.14)',
       borderRadius: 999,
       paddingHorizontal: theme.spacing.default,
       paddingVertical: 6,
     },
     buildBadgeText: {
       ...theme.fonts.labelMedium,
-      color: theme.colors.onPrimaryContainer,
+      color: '#bfdbfe',
     },
     versionContainer: {
       flexDirection: 'row',
@@ -68,10 +63,10 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       backgroundColor: theme.colors.surfaceContainerHigh,
       paddingHorizontal: theme.spacing.default,
       paddingVertical: theme.spacing.default / 2,
-      borderRadius: theme.borders.default,
+      borderRadius: design.innerRadius,
       gap: theme.spacing.default / 2,
       borderWidth: 1,
-      borderColor: theme.colors.surfaceVariant,
+      borderColor: design.cardBorderColor,
     },
     versionText: {
       ...theme.fonts.bodyMedium,
@@ -86,7 +81,7 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     section: {
       padding: theme.spacing.default * 2,
       borderBottomWidth: 1,
-      borderBottomColor: theme.colors.surfaceVariant,
+      borderBottomColor: design.subtleBorderColor,
     },
     sectionTitle: {
       ...theme.fonts.titleMedium,
@@ -99,12 +94,12 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     },
     noticeCard: {
       marginTop: theme.spacing.default,
-      borderRadius: theme.borders.default,
+      borderRadius: design.innerRadius,
       padding: theme.spacing.default,
-      backgroundColor: theme.colors.surfaceContainerHigh,
+      backgroundColor: design.mutedSurface,
       gap: theme.spacing.default / 2,
       borderWidth: 1,
-      borderColor: theme.colors.surfaceVariant,
+      borderColor: design.cardBorderColor,
     },
     noticeTitle: {
       ...theme.fonts.titleSmall,
@@ -114,4 +109,5 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       ...theme.fonts.bodyMedium,
       color: theme.colors.onSurfaceVariant,
     },
-  });
+    };
+  })());

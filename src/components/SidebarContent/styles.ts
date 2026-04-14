@@ -1,18 +1,21 @@
 import {StyleSheet} from 'react-native';
 
-import {MD3Theme} from 'react-native-paper';
+import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
-export const createStyles = (theme: MD3Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) =>
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     sidebarContainer: {
       flex: 1,
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.background,
     },
     divider: {
       marginHorizontal: 16,
-      backgroundColor: theme.colors.onSurfaceVariant,
+      backgroundColor: design.subtleBorderColor,
       height: 1,
-      opacity: 0.1,
     },
     contentWrapper: {
       flex: 1,
@@ -27,7 +30,7 @@ export const createStyles = (theme: MD3Theme) =>
     },
     versionText: {
       color: theme.colors.onSurfaceVariant,
-      opacity: 0.7,
+      opacity: 0.78,
       fontSize: 12,
       fontWeight: '500',
     },
@@ -62,8 +65,8 @@ export const createStyles = (theme: MD3Theme) =>
       paddingHorizontal: 16,
       paddingVertical: 12,
       borderBottomWidth: 1,
-      borderBottomColor: theme.colors.outline,
-      backgroundColor: theme.colors.surface,
+      borderBottomColor: design.subtleBorderColor,
+      backgroundColor: design.sectionBackground,
     },
     selectedCountText: {
       fontSize: 16,
@@ -102,7 +105,7 @@ export const createStyles = (theme: MD3Theme) =>
       alignItems: 'center',
       paddingVertical: 12,
       paddingHorizontal: 16,
-      backgroundColor: theme.colors.surface,
+      backgroundColor: design.sectionBackground,
     },
     selectAllCheckbox: {
       marginRight: 12,
@@ -112,7 +115,7 @@ export const createStyles = (theme: MD3Theme) =>
       color: theme.colors.onSurface,
     },
     selectAllDivider: {
-      backgroundColor: theme.colors.outline,
-      opacity: 0.3,
+      backgroundColor: design.subtleBorderColor,
     },
-  });
+    };
+  })());

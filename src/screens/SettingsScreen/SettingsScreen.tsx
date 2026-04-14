@@ -277,9 +277,25 @@ export const SettingsScreen: React.FC = observer(() => {
         <ScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled">
+          <Card elevation={0} style={styles.screenHeader}>
+            <Text variant="labelMedium" style={styles.screenEyebrow}>
+              裝置與聊天
+            </Text>
+            <Text variant="headlineSmall" style={styles.screenTitle}>
+              設定
+            </Text>
+            <Text variant="bodyMedium" style={styles.screenDescription}>
+              在本機調整模型、記憶體、語言與匯出偏好，讓聊天體驗更符合你的裝置節奏。
+            </Text>
+          </Card>
+
           {/* Model Initialization Settings */}
           <Card elevation={0} style={styles.card}>
-            <Card.Title title={l10n.settings.modelInitializationSettings} />
+            <Card.Title
+              title={l10n.settings.modelInitializationSettings}
+              titleStyle={styles.cardTitle}
+              style={styles.cardSection}
+            />
             <Card.Content>
               {/* Device Selection */}
 
@@ -731,7 +747,11 @@ export const SettingsScreen: React.FC = observer(() => {
 
           {/* Memory Settings */}
           <Card elevation={0} style={styles.card}>
-            <Card.Title title={l10n.settings.memorySettings} />
+            <Card.Title
+              title={l10n.settings.memorySettings}
+              titleStyle={styles.cardTitle}
+              style={styles.cardSection}
+            />
             <Card.Content>
               <View style={styles.settingItemContainer}>
                 {/* Use Memory Lock */}
@@ -812,7 +832,11 @@ export const SettingsScreen: React.FC = observer(() => {
 
           {/* Model Loading Settings */}
           <Card elevation={0} style={styles.card}>
-            <Card.Title title={l10n.settings.modelLoadingSettings} />
+            <Card.Title
+              title={l10n.settings.modelLoadingSettings}
+              titleStyle={styles.cardTitle}
+              style={styles.cardSection}
+            />
             <Card.Content>
               <View style={styles.settingItemContainer}>
                 {/* Auto Offload/Load */}
@@ -859,7 +883,11 @@ export const SettingsScreen: React.FC = observer(() => {
 
           {/* UI Settings */}
           <Card elevation={0} style={styles.card}>
-            <Card.Title title={l10n.settings.appSettings} />
+            <Card.Title
+              title={l10n.settings.appSettings}
+              titleStyle={styles.cardTitle}
+              style={styles.cardSection}
+            />
             <Card.Content>
               <View style={styles.settingItemContainer}>
                 {/* Language Selection */}
@@ -976,7 +1004,11 @@ export const SettingsScreen: React.FC = observer(() => {
 
           {/* API Settings */}
           <Card elevation={0} style={styles.card}>
-            <Card.Title title={l10n.settings.apiSettingsTitle} />
+            <Card.Title
+              title={l10n.settings.apiSettingsTitle}
+              titleStyle={styles.cardTitle}
+              style={styles.cardSection}
+            />
             <Card.Content>
               <View style={styles.settingItemContainer}>
                 {/* Hugging Face Token */}
@@ -1026,7 +1058,11 @@ export const SettingsScreen: React.FC = observer(() => {
           {/* Cache & Storage Settings - iOS only (for Shortcuts) */}
           {Platform.OS === 'ios' && (
             <Card elevation={0} style={styles.card}>
-              <Card.Title title={l10n.settings.cacheStorageTitle} />
+              <Card.Title
+                title={l10n.settings.cacheStorageTitle}
+                titleStyle={styles.cardTitle}
+                style={styles.cardSection}
+              />
               <Card.Content>
                 <View style={styles.settingItemContainer}>
                   {/* Clear Shortcuts Caches */}
@@ -1122,7 +1158,11 @@ export const SettingsScreen: React.FC = observer(() => {
 
           {/* Export Options */}
           <Card elevation={0} style={styles.card}>
-            <Card.Title title={l10n.settings.exportOptions} />
+            <Card.Title
+              title={l10n.settings.exportOptions}
+              titleStyle={styles.cardTitle}
+              style={styles.cardSection}
+            />
             <Card.Content>
               <View style={styles.settingItemContainer}>
                 {/* Legacy Export */}

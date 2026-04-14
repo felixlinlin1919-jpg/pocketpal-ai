@@ -181,8 +181,54 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>
       <ScrollView contentContainerStyle={styles.editorScrollContent}>
+        <Card style={styles.summaryCard}>
+          {backgroundSource && !backgroundPreviewFailed ? (
+            <ImageBackground
+              source={backgroundSource}
+              style={styles.editorHeroBackground}
+              imageStyle={styles.backgroundPreviewImage}
+              resizeMode="cover"
+              onError={() => setBackgroundPreviewFailed(true)}>
+              <View style={styles.editorHeroOverlay} />
+            </ImageBackground>
+          ) : (
+            <View style={styles.editorHeroFallback} />
+          )}
+          <View style={styles.editorHeroContent}>
+            <View style={styles.editorAvatarWrap}>
+              {avatarSource && !avatarPreviewFailed ? (
+                <Image
+                  source={avatarSource}
+                  style={styles.editorAvatar}
+                  onError={() => setAvatarPreviewFailed(true)}
+                />
+              ) : (
+                <View style={styles.editorAvatarFallback}>
+                  <UserCircleIcon
+                    width={32}
+                    height={32}
+                    stroke={theme.colors.onSurfaceVariant}
+                  />
+                </View>
+              )}
+            </View>
+            <Text variant="labelMedium" style={styles.summaryEyebrow}>
+              {isEditing ? '編輯角色' : '建立角色'}
+            </Text>
+            <Text variant="headlineSmall" style={styles.summaryHeading}>
+              {name.trim() || '未命名角色'}
+            </Text>
+            <Text variant="bodySmall" style={styles.summaryCaption}>
+              {thinkingEnabled ? 'Thinking 已啟用' : 'Thinking 已關閉'}
+            </Text>
+          </View>
+        </Card>
+
         <Card style={styles.editorCard}>
           <View style={styles.sectionBlock}>
+            <Text variant="labelMedium" style={styles.searchLabel}>
+              角色資料
+            </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
                 名稱
@@ -196,6 +242,9 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
           </View>
 
           <View style={styles.sectionBlock}>
+            <Text variant="labelMedium" style={styles.searchLabel}>
+              聊天設定
+            </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
                 角色提示詞
@@ -220,6 +269,9 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
           </View>
 
           <View style={styles.sectionBlock}>
+            <Text variant="labelMedium" style={styles.searchLabel}>
+              外觀設定
+            </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
                 頭像
@@ -238,7 +290,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 </Button>
               </View>
               <View style={styles.previewSection}>
-                <Text variant="bodySmall" style={styles.previewLabel}>
+                <Text variant="labelMedium" style={styles.previewLabel}>
                   頭像預覽
                 </Text>
                 {avatarSource && !avatarPreviewFailed ? (
@@ -286,7 +338,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 </Button>
               </View>
               <View style={styles.previewSection}>
-                <Text variant="bodySmall" style={styles.previewLabel}>
+                <Text variant="labelMedium" style={styles.previewLabel}>
                   背景預覽
                 </Text>
                 {backgroundSource && !backgroundPreviewFailed ? (

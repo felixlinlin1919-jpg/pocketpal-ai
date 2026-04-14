@@ -12,6 +12,7 @@ import {Button, Card, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 
 import {CheckCircleIcon, UserCircleIcon} from '../../assets/icons';
+import {TextInput} from '../../components';
 import {characterText} from '../../constants/characterText';
 import {useCharacterProfiles, useTheme} from '../../hooks';
 import {CharacterProfile} from '../../types/character';
@@ -53,7 +54,7 @@ const CharacterProfileCard = ({
   const hasBackgroundPath = !!profile.background?.trim();
   const hasResolvedBackground = !!backgroundSource;
   const backgroundStatusText = !hasBackgroundPath
-    ? '未設定背景'
+    ? characterText.noBackground
     : !hasResolvedBackground || backgroundLoadFailed
       ? '背景路徑失效'
       : '已設定背景';
@@ -62,6 +63,16 @@ const CharacterProfileCard = ({
     <Card style={[styles.card, isSelected && styles.selectedCard]}>
       <View style={styles.cardPressable}>
         <TouchableOpacity activeOpacity={0.85} onPress={onSelect}>
+          {backgroundSource && !backgroundLoadFailed ? (
+            <Image
+              source={backgroundSource}
+              style={styles.cardBackgroundPreview}
+              onError={() => setBackgroundLoadFailed(true)}
+            />
+          ) : (
+            <View style={styles.cardBackgroundFallback} />
+          )}
+          <View style={styles.cardBackgroundOverlay} />
           <View style={styles.profileRow}>
             {hasValidAvatar ? (
               <Image
@@ -99,7 +110,7 @@ const CharacterProfileCard = ({
               </View>
 
               <Text variant="bodyMedium" style={styles.profileMeta}>
-                {isSelected ? '已選擇' : '點擊可選擇角色'}
+                {isSelected ? '目前角色' : '點一下即可切換到這個角色'}
               </Text>
 
               <View style={styles.statusRow}>
@@ -160,6 +171,20 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
     setSelectedCharacter,
     deleteCharacterProfile,
   } = useCharacterProfiles();
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const filteredProfiles = React.useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) {
+      return profiles;
+    }
+
+    return profiles.filter(profile =>
+      [profile.name, profile.systemPrompt]
+        .filter(Boolean)
+        .some(value => value.toLowerCase().includes(query)),
+    );
+  }, [profiles, searchQuery]);
 
   const handleDelete = (profile: CharacterProfile) => {
     Alert.alert('刪除角色', `確定要刪除「${profile.name}」嗎？`, [
@@ -175,31 +200,56 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>
       <FlatList
-        data={profiles}
+        data={filteredProfiles}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.contentContainer}
         ListHeaderComponent={
-          <Card style={styles.summaryCard}>
-            <Text variant="titleMedium">角色卡管理</Text>
-            <Text variant="bodyMedium" style={styles.summaryTitle}>
-              目前選擇角色
-            </Text>
-            <Text variant="headlineSmall" style={styles.summaryValue}>
-              {selectedCharacter?.name ?? characterText.noneSelected}
-            </Text>
-            <Button
-              mode="contained"
-              style={styles.addButton}
-              onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
-              {characterText.addCharacter}
-            </Button>
-          </Card>
+          <View style={styles.headerStack}>
+            <Card style={styles.summaryCard}>
+              <Text variant="labelMedium" style={styles.summaryEyebrow}>
+                角色系統
+              </Text>
+              <Text variant="headlineSmall" style={styles.summaryHeading}>
+                角色卡管理
+              </Text>
+              <Text variant="bodyMedium" style={styles.summaryTitle}>
+                目前角色
+              </Text>
+              <Text variant="headlineSmall" style={styles.summaryValue}>
+                {selectedCharacter?.name ?? characterText.noneSelected}
+              </Text>
+              <Text variant="bodySmall" style={styles.summaryCaption}>
+                已建立 {profiles.length} 張角色卡
+              </Text>
+              <Button
+                mode="contained"
+                style={styles.addButton}
+                onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
+                {characterText.addCharacter}
+              </Button>
+            </Card>
+
+            <View style={styles.searchBlock}>
+              <Text variant="labelMedium" style={styles.searchLabel}>
+                搜尋角色
+              </Text>
+              <TextInput
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                placeholder="輸入角色名稱或提示詞"
+              />
+            </View>
+          </View>
         }
         ListEmptyComponent={
           <Card style={styles.emptyCard}>
-            <Text variant="titleMedium">尚未建立角色卡</Text>
+            <Text variant="titleMedium">
+              {profiles.length === 0 ? '尚未建立角色卡' : '找不到符合的角色'}
+            </Text>
             <Text variant="bodyMedium" style={styles.emptyText}>
-              建立角色後，可套用專屬提示詞、頭像與聊天背景。
+              {profiles.length === 0
+                ? '建立角色後，可套用專屬提示詞、頭像與聊天背景。'
+                : '試試其他關鍵字，或直接建立新的角色卡。'}
             </Text>
             <Button
               mode="contained"

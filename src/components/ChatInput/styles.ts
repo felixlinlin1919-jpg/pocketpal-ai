@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 
 import {Theme} from '../../utils/types';
 import {fontStyles} from '../../utils/theme';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = ({
   theme,
@@ -10,50 +11,59 @@ export const createStyles = ({
   theme: Theme;
   isEditMode: boolean;
 }) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     container: {
       flexDirection: 'column',
     },
     palBtn: {
-      height: 28,
-      width: 28,
+      height: 32,
+      width: 32,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 100,
+      borderRadius: 16,
+      backgroundColor: 'rgba(255,255,255,0.04)',
     },
     plusButton: {
-      height: 28,
-      width: 28,
+      height: 32,
+      width: 32,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 100,
-      opacity: 0.9,
+      borderRadius: 16,
+      opacity: 0.94,
+      backgroundColor: 'rgba(255,255,255,0.04)',
     },
     thinkingToggle: {
-      height: 28,
-      width: 28,
+      height: 32,
+      width: 32,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 100,
+      borderRadius: 16,
       borderWidth: 1,
+      borderColor: 'rgba(255,255,255,0.1)',
       marginRight: 8,
+      backgroundColor: 'rgba(255,255,255,0.04)',
     },
     thinkingToggleLeft: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 16,
+      borderRadius: 999,
       borderWidth: 1,
-      paddingHorizontal: 8,
-      paddingVertical: 4,
+      borderColor: 'rgba(255,255,255,0.1)',
+      paddingHorizontal: 10,
+      paddingVertical: 5,
       marginLeft: 8,
+      backgroundColor: 'rgba(255,255,255,0.04)',
     },
     thinkingToggleLeftDisabled: {
       backgroundColor: 'transparent',
     },
     thinkingToggleText: {
-      fontSize: 12,
-      fontWeight: '500',
+      fontSize: 11,
+      fontWeight: '600',
       marginLeft: 4,
     },
     thinkingToggleTextDisabled: {
@@ -67,16 +77,16 @@ export const createStyles = ({
     inputWrapper: {
       flexDirection: 'row',
       alignItems: 'flex-start',
-      gap: 10,
+      gap: 12,
       flexShrink: 1,
     },
     input: {
       ...theme.fonts.inputTextStyle,
       color: theme.colors.inverseOnSurface,
       flex: 1,
-      maxHeight: 150,
+      maxHeight: 160,
       paddingVertical: 0,
-      minHeight: 24,
+      minHeight: 28,
     },
     marginRight: {
       marginRight: 16,
@@ -84,24 +94,28 @@ export const createStyles = ({
     inputContainer: {
       flex: 1,
       flexDirection: 'column',
-      borderRadius: 24,
+      borderRadius: 28,
       overflow: 'hidden',
       borderWidth: 1,
-      borderColor: `${String(theme.colors.outlineVariant)}88`,
+      borderColor: design.cardBorderColor,
+      backgroundColor: design.overlaySurface,
     },
     textInputArea: {
       flex: 1,
       paddingHorizontal: 18,
       paddingTop: 16,
-      paddingBottom: 6,
+      paddingBottom: 8,
     },
     controlBar: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: 16,
-      paddingVertical: 10,
-      minHeight: 36,
+      paddingHorizontal: 14,
+      paddingVertical: 12,
+      minHeight: 42,
+      borderTopWidth: 1,
+      borderTopColor: design.subtleBorderColor,
+      backgroundColor: 'rgba(255,255,255,0.02)',
     },
     leftControls: {
       flexDirection: 'row',
@@ -119,15 +133,15 @@ export const createStyles = ({
       top: 0,
       left: 0,
       right: 0,
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: 'rgba(255,255,255,0.05)',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: 12,
-      borderTopLeftRadius: 24,
-      borderTopRightRadius: 24,
+      borderTopLeftRadius: 28,
+      borderTopRightRadius: 28,
       borderBottomWidth: 1,
-      borderBottomColor: theme.colors.outlineVariant,
+      borderBottomColor: design.subtleBorderColor,
       zIndex: 10, // Ensure edit bar stays above other elements
     },
     editBarText: {
@@ -167,8 +181,8 @@ export const createStyles = ({
     },
     // Image preview styles
     imagePreviewContainer: {
-      marginTop: 10,
-      marginBottom: 2,
+      marginTop: 12,
+      marginBottom: 4,
       paddingHorizontal: 14,
     },
     imagePreviewContainerEditMode: {
@@ -182,10 +196,12 @@ export const createStyles = ({
       position: 'relative',
     },
     previewImage: {
-      width: 80,
-      height: 80,
-      borderRadius: 14,
+      width: 86,
+      height: 86,
+      borderRadius: 18,
       backgroundColor: theme.colors.surfaceVariant,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     removeImageButton: {
       position: 'absolute',
@@ -194,7 +210,7 @@ export const createStyles = ({
       margin: 0,
       padding: 0,
       backgroundColor: theme.colors.surface,
-      borderRadius: 8,
+      borderRadius: 10,
       width: 25,
       height: 25,
     },
@@ -206,7 +222,7 @@ export const createStyles = ({
     cameraButton: {
       width: 40,
       height: 40,
-      borderRadius: 24,
+      borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
       marginBottom: 8,
@@ -236,7 +252,7 @@ export const createStyles = ({
       justifyContent: 'center',
       paddingHorizontal: 14,
       paddingVertical: 8,
-      borderRadius: 16,
+      borderRadius: 18,
       gap: 6,
       minWidth: 85,
     },
@@ -277,4 +293,5 @@ export const createStyles = ({
       fontSize: 11,
       lineHeight: 14,
     },
-  });
+    };
+  })());

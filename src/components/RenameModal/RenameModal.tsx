@@ -51,7 +51,7 @@ export const RenameModal: React.FC<RenameModalProps> = ({
           <Text style={styles.modalTitle}>{l10n.common.rename}</Text>
           <TextInput
             style={styles.textInput}
-            placeholder="New Title"
+            placeholder="輸入聊天室名稱"
             placeholderTextColor={theme.colors.onSurfaceVariant}
             value={newTitle}
             maxLength={40}
