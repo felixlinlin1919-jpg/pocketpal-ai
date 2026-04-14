@@ -65,7 +65,7 @@ export const Avatar = React.memo(
 
       return (
         <View style={[styles.avatarBackground, {backgroundColor: color}]}>
-          <Text>{initials}</Text>
+          <Text style={styles.initialsText}>{initials}</Text>
         </View>
       );
     };
@@ -81,21 +81,29 @@ export const Avatar = React.memo(
 const styles = StyleSheet.create({
   avatarBackground: {
     alignItems: 'center',
-    borderRadius: 16,
-    height: 32,
+    borderRadius: 18,
+    height: 36,
     justifyContent: 'center',
     marginRight: 10,
-    width: 32,
+    width: 36,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
   },
   image: {
     alignItems: 'center',
-    borderRadius: 16,
-    height: 32,
+    borderRadius: 18,
+    height: 36,
     justifyContent: 'center',
     marginRight: 10,
-    width: 32,
+    width: 36,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
   },
   placeholder: {
-    width: 42,
+    width: 46,
+  },
+  initialsText: {
+    color: '#0f172a',
+    fontWeight: '700',
   },
 });

@@ -1,28 +1,35 @@
 import {StyleSheet} from 'react-native';
 
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
+    ...(() => {
+      const design = getAppDesign(theme);
+      return {
     container: {
       borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 10,
-      borderTopStartRadius: 10,
-      borderTopEndRadius: 10,
+      borderColor: design.cardBorderColor,
+      borderRadius: design.innerRadius,
+      borderTopStartRadius: design.innerRadius,
+      borderTopEndRadius: design.innerRadius,
       alignSelf: 'stretch',
-      backgroundColor: 'transparent',
+      backgroundColor: design.mutedSurface,
+      overflow: 'hidden',
     },
     input: {
       backgroundColor: 'transparent',
     },
     placeholder: {
-      opacity: 0.3,
+      opacity: 0.48,
     },
     divider: {
       width: 330,
       height: 0.33,
-      backgroundColor: theme.colors.outlineVariant,
+      backgroundColor: design.subtleBorderColor,
       marginLeft: 20,
     },
+      };
+    })(),
   });

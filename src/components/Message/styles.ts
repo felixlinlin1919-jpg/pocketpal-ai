@@ -21,8 +21,8 @@ const styles = ({
       alignSelf: currentUserIsAuthor ? 'flex-end' : 'flex-start',
       justifyContent: currentUserIsAuthor ? 'flex-end' : 'flex-start',
       flexDirection: 'row',
-      marginBottom: message.type === 'dateHeader' ? 0 : 10 + message.offset,
-      marginHorizontal: 12,
+      marginBottom: message.type === 'dateHeader' ? 0 : 14 + message.offset,
+      marginHorizontal: 14,
     },
     contentContainer: {
       backgroundColor:
