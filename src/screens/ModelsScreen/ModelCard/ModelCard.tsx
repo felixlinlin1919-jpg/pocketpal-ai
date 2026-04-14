@@ -124,6 +124,12 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
     const isDownloading = modelStore.isDownloading(model.id);
     const isHfModel = model.origin === ModelOrigin.HF;
     const isRemoteModel = model.origin === ModelOrigin.REMOTE;
+    const originLabel = isRemoteModel
+      ? '遠端模型'
+      : model.origin === ModelOrigin.LOCAL || model.isLocal
+        ? '本機模型'
+        : 'Hugging Face';
+    const availabilityLabel = isDownloaded ? '已可使用' : '尚未下載';
 
     // Check projection model status for downloaded vision models
     const projectionModelStatus = modelStore.getProjectionModelStatus(model);
@@ -194,7 +200,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
                       l10n.models.multimodal.cannotDeleteTitle,
                       error instanceof Error
                         ? error.message
-                        : 'Unknown error occurred',
+                        : '發生未知錯誤',
                       [{text: l10n.common.ok, style: 'default'}],
                     );
                   }
@@ -576,10 +582,10 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
       };
 
       const getButtonText = () => {
-        if (isActiveModel) {
-          return l10n.models.modelCard.buttons.offload;
-        }
-        return l10n.models.modelCard.buttons.load;
+      if (isActiveModel) {
+        return l10n.models.modelCard.buttons.offload;
+      }
+      return l10n.models.modelCard.buttons.load;
       };
 
       const getButtonStyle = () => {
@@ -627,13 +633,23 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
             <View style={styles.headerContent}>
               <View style={styles.headerLeft}>
                 <View style={styles.modelTypeIcon}>{getModelTypeIcon()}</View>
-                <Text
-                  variant="titleSmall"
-                  style={styles.compactModelName}
-                  numberOfLines={1}
-                  ellipsizeMode="middle">
-                  {model.name}
-                </Text>
+                <View style={styles.titleBlock}>
+                  <Text
+                    variant="titleSmall"
+                    style={styles.compactModelName}
+                    numberOfLines={1}
+                    ellipsizeMode="middle">
+                    {model.name}
+                  </Text>
+                  <View style={styles.metaRow}>
+                    <View style={styles.metaChip}>
+                      <Text style={styles.metaChipText}>{originLabel}</Text>
+                    </View>
+                    <View style={styles.metaChip}>
+                      <Text style={styles.metaChipText}>{availabilityLabel}</Text>
+                    </View>
+                  </View>
+                </View>
               </View>
               <View style={styles.headerRight}>
                 {isRemoteModel ? (
@@ -651,7 +667,7 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
                       color={theme.colors.primary}
                     />
                     <Text style={styles.serverLinkText}>
-                      {model.serverName || 'Remote'}
+                      {model.serverName || '遠端'}
                     </Text>
                   </TouchableOpacity>
                 ) : (

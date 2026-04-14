@@ -1,15 +1,21 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
 import {Theme} from '../../../utils/types';
+import {getAppDesign} from '../../../utils/appDesign';
 
 const screenHeight = Dimensions.get('window').height;
 
 export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     container: {
       padding: 16,
-      backgroundColor: theme.colors.surface,
-      borderRadius: theme.borders.default,
+      backgroundColor: design.mutedSurface,
+      borderRadius: design.innerRadius,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     chatTemplateRow: {
       flexDirection: 'row',
@@ -34,7 +40,7 @@ export const createStyles = (theme: Theme) =>
     textArea: {
       fontSize: 12,
       lineHeight: 16,
-      borderRadius: 8,
+      borderRadius: design.innerRadius,
       maxHeight: screenHeight * 0.4,
     },
     completionSettingsContainer: {
@@ -55,7 +61,8 @@ export const createStyles = (theme: Theme) =>
       paddingVertical: 8,
     },
     divider: {
-      marginVertical: 4,
+      marginVertical: 8,
+      backgroundColor: design.subtleBorderColor,
     },
     templateNote: {
       color: theme.colors.textSecondary,
@@ -95,4 +102,5 @@ export const createStyles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
     },
-  });
+    };
+  })());

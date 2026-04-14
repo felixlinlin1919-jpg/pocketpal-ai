@@ -54,7 +54,7 @@ export const Selector = <T extends string | number>({
   onChange,
   label,
   sublabel,
-  placeholder = 'Select option',
+  placeholder = '請選擇',
   disabled = false,
   required = false,
   error = false,

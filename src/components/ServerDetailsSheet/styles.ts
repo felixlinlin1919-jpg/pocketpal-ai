@@ -1,11 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: Theme) => {
+  const design = getAppDesign(theme);
   return StyleSheet.create({
     container: {
       padding: 16,
       paddingBottom: 32,
+      gap: 2,
     },
     inputSpacing: {
       marginBottom: 12,
@@ -37,8 +40,7 @@ export const createStyles = (theme: Theme) => {
       marginBottom: 12,
     },
     modelsSectionLabel: {
-      fontSize: 14,
-      fontWeight: '500',
+      ...design.sectionTitle,
       color: theme.colors.onSurface,
       marginBottom: 8,
     },

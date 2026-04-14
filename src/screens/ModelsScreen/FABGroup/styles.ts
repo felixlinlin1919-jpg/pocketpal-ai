@@ -1,23 +1,25 @@
 import {StyleSheet} from 'react-native';
 
 import {Theme} from '../../../utils/types';
-import {uiStore} from '../../../store';
+import {getAppDesign} from '../../../utils/appDesign';
 
 export const createStyles = (theme: Theme) => {
-  const isDark = uiStore.colorScheme === 'dark';
+  const design = getAppDesign(theme);
 
   return StyleSheet.create({
     fab: {
       bottom: 0,
       right: 16,
-      backgroundColor: theme.colors.background,
-      borderColor: theme.colors.outline,
-      borderWidth: isDark ? 1 : 0,
+      backgroundColor: design.sectionBackground,
+      borderColor: design.cardBorderColor,
+      borderWidth: 1,
+      borderRadius: 18,
     },
     actionButton: {
-      backgroundColor: theme.colors.background,
-      borderColor: theme.colors.outline,
-      borderWidth: isDark ? 1 : 0,
+      backgroundColor: design.sectionBackground,
+      borderColor: design.cardBorderColor,
+      borderWidth: 1,
+      borderRadius: 18,
     },
     icon: {
       width: 24,

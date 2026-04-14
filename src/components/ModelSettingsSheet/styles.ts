@@ -1,19 +1,28 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
-  sheetScrollViewContainer: {
-    padding: 16,
-  },
-  secondaryButtons: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  multimodalDivider: {
-    marginVertical: 16,
-  },
-  multimodalSectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-});
+import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
+
+export const createStyles = (theme: Theme) =>
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
+      sheetScrollViewContainer: {
+        padding: 16,
+        paddingBottom: 28,
+      },
+      secondaryButtons: {
+        flexDirection: 'row',
+        gap: 10,
+      },
+      multimodalDivider: {
+        marginVertical: 18,
+        backgroundColor: design.subtleBorderColor,
+      },
+      multimodalSectionTitle: {
+        ...design.sectionTitle,
+        marginBottom: 12,
+      },
+    };
+  })());

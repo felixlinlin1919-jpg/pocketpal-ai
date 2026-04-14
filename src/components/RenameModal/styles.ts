@@ -1,83 +1,76 @@
 import {StyleSheet} from 'react-native';
 import {MD3Theme} from 'react-native-paper';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: MD3Theme) =>
-  StyleSheet.create({
-    modalOverlay: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-      width: '80%',
-      backgroundColor: theme.colors.surface,
-      borderRadius: 14,
-      overflow: 'hidden',
-      borderWidth: StyleSheet.hairlineWidth,
-      borderColor: theme.dark
-        ? theme.colors.outline + '50'
-        : theme.colors.outline + '30',
-    },
-    modalTitle: {
-      fontSize: 17,
-      fontWeight: '600',
-      color: theme.colors.onSurface,
-      textAlign: 'center',
-      paddingVertical: 16,
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: theme.dark
-        ? theme.colors.outline + '50'
-        : theme.colors.outline + '30',
-    },
-    textInput: {
-      margin: 16,
-      padding: 12,
-      backgroundColor: theme.dark
-        ? theme.colors.surfaceVariant + '80'
-        : theme.colors.surface + '90',
-      color: theme.colors.onSurface,
-      fontSize: 17,
-      borderWidth: StyleSheet.hairlineWidth * 2,
-      borderColor: theme.dark
-        ? theme.colors.outline + '50'
-        : theme.colors.outline + '30',
-      borderRadius: 10,
-    },
-    buttonContainer: {
-      flexDirection: 'row',
-      borderTopWidth: StyleSheet.hairlineWidth,
-      borderTopColor: theme.dark
-        ? theme.colors.outline + '50'
-        : theme.colors.outline + '30',
-    },
-    cancelButton: {
-      flex: 1,
-      paddingVertical: 12,
-      borderRightWidth: StyleSheet.hairlineWidth,
-      borderRightColor: theme.dark
-        ? theme.colors.outline + '50'
-        : theme.colors.outline + '30',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    cancelText: {
-      color: theme.colors.onSurfaceVariant,
-      fontSize: 17,
-      fontWeight: '400',
-    },
-    confirmButton: {
-      flex: 1,
-      paddingVertical: 12,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    confirmText: {
-      color: theme.colors.primary,
-      fontSize: 17,
-      fontWeight: '600',
-    },
-    disabledButton: {
-      opacity: 0.4,
-    },
-  });
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme as any);
+    return {
+      modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.56)',
+      },
+      modalContent: {
+        width: '84%',
+        backgroundColor: design.sectionBackground,
+        borderRadius: design.cardRadius,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: design.cardBorderColor,
+      },
+      modalTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: theme.colors.onSurface,
+        textAlign: 'center',
+        paddingVertical: 18,
+        borderBottomWidth: 1,
+        borderBottomColor: design.subtleBorderColor,
+      },
+      textInput: {
+        margin: 16,
+        padding: 14,
+        backgroundColor: design.mutedSurface,
+        color: theme.colors.onSurface,
+        fontSize: 16,
+        borderWidth: 1,
+        borderColor: design.cardBorderColor,
+        borderRadius: design.innerRadius,
+      },
+      buttonContainer: {
+        flexDirection: 'row',
+        backgroundColor: design.mutedSurface,
+        borderTopWidth: 1,
+        borderTopColor: design.subtleBorderColor,
+      },
+      cancelButton: {
+        flex: 1,
+        paddingVertical: 14,
+        borderRightWidth: 1,
+        borderRightColor: design.subtleBorderColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      cancelText: {
+        color: theme.colors.onSurfaceVariant,
+        fontSize: 16,
+        fontWeight: '500',
+      },
+      confirmButton: {
+        flex: 1,
+        paddingVertical: 14,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      confirmText: {
+        color: theme.colors.primary,
+        fontSize: 16,
+        fontWeight: '700',
+      },
+      disabledButton: {
+        opacity: 0.4,
+      },
+    };
+  })());

@@ -7,7 +7,7 @@ import 'react-native-get-random-values';
 import {observer} from 'mobx-react-lite';
 import * as RNFS from '@dr.pogodin/react-native-fs';
 import {pick, types} from '@react-native-documents/picker';
-import {Portal, Snackbar} from 'react-native-paper';
+import {Card, Chip, Portal, Snackbar, Text} from 'react-native-paper';
 
 import {useTheme} from '../../hooks';
 
@@ -59,6 +59,13 @@ export const ModelsScreen: React.FC = observer(() => {
 
   const filters = uiStore.pageStates.modelsScreen.filters;
   const expandedGroups = uiStore.pageStates.modelsScreen.expandedGroups;
+
+  const toggleFilter = (filterName: string) => {
+    const newFilters = filters.includes(filterName)
+      ? filters.filter(f => f !== filterName)
+      : [...filters, filterName];
+    uiStore.setValue('modelsScreen', 'filters', newFilters);
+  };
 
   // Set up MobX reactions to track store changes
   useEffect(() => {
@@ -355,24 +362,26 @@ export const ModelsScreen: React.FC = observer(() => {
         ? l10n.models.labels.useAddButtonForMore
         : undefined;
     return (
-      <ModelAccordion
-        group={{...group, type: displayName}}
-        expanded={isExpanded}
-        description={description}
-        onPress={() => toggleGroup(group.type)}>
-        <FlatList
-          data={group.items}
-          keyExtractor={subItem => subItem.id}
-          renderItem={({item: subItem}) => (
-            <ModelCard
-              model={subItem}
-              activeModelId={activeModelId}
-              onOpenSettings={() => handleOpenSettings(subItem)}
-              onOpenServerDetails={handleOpenServerDetails}
-            />
-          )}
-        />
-      </ModelAccordion>
+      <View style={styles.groupSpacing}>
+        <ModelAccordion
+          group={{...group, type: displayName}}
+          expanded={isExpanded}
+          description={description}
+          onPress={() => toggleGroup(group.type)}>
+          <FlatList
+            data={group.items}
+            keyExtractor={subItem => subItem.id}
+            renderItem={({item: subItem}) => (
+              <ModelCard
+                model={subItem}
+                activeModelId={activeModelId}
+                onOpenSettings={() => handleOpenSettings(subItem)}
+                onOpenServerDetails={handleOpenServerDetails}
+              />
+            )}
+          />
+        </ModelAccordion>
+      </View>
     );
   };
 
@@ -402,6 +411,61 @@ export const ModelsScreen: React.FC = observer(() => {
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={styles.listContainer}
+        ListHeaderComponent={
+          <Card elevation={0} style={styles.heroCard}>
+            <Text variant="labelMedium" style={styles.heroEyebrow}>
+              模型庫
+            </Text>
+            <Text variant="headlineSmall" style={styles.heroTitle}>
+              模型管理
+            </Text>
+            <Text variant="bodyMedium" style={styles.heroDescription}>
+              在這裡管理已下載、本機匯入與遠端連線模型，保持聊天與裝置狀態在最適合你的節奏。
+            </Text>
+            <View style={styles.statsRow}>
+              <View style={styles.statChip}>
+                <Text variant="labelMedium" style={styles.statChipText}>
+                  已下載 {modelStore.models.filter(model => model.isDownloaded).length}
+                </Text>
+              </View>
+              <View style={styles.statChip}>
+                <Text variant="labelMedium" style={styles.statChipText}>
+                  全部模型 {modelStore.models.length}
+                </Text>
+              </View>
+              <View style={styles.statChip}>
+                <Text variant="labelMedium" style={styles.statChipText}>
+                  伺服器 {serverStore.servers.length}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.filtersSection}>
+              <Text variant="labelMedium" style={styles.filtersLabel}>
+                篩選與檢視
+              </Text>
+              <View style={styles.filtersRow}>
+                <Chip
+                  selected={filters.includes('downloaded')}
+                  onPress={() => toggleFilter('downloaded')}
+                  style={styles.filterChip}>
+                  已下載
+                </Chip>
+                <Chip
+                  selected={filters.includes('hf')}
+                  onPress={() => toggleFilter('hf')}
+                  style={styles.filterChip}>
+                  Hugging Face
+                </Chip>
+                <Chip
+                  selected={filters.includes('grouped')}
+                  onPress={() => toggleFilter('grouped')}
+                  style={styles.filterChip}>
+                  分組顯示
+                </Chip>
+              </View>
+            </View>
+          </Card>
+        }
         data={flatListModels}
         keyExtractor={item => item.type}
         extraData={activeModelId}

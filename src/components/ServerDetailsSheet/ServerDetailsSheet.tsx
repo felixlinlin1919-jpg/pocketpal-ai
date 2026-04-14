@@ -238,7 +238,7 @@ export const ServerDetailsSheet: React.FC<ServerDetailsSheetProps> = observer(
                 {probeResult.ok
                   ? l10n.settings.connected
                   : t(l10n.settings.connectionFailed, {
-                      error: probeResult.error || 'Unknown',
+                      error: probeResult.error || '未知錯誤',
                     })}
               </Text>
             </View>

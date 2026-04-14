@@ -8,9 +8,10 @@ import {Model} from '../../utils/types';
 import {modelStore} from '../../store';
 import {chatTemplates} from '../../utils/chat';
 
-import {styles} from './styles';
+import {createStyles} from './styles';
 import {View} from 'react-native';
 import {L10nContext} from '../../utils';
+import {useTheme} from '../../hooks';
 
 interface ModelSettingsSheetProps {
   isVisible: boolean;
@@ -20,6 +21,7 @@ interface ModelSettingsSheetProps {
 
 export const ModelSettingsSheet: React.FC<ModelSettingsSheetProps> = memo(
   ({isVisible, onClose, model}) => {
+    const theme = useTheme();
     const [tempModelName, setTempModelName] = useState(model?.name || '');
     const [tempChatTemplate, setTempChatTemplate] = useState(
       model?.chatTemplate || chatTemplates.default,
@@ -28,6 +30,7 @@ export const ModelSettingsSheet: React.FC<ModelSettingsSheetProps> = memo(
       model?.stopWords || [],
     );
     const l10n = useContext(L10nContext);
+    const styles = createStyles(theme);
 
     // Reset temp settings when model changes
     useEffect(() => {

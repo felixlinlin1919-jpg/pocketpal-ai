@@ -1,11 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: Theme) => {
+  const design = getAppDesign(theme);
   return StyleSheet.create({
     container: {
       padding: 16,
       paddingBottom: 32,
+      gap: 2,
     },
     privacyContainer: {
       flexDirection: 'row',
@@ -13,7 +16,9 @@ export const createStyles = (theme: Theme) => {
       marginBottom: 16,
       backgroundColor: theme.colors.tertiaryContainer,
       padding: 12,
-      borderRadius: 8,
+      borderRadius: design.innerRadius,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     privacyText: {
       flex: 1,
@@ -29,8 +34,7 @@ export const createStyles = (theme: Theme) => {
       marginBottom: 16,
     },
     chipsSectionLabel: {
-      fontSize: 14,
-      fontWeight: '500',
+      ...design.sectionTitle,
       color: theme.colors.onSurface,
       marginBottom: 8,
     },
@@ -47,7 +51,7 @@ export const createStyles = (theme: Theme) => {
     dividerLine: {
       flex: 1,
       height: 1,
-      backgroundColor: theme.colors.outlineVariant,
+      backgroundColor: design.subtleBorderColor,
     },
     dividerText: {
       marginHorizontal: 12,
@@ -68,7 +72,7 @@ export const createStyles = (theme: Theme) => {
       marginBottom: 12,
       backgroundColor: theme.colors.errorContainer,
       padding: 12,
-      borderRadius: 8,
+      borderRadius: design.innerRadius,
     },
     warningText: {
       color: theme.colors.onErrorContainer,
@@ -95,8 +99,7 @@ export const createStyles = (theme: Theme) => {
       marginBottom: 12,
     },
     modelListLabel: {
-      fontSize: 14,
-      fontWeight: '500',
+      ...design.sectionTitle,
       color: theme.colors.onSurface,
       marginBottom: 8,
     },

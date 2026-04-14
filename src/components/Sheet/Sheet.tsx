@@ -10,7 +10,7 @@ import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types
 import {Text} from 'react-native-paper';
 import {CloseIcon} from '../../assets/icons';
 import {useTheme} from '../../hooks';
-import {styles} from './styles';
+import {createStyles} from './styles';
 import BottomSheetKeyboardAwareScrollView from './BottomSheetAwareScrollview';
 import {Dimensions, TouchableOpacity, View} from 'react-native';
 import {CustomBackdrop} from './CustomBackdrop';
@@ -60,6 +60,7 @@ export const Sheet = forwardRef(
     }, [ref, innerRef]);
 
     const theme = useTheme();
+    const styles = createStyles(theme);
 
     useEffect(() => {
       if (isVisible) {
@@ -95,7 +96,11 @@ export const Sheet = forwardRef(
         activeOffsetY={[-1, 1]}
         failOffsetX={[-5, 5]}
         backgroundStyle={{
-          backgroundColor: theme.colors.background,
+          backgroundColor: theme.colors.surface,
+          borderTopLeftRadius: 28,
+          borderTopRightRadius: 28,
+          borderWidth: 1,
+          borderColor: 'rgba(255,255,255,0.08)',
         }}
         snapPoints={snapPoints}
         onDismiss={onDismiss}
@@ -104,7 +109,11 @@ export const Sheet = forwardRef(
         accessible={false}
         {...props}>
         <View style={styles.header}>
-          {title && <Text variant="titleMedium">{title}</Text>}
+          {title && (
+            <Text variant="titleMedium" style={styles.title}>
+              {title}
+            </Text>
+          )}
           {showCloseButton && (
             <TouchableOpacity
               style={styles.closeBtn}

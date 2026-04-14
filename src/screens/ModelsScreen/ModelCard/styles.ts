@@ -1,21 +1,19 @@
 import {StyleSheet} from 'react-native';
 
 import {Theme} from '../../../utils/types';
+import {getAppDesign} from '../../../utils/appDesign';
 
 export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+    return {
     card: {
-      borderRadius: 24, // Updated to match rounded-3xl (24px)
+      ...design.cardStyle,
       margin: 6,
-      //overflow: 'hidden',
-      backgroundColor: theme.colors.background,
-      borderColor: theme.colors.outline,
-      borderWidth: 1,
     },
     cardContent: {
       paddingBottom: 6,
       paddingTop: 0,
-      //paddingHorizontal: 12,
     },
     downloadProgressContainer: {
       marginHorizontal: 18,
@@ -52,26 +50,34 @@ export const createStyles = (theme: Theme) =>
       flexWrap: 'wrap',
     },
     visionToggleContainer: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 16,
+      backgroundColor: design.mutedSurface,
+      borderRadius: design.innerRadius,
       padding: 12,
       gap: 8,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     compactHeader: {
       paddingHorizontal: 18,
-      paddingVertical: 12,
+      paddingVertical: 16,
     },
     headerContent: {
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'space-between',
+      gap: 10,
     },
     headerLeft: {
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       flex: 1,
       minWidth: 0,
       gap: 10,
+    },
+    titleBlock: {
+      flex: 1,
+      minWidth: 0,
+      gap: 6,
     },
     headerRight: {
       flexDirection: 'row',
@@ -82,10 +88,26 @@ export const createStyles = (theme: Theme) =>
       flexShrink: 0,
     },
     compactModelName: {
-      //fontSize: 16,
-      //fontWeight: '600',
       color: theme.colors.onSurface,
       flex: 1,
+    },
+    metaRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      gap: 8,
+    },
+    metaChip: {
+      borderRadius: 999,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      backgroundColor: design.mutedSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
+    },
+    metaChipText: {
+      fontSize: 11,
+      color: theme.colors.onSurfaceVariant,
     },
     sizeInfo: {
       flexDirection: 'row',
@@ -119,9 +141,11 @@ export const createStyles = (theme: Theme) =>
       gap: 12,
     },
     descriptionContainer: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 16, // rounded-2xl
+      backgroundColor: design.mutedSurface,
+      borderRadius: design.innerRadius,
       padding: 12,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     descriptionText: {
       fontSize: 14,
@@ -134,11 +158,13 @@ export const createStyles = (theme: Theme) =>
       gap: 10,
     },
     technicalDetailCard: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 16, // rounded-2xl
+      backgroundColor: design.mutedSurface,
+      borderRadius: design.innerRadius,
       padding: 10,
       flex: 1,
-      minWidth: '45%', // Approximate 2-column grid
+      minWidth: '45%',
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     technicalDetailLabel: {
       fontSize: 12,
@@ -156,9 +182,9 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'space-between',
       paddingVertical: 12,
       paddingHorizontal: 12,
-      backgroundColor: theme.colors.surface,
-      borderRadius: 16, // rounded-2xl
-      borderWidth: 2,
+      backgroundColor: design.mutedSurface,
+      borderRadius: design.innerRadius,
+      borderWidth: 1,
       borderColor: theme.colors.primaryContainer,
     },
     hfLinkContent: {
@@ -182,18 +208,20 @@ export const createStyles = (theme: Theme) =>
     },
     primaryActionButton: {
       flex: 1,
-      borderRadius: 16, // rounded-2xl
+      borderRadius: design.innerRadius,
       borderWidth: 1,
-      height: 40,
+      height: 44,
     },
     iconButton: {
-      padding: 10, // p-2.5 equivalent
-      borderRadius: 16, // rounded-2xl
-      backgroundColor: 'transparent',
+      padding: 10,
+      borderRadius: design.innerRadius,
+      backgroundColor: design.mutedSurface,
       alignItems: 'center',
       justifyContent: 'center',
       minWidth: 40,
       minHeight: 40,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     visionToggleHeader: {
       flexDirection: 'row',
@@ -217,9 +245,11 @@ export const createStyles = (theme: Theme) =>
       fontStyle: 'italic',
     },
     projectionModelsContainer: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 16,
+      backgroundColor: design.mutedSurface,
+      borderRadius: design.innerRadius,
       padding: 12,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     warningButton: {
       paddingVertical: 6,
@@ -237,9 +267,11 @@ export const createStyles = (theme: Theme) =>
       marginHorizontal: 20,
     },
     fullModelNameContainer: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 16,
+      backgroundColor: design.mutedSurface,
+      borderRadius: design.innerRadius,
       padding: 12,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     fullModelNameLabel: {
       fontSize: 12,
@@ -252,4 +284,5 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.onSurface,
       lineHeight: 20,
     },
-  });
+    };
+  })());
