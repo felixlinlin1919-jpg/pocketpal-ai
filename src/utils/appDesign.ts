@@ -6,6 +6,7 @@ export const getAppDesign = (theme: Theme) => {
   const cardRadius = 24;
   const innerRadius = 18;
   const pillRadius = 999;
+  const screenPadding = 16;
   const cardBorderColor = theme.dark
     ? 'rgba(255, 255, 255, 0.08)'
     : 'rgba(15, 23, 42, 0.08)';
@@ -24,6 +25,18 @@ export const getAppDesign = (theme: Theme) => {
   const overlaySurface = theme.dark
     ? 'rgba(9, 12, 18, 0.82)'
     : 'rgba(255, 255, 255, 0.86)';
+  const elevatedSurface = theme.dark
+    ? 'rgba(18, 23, 33, 0.96)'
+    : 'rgba(255, 255, 255, 0.98)';
+  const heroOverlay = theme.dark
+    ? 'rgba(8, 11, 18, 0.68)'
+    : 'rgba(248, 250, 252, 0.78)';
+  const accentTint = theme.dark
+    ? 'rgba(96, 165, 250, 0.16)'
+    : 'rgba(37, 99, 235, 0.12)';
+  const accentBorder = theme.dark
+    ? 'rgba(96, 165, 250, 0.28)'
+    : 'rgba(37, 99, 235, 0.2)';
 
   const shadow: ViewStyle = theme.dark
     ? {
@@ -53,19 +66,54 @@ export const getAppDesign = (theme: Theme) => {
     cardRadius,
     innerRadius,
     pillRadius,
+    screenPadding,
     cardBorderColor,
     subtleBorderColor,
     heroBackground,
     sectionBackground,
     mutedSurface,
     overlaySurface,
+    elevatedSurface,
+    heroOverlay,
+    accentTint,
+    accentBorder,
     shadow,
     cardStyle,
+    heroCardStyle: {
+      ...cardStyle,
+      backgroundColor: heroBackground,
+    } as ViewStyle,
+    chipStyle: {
+      borderRadius: pillRadius,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderWidth: 1,
+      borderColor: subtleBorderColor,
+      backgroundColor: mutedSurface,
+    } as ViewStyle,
     sectionTitle: {
       color: theme.colors.onSurfaceVariant,
       fontSize: 12,
       letterSpacing: 1.1,
       textTransform: 'uppercase' as const,
+      fontWeight: '700' as const,
+    },
+    titleLarge: {
+      color: theme.colors.onSurface,
+      fontSize: 28,
+      lineHeight: 34,
+      fontWeight: '700' as const,
+    },
+    titleMedium: {
+      color: theme.colors.onSurface,
+      fontSize: 20,
+      lineHeight: 26,
+      fontWeight: '700' as const,
+    },
+    bodyMuted: {
+      color: theme.colors.onSurfaceVariant,
+      fontSize: 14,
+      lineHeight: 21,
     },
     sectionSpacing: theme.spacing.default * 1.25,
   };

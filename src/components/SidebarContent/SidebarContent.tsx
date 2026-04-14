@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {TouchableOpacity, View, Alert, SectionList} from 'react-native';
 import {observer} from 'mobx-react';
-import {Divider, Drawer, Text} from 'react-native-paper';
+import {Card, Divider, Drawer, Text} from 'react-native-paper';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -487,71 +487,62 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
     // List header with main menu items
     const ListHeaderComponent = React.useMemo(
       () => (
-        <View>
-          <Drawer.Section showDivider={false}>
-            <Drawer.Item
-              label={l10n.components.sidebarContent.menuItems.chat}
-              icon={() => <ChatIcon stroke={theme.colors.primary} />}
-              onPress={() => props.navigation.navigate(ROUTES.CHAT)}
-              style={styles.menuDrawerItem}
-              testID="drawer-item-chat"
-            />
-            <Drawer.Item
-              label={l10n.components.sidebarContent.menuItems.pals}
-              icon={() => <PalIcon stroke={theme.colors.primary} />}
-              onPress={() => props.navigation.navigate(ROUTES.PALS)}
-              style={styles.menuDrawerItem}
-              testID="drawer-item-pals"
-            />
-            <Drawer.Item
-              label={l10n.components.sidebarContent.menuItems.models}
-              icon={() => <ModelIcon stroke={theme.colors.primary} />}
-              onPress={() => props.navigation.navigate(ROUTES.MODELS)}
-              style={styles.menuDrawerItem}
-              testID="drawer-item-models"
-            />
-            <Drawer.Item
-              label={l10n.components.sidebarContent.menuItems.settings}
-              icon={() => (
-                <SettingsIcon
-                  width={24}
-                  height={24}
-                  stroke={theme.colors.primary}
-                />
-              )}
-              onPress={() => props.navigation.navigate(ROUTES.SETTINGS)}
-              style={styles.menuDrawerItem}
-              testID="drawer-item-settings"
-            />
-            <Drawer.Item
-              label="角色卡管理"
-              icon={() => (
-                <UserCircleIcon
-                  width={24}
-                  height={24}
-                  stroke={theme.colors.primary}
-                />
-              )}
-              onPress={() => props.navigation.navigate(ROUTES.CHARACTER_PROFILES)}
-              style={styles.menuDrawerItem}
-              testID="drawer-item-character-profiles"
-            />
-            <Drawer.Item
-              label={l10n.components.sidebarContent.menuItems.appInfo}
-              icon={() => (
-                <AppInfoIcon
-                  width={24}
-                  height={24}
-                  stroke={theme.colors.primary}
-                />
-              )}
-              onPress={() => props.navigation.navigate(ROUTES.APP_INFO)}
-              style={styles.menuDrawerItem}
-            />
-            {/* Only show Dev Tools in debug mode */}
-            {isDebugMode && (
+        <View style={styles.listHeader}>
+          <Card style={styles.heroCard}>
+            <Text variant="labelMedium" style={styles.heroEyebrow}>
+              PocketPal 自用版
+            </Text>
+            <Text variant="headlineSmall" style={styles.heroTitle}>
+              本機 AI 聊天空間
+            </Text>
+            <Text variant="bodyMedium" style={styles.heroDescription}>
+              在同一個 app 裡管理模型、角色與聊天紀錄，讓每次對話都更像在和熟悉的角色互動。
+            </Text>
+          </Card>
+
+          <View style={styles.navSection}>
+            <Text variant="labelMedium" style={styles.sectionLabel}>
+              主要功能
+            </Text>
+            <Drawer.Section showDivider={false} style={styles.navCard}>
               <Drawer.Item
-                label="Dev Tools"
+                label={l10n.components.sidebarContent.menuItems.chat}
+                icon={() => <ChatIcon stroke={theme.colors.primary} />}
+                onPress={() => props.navigation.navigate(ROUTES.CHAT)}
+                style={styles.menuDrawerItem}
+                testID="drawer-item-chat"
+              />
+              <Drawer.Item
+                label="角色卡管理"
+                icon={() => (
+                  <UserCircleIcon
+                    width={24}
+                    height={24}
+                    stroke={theme.colors.primary}
+                  />
+                )}
+                onPress={() =>
+                  props.navigation.navigate(ROUTES.CHARACTER_PROFILES)
+                }
+                style={styles.menuDrawerItem}
+                testID="drawer-item-character-profiles"
+              />
+              <Drawer.Item
+                label={l10n.components.sidebarContent.menuItems.models}
+                icon={() => <ModelIcon stroke={theme.colors.primary} />}
+                onPress={() => props.navigation.navigate(ROUTES.MODELS)}
+                style={styles.menuDrawerItem}
+                testID="drawer-item-models"
+              />
+              <Drawer.Item
+                label={l10n.components.sidebarContent.menuItems.pals}
+                icon={() => <PalIcon stroke={theme.colors.primary} />}
+                onPress={() => props.navigation.navigate(ROUTES.PALS)}
+                style={styles.menuDrawerItem}
+                testID="drawer-item-pals"
+              />
+              <Drawer.Item
+                label={l10n.components.sidebarContent.menuItems.settings}
                 icon={() => (
                   <SettingsIcon
                     width={24}
@@ -559,12 +550,51 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
                     stroke={theme.colors.primary}
                   />
                 )}
-                onPress={() => props.navigation.navigate(ROUTES.DEV_TOOLS)}
+                onPress={() => props.navigation.navigate(ROUTES.SETTINGS)}
+                style={styles.menuDrawerItem}
+                testID="drawer-item-settings"
+              />
+              <Drawer.Item
+                label={l10n.components.sidebarContent.menuItems.appInfo}
+                icon={() => (
+                  <AppInfoIcon
+                    width={24}
+                    height={24}
+                    stroke={theme.colors.primary}
+                  />
+                )}
+                onPress={() => props.navigation.navigate(ROUTES.APP_INFO)}
                 style={styles.menuDrawerItem}
               />
-            )}
-          </Drawer.Section>
+            </Drawer.Section>
+          </View>
+
+          {isDebugMode && (
+            <View style={styles.navSection}>
+              <Text variant="labelMedium" style={styles.sectionLabel}>
+                開發工具
+              </Text>
+              <Drawer.Section showDivider={false} style={styles.navCard}>
+                <Drawer.Item
+                  label="Dev Tools"
+                  icon={() => (
+                    <SettingsIcon
+                      width={24}
+                      height={24}
+                      stroke={theme.colors.primary}
+                    />
+                  )}
+                  onPress={() => props.navigation.navigate(ROUTES.DEV_TOOLS)}
+                  style={styles.menuDrawerItem}
+                />
+              </Drawer.Section>
+            </View>
+          )}
+
           <Divider style={styles.divider} />
+          <Text variant="labelMedium" style={styles.historyLabel}>
+            聊天紀錄
+          </Text>
         </View>
       ),
       [l10n, theme, styles, props.navigation],

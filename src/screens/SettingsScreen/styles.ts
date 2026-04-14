@@ -13,18 +13,18 @@ export const createStyles = (theme: Theme) =>
         backgroundColor: theme.colors.background,
       },
       container: {
-        padding: 16,
+        padding: design.screenPadding,
         paddingBottom: 28,
-        gap: 16,
+        gap: 18,
       },
       scrollViewContent: {
         paddingVertical: 16,
         paddingHorizontal: 16,
       },
       screenHeader: {
-        ...design.cardStyle,
-        padding: 20,
-        gap: 8,
+        ...design.heroCardStyle,
+        padding: 22,
+        gap: 10,
       },
       screenEyebrow: {
         ...design.sectionTitle,
@@ -50,6 +50,7 @@ export const createStyles = (theme: Theme) =>
       },
       cardSection: {
         backgroundColor: 'transparent',
+        paddingBottom: 0,
       },
       settingItemContainer: {
         marginVertical: 16,
@@ -59,6 +60,7 @@ export const createStyles = (theme: Theme) =>
         justifyContent: 'space-between',
         alignItems: 'center',
         marginVertical: 8,
+        paddingVertical: 2,
       },
       textContainer: {
         flex: 1,
@@ -76,10 +78,12 @@ export const createStyles = (theme: Theme) =>
         color: theme.colors.onSurface,
         fontSize: 17,
         fontWeight: '600',
+        lineHeight: 22,
       },
       textDescription: {
         color: theme.colors.onSurfaceVariant,
         lineHeight: 20,
+        marginTop: 4,
       },
       divider: {
         marginVertical: 14,
@@ -101,9 +105,10 @@ export const createStyles = (theme: Theme) =>
         position: 'relative',
       },
       menuButton: {
-        minWidth: 118,
-        borderRadius: 16,
+        minWidth: 126,
+        borderRadius: 18,
         borderColor: design.cardBorderColor,
+        backgroundColor: design.mutedSurface,
       },
       buttonContent: {
         flexDirection: 'row-reverse',
@@ -116,13 +121,15 @@ export const createStyles = (theme: Theme) =>
         marginTop: 8,
       },
       advancedAccordion: {
-        minHeight: 55,
+        minHeight: 58,
         backgroundColor: design.mutedSurface,
-        borderRadius: 16,
+        borderRadius: 18,
+        borderWidth: 1,
+        borderColor: design.subtleBorderColor,
       },
       accordionTitle: {
         fontSize: 15,
-        color: theme.colors.secondary,
+        color: theme.colors.onSurface,
         fontWeight: '600',
       },
       menu: {

@@ -46,7 +46,10 @@ export const Avatar = React.memo(
             resizeMode="cover"
             source={characterAvatarSource}
             onError={() => setCharacterAvatarFailed(true)}
-            style={[styles.image]}
+            style={[
+              styles.image,
+              currentUserIsAuthor ? styles.selfSpacing : styles.peerSpacing,
+            ]}
           />
         );
       }
@@ -58,19 +61,27 @@ export const Avatar = React.memo(
             testID="avatar-image"
             resizeMode="cover"
             source={{uri: author.imageUrl}}
-            style={[styles.image]}
+            style={[
+              styles.image,
+              currentUserIsAuthor ? styles.selfSpacing : styles.peerSpacing,
+            ]}
           />
         );
       }
 
       return (
-        <View style={[styles.avatarBackground, {backgroundColor: color}]}>
+        <View
+          style={[
+            styles.avatarBackground,
+            currentUserIsAuthor ? styles.selfSpacing : styles.peerSpacing,
+            {backgroundColor: color},
+          ]}>
           <Text style={styles.initialsText}>{initials}</Text>
         </View>
       );
     };
 
-    return !currentUserIsAuthor && showUserAvatars ? (
+    return showUserAvatars ? (
       <View testID="AvatarContainer">
         {showAvatar ? renderAvatar() : <View style={styles.placeholder} />}
       </View>
@@ -94,10 +105,15 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     height: 36,
     justifyContent: 'center',
-    marginRight: 10,
     width: 36,
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.08)',
+  },
+  peerSpacing: {
+    marginRight: 10,
+  },
+  selfSpacing: {
+    marginLeft: 10,
   },
   placeholder: {
     width: 46,

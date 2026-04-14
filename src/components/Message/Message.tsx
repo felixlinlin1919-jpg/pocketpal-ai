@@ -218,15 +218,17 @@ export const Message = React.memo(
 
     return (
       <View style={container}>
-        <Avatar
-          {...{
-            author: message.author,
-            currentUserIsAuthor,
-            showAvatar,
-            showUserAvatars,
-            theme,
-          }}
-        />
+        {!currentUserIsAuthor && (
+          <Avatar
+            {...{
+              author: message.author,
+              currentUserIsAuthor,
+              showAvatar,
+              showUserAvatars,
+              theme,
+            }}
+          />
+        )}
         <Pressable
           onLongPress={event => {
             ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
@@ -248,6 +250,17 @@ export const Message = React.memo(
             theme,
           }}
         />
+        {currentUserIsAuthor && (
+          <Avatar
+            {...{
+              author: message.author,
+              currentUserIsAuthor,
+              showAvatar,
+              showUserAvatars,
+              theme,
+            }}
+          />
+        )}
       </View>
     );
   },

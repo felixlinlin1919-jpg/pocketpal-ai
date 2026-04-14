@@ -14,6 +14,8 @@ export const createStyles = (theme: Theme) =>
     },
     divider: {
       marginHorizontal: 16,
+      marginTop: 8,
+      marginBottom: 10,
       backgroundColor: design.subtleBorderColor,
       height: 1,
     },
@@ -23,10 +25,16 @@ export const createStyles = (theme: Theme) =>
       flexDirection: 'column',
     },
     sessionDrawerItem: {
-      height: 40,
+      height: 48,
+      borderRadius: 16,
+      marginHorizontal: 10,
+      marginVertical: 2,
     },
     menuDrawerItem: {
-      height: 44,
+      height: 48,
+      borderRadius: 16,
+      marginHorizontal: 8,
+      marginVertical: 2,
     },
     versionText: {
       color: theme.colors.onSurfaceVariant,
@@ -35,21 +43,65 @@ export const createStyles = (theme: Theme) =>
       fontWeight: '500',
     },
     drawerSection: {
-      marginTop: 10,
+      marginTop: 14,
     },
     dateLabel: {
-      paddingLeft: 16,
-      paddingVertical: 10,
+      paddingLeft: 20,
+      paddingVertical: 8,
+      color: theme.colors.onSurfaceVariant,
+      fontSize: 12,
+      letterSpacing: 0.8,
+      fontWeight: '700',
+      textTransform: 'uppercase',
     },
     scrollViewContent: {
       flexGrow: 1,
       minHeight: '100%',
+      paddingBottom: 20,
     },
     mainContent: {
       flex: 1,
     },
     menu: {
       width: 170,
+    },
+    listHeader: {
+      gap: 16,
+      paddingHorizontal: 16,
+      paddingTop: 10,
+      paddingBottom: 4,
+    },
+    heroCard: {
+      ...design.heroCardStyle,
+      paddingHorizontal: 18,
+      paddingVertical: 18,
+      gap: 8,
+    },
+    heroEyebrow: {
+      ...design.sectionTitle,
+    },
+    heroTitle: {
+      color: theme.colors.onSurface,
+    },
+    heroDescription: {
+      color: theme.colors.onSurfaceVariant,
+      lineHeight: 20,
+    },
+    navSection: {
+      gap: 8,
+    },
+    navCard: {
+      ...design.cardStyle,
+      backgroundColor: design.sectionBackground,
+      paddingVertical: 6,
+    },
+    sectionLabel: {
+      ...design.sectionTitle,
+      paddingHorizontal: 4,
+    },
+    historyLabel: {
+      ...design.sectionTitle,
+      paddingHorizontal: 4,
     },
     sessionItem: {
       position: 'relative',
@@ -79,6 +131,7 @@ export const createStyles = (theme: Theme) =>
       flexDirection: 'row',
       alignItems: 'center',
       position: 'relative',
+      paddingHorizontal: 6,
     },
     sessionCheckbox: {
       marginLeft: 8,

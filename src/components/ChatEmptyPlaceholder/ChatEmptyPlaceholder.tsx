@@ -54,25 +54,28 @@ export const ChatEmptyPlaceholder = observer(
     return (
       <View
         style={[styles.container, {marginBottom: bottomComponentHeight + 100}]}>
-        <Image
-          source={require('../../assets/pocketpal-dark-v2.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <View>
+        <View style={styles.contentCard}>
+          <Image
+            source={require('../../assets/pocketpal-dark-v2.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          <Text variant="labelMedium" style={styles.eyebrow}>
+            開始聊天
+          </Text>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
+          <Button
+            mode="contained"
+            onPress={onPress}
+            style={styles.button}
+            loading={modelStore.isContextLoading}
+            disabled={hasActiveModel}>
+            {modelStore.isContextLoading
+              ? l10n.components?.chatEmptyPlaceholder?.loading
+              : buttonText}
+          </Button>
         </View>
-        <Button
-          mode="contained"
-          onPress={onPress}
-          style={styles.button}
-          loading={modelStore.isContextLoading}
-          disabled={hasActiveModel}>
-          {modelStore.isContextLoading
-            ? l10n.components?.chatEmptyPlaceholder?.loading
-            : buttonText}
-        </Button>
       </View>
     );
   },

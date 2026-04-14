@@ -279,13 +279,13 @@ export const SettingsScreen: React.FC = observer(() => {
           keyboardShouldPersistTaps="handled">
           <Card elevation={0} style={styles.screenHeader}>
             <Text variant="labelMedium" style={styles.screenEyebrow}>
-              裝置與聊天
+              系統設定
             </Text>
             <Text variant="headlineSmall" style={styles.screenTitle}>
-              設定
+              本機聊天設定
             </Text>
             <Text variant="bodyMedium" style={styles.screenDescription}>
-              在本機調整模型、記憶體、語言與匯出偏好，讓聊天體驗更符合你的裝置節奏。
+              在同一個地方調整模型、裝置、語言與匯出偏好，讓整體聊天體驗更貼合你的使用方式。
             </Text>
           </Card>
 

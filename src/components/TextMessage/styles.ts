@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 
 import {getUserAvatarNameColor} from '../../utils';
 import {MessageType, Theme, User} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const styles = ({
   message,
@@ -12,7 +13,10 @@ export const styles = ({
   theme: Theme;
   user?: User;
 }) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     descriptionText: {
       ...(user?.id === message.author.id
         ? theme.fonts.sentMessageLinkDescriptionTextStyle
@@ -25,12 +29,13 @@ export const styles = ({
         message.author,
         theme.colors.userAvatarNameColors,
       ),
-      fontSize: 11,
-      opacity: 0.82,
-      marginBottom: 6,
-      marginLeft: 2,
-      textTransform: 'uppercase',
-      letterSpacing: 0.6,
+      fontSize: 12,
+      lineHeight: 16,
+      opacity: 0.92,
+      marginBottom: 8,
+      marginLeft: 4,
+      letterSpacing: 0.2,
+      fontWeight: '700',
     },
     titleText: {
       ...(user?.id === message.author.id
@@ -43,8 +48,8 @@ export const styles = ({
         : theme.fonts.receivedMessageBodyTextStyle),
     },
     textContainer: {
-      marginHorizontal: theme.insets.messageInsetsHorizontal + 2,
-      marginVertical: theme.insets.messageInsetsVertical + 4,
+      marginHorizontal: theme.insets.messageInsetsHorizontal + 4,
+      marginVertical: theme.insets.messageInsetsVertical + 6,
     },
     imageContainer: {
       marginBottom: 12,
@@ -58,6 +63,8 @@ export const styles = ({
       borderRadius: 16,
       overflow: 'hidden',
       backgroundColor: theme.colors.surfaceVariant,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     imageContent: {
       width: '100%',
@@ -79,4 +86,5 @@ export const styles = ({
       width: '100%',
       height: '80%',
     },
-  });
+    };
+  })());

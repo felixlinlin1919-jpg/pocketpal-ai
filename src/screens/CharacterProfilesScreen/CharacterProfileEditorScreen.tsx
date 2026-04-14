@@ -227,7 +227,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
         <Card style={styles.editorCard}>
           <View style={styles.sectionBlock}>
             <Text variant="labelMedium" style={styles.searchLabel}>
-              角色資料
+              基本資料
             </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
@@ -243,7 +243,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
           <View style={styles.sectionBlock}>
             <Text variant="labelMedium" style={styles.searchLabel}>
-              聊天設定
+              聊天風格
             </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
@@ -270,7 +270,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
           <View style={styles.sectionBlock}>
             <Text variant="labelMedium" style={styles.searchLabel}>
-              外觀設定
+              角色外觀
             </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>

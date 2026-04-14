@@ -3,8 +3,9 @@ import {Image, Pressable, View} from 'react-native';
 import {observer} from 'mobx-react';
 import {IconButton, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from '../../hooks';
 
-import {styles} from './styles';
+import {createStyles} from './styles';
 import {
   characterProfileStore,
   chatSessionStore,
@@ -21,6 +22,8 @@ import {UserCircleIcon} from '../../assets/icons';
 export const ChatHeaderTitle: React.FC = observer(() => {
   const l10n = useContext(L10nContext);
   const navigation = useNavigation<any>();
+  const theme = useTheme();
+  const styles = React.useMemo(() => createStyles(theme), [theme]);
   const activeSessionId = chatSessionStore.activeSessionId;
   const activeSession = chatSessionStore.sessions.find(
     session => session.id === activeSessionId,
@@ -43,6 +46,9 @@ export const ChatHeaderTitle: React.FC = observer(() => {
     : !!activePal?.systemPrompt?.trim();
   const selectedCharacterName =
     selectedCharacter?.name?.trim() || characterText.noneSelected;
+  const resolvedChatTitle =
+    activeSession?.title?.trim() || l10n.components.chatHeaderTitle.defaultTitle;
+  const resolvedModelName = activeModel?.name?.trim() || '尚未載入模型';
   const characterProfiles = characterProfileStore.characterProfiles;
 
   const handleOpenManager = React.useCallback(() => {
@@ -87,21 +93,18 @@ export const ChatHeaderTitle: React.FC = observer(() => {
               <View style={styles.container}>
                 <View style={styles.titleRow}>
                   <Text numberOfLines={1} style={styles.title} variant="titleSmall">
-                    {activeSession?.title ||
-                      l10n.components.chatHeaderTitle.defaultTitle}
+                    {resolvedChatTitle}
                   </Text>
                   <View style={styles.switchPill}>
                     <Text style={styles.switchPillText}>切換角色</Text>
                   </View>
                 </View>
-                {activeModel?.name && (
-                  <Text
-                    numberOfLines={1}
-                    style={styles.subtitle}
-                    variant="bodySmall">
-                    {activeModel?.name}
-                  </Text>
-                )}
+                <Text
+                  numberOfLines={1}
+                  style={styles.subtitle}
+                  variant="bodySmall">
+                  {resolvedModelName}
+                </Text>
                 <Text
                   numberOfLines={1}
                   style={styles.subtitle}

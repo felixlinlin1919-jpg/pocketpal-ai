@@ -359,7 +359,7 @@ export const ChatInput = observer(
                 },
               ]}>
               <Text variant="labelSmall" style={styles.editBarText}>
-                Editing message
+                正在編輯訊息
               </Text>
               <IconButton
                 icon="close"
@@ -397,7 +397,7 @@ export const ChatInput = observer(
                       iconColor={theme.colors.error}
                       style={styles.removeImageButton}
                       onPress={() => handleRemoveImage(index)}
-                      accessibilityLabel={`Remove image ${index + 1}`}
+                      accessibilityLabel={`移除圖片 ${index + 1}`}
                     />
                   </View>
                 ))}
@@ -475,7 +475,7 @@ export const ChatInput = observer(
                       onPress={
                         isPlusButtonEnabled ? handlePlusButtonPress : () => {}
                       }
-                      accessibilityLabel="Add image"
+                      accessibilityLabel="加入圖片"
                       accessibilityRole="button">
                       <PlusIcon width={20} height={20} stroke={plusColor} />
                     </TouchableOpacity>
@@ -528,7 +528,7 @@ export const ChatInput = observer(
                         color: onSurfaceColor,
                       },
                     ]}>
-                    Pal:{' '}
+                    角色：{' '}
                     <Text
                       style={[
                         styles.palNameValueCompact,
@@ -604,7 +604,7 @@ export const ChatInput = observer(
                     },
                   ]}
                   onPress={onStartCamera}
-                  accessibilityLabel="Start video analysis"
+                  accessibilityLabel="開始拍攝與分析"
                   accessibilityRole="button">
                   <VideoRecorderIcon
                     width={16}

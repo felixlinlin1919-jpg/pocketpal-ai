@@ -20,9 +20,9 @@ export const createStyles = (theme: Theme) =>
       gap: 14,
     },
     summaryCard: {
-      ...design.cardStyle,
+      ...design.heroCardStyle,
       padding: 20,
-      gap: 8,
+      gap: 10,
     },
     summaryEyebrow: {
       ...design.sectionTitle,
@@ -40,9 +40,42 @@ export const createStyles = (theme: Theme) =>
     summaryCaption: {
       color: theme.colors.onSurfaceVariant,
     },
+    summaryBody: {
+      color: theme.colors.onSurfaceVariant,
+      lineHeight: 21,
+    },
+    summaryStatsRow: {
+      flexDirection: 'row',
+      gap: 10,
+      flexWrap: 'wrap',
+      marginTop: 4,
+    },
+    summaryStatChip: {
+      flexGrow: 1,
+      minWidth: 140,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
+      borderRadius: 16,
+      backgroundColor: 'rgba(255,255,255,0.05)',
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
+      gap: 2,
+    },
+    summaryStatLabel: {
+      color: theme.colors.onSurfaceVariant,
+    },
+    summaryStatValue: {
+      color: theme.colors.onSurface,
+      fontWeight: '600',
+    },
+    summaryActionRow: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      marginTop: 4,
+    },
     addButton: {
       alignSelf: 'flex-start',
-      marginTop: 4,
+      marginTop: 0,
     },
     searchBlock: {
       ...design.cardStyle,
@@ -228,10 +261,15 @@ export const createStyles = (theme: Theme) =>
     editorCard: {
       ...design.cardStyle,
       padding: 16,
-      gap: 18,
+      gap: 20,
     },
     sectionBlock: {
-      gap: 14,
+      gap: 16,
+      padding: 14,
+      borderRadius: 20,
+      backgroundColor: design.mutedSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
     },
     fieldGroup: {
       gap: 8,

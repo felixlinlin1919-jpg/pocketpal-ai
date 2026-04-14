@@ -14,9 +14,9 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       },
       flatListContentContainer: {
         flexGrow: 1,
-        paddingHorizontal: 10,
-        paddingTop: 18,
-        paddingBottom: 24,
+        paddingHorizontal: 8,
+        paddingTop: 16,
+        paddingBottom: 28,
       },
       footer: {
         height: 20,
@@ -54,12 +54,12 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         elevation: 6,
       },
       inputContainer: {
-        borderRadius: 30,
+        borderRadius: 34,
         position: 'absolute',
         zIndex: 10,
-        left: 12,
-        right: 12,
-        bottom: 8,
+        left: 10,
+        right: 10,
+        bottom: 10,
         borderWidth: 1,
         borderColor: design.cardBorderColor,
         backgroundColor: design.overlaySurface,
@@ -80,12 +80,12 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         zIndex: 0,
       },
       characterBackgroundImage: {
-        opacity: 0.22,
+        opacity: 0.16,
       },
       characterBackgroundOverlay: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: theme.dark
-          ? 'rgba(4, 6, 11, 0.68)'
+          ? 'rgba(4, 6, 11, 0.76)'
           : 'rgba(248, 250, 252, 0.82)',
       },
       headerWrapper: {
