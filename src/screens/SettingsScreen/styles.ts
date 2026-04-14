@@ -22,15 +22,14 @@ export const createStyles = (theme: Theme) =>
         paddingHorizontal: 16,
       },
       screenHeader: {
-        ...design.heroCardStyle,
-        padding: 22,
-        gap: 10,
-      },
-      screenEyebrow: {
-        ...design.sectionTitle,
+        paddingHorizontal: 4,
+        paddingTop: 4,
+        paddingBottom: 2,
       },
       screenTitle: {
         color: theme.colors.onSurface,
+        fontSize: 30,
+        fontWeight: '800',
       },
       screenDescription: {
         color: theme.colors.onSurfaceVariant,
@@ -81,9 +80,35 @@ export const createStyles = (theme: Theme) =>
         lineHeight: 22,
       },
       textDescription: {
-        color: theme.colors.onSurfaceVariant,
+        color: theme.dark
+          ? 'rgba(203, 213, 225, 0.68)'
+          : 'rgba(71, 85, 105, 0.72)',
         lineHeight: 20,
         marginTop: 4,
+      },
+      avatarActions: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        flexWrap: 'wrap',
+        justifyContent: 'flex-end',
+      },
+      userAvatarPreview: {
+        width: 42,
+        height: 42,
+        borderRadius: 21,
+        borderWidth: 1,
+        borderColor: design.cardBorderColor,
+      },
+      userAvatarFallback: {
+        width: 42,
+        height: 42,
+        borderRadius: 21,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: design.mutedSurface,
+        borderWidth: 1,
+        borderColor: design.cardBorderColor,
       },
       divider: {
         marginVertical: 14,

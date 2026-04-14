@@ -205,48 +205,26 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
         contentContainerStyle={styles.contentContainer}
         ListHeaderComponent={
           <View style={styles.headerStack}>
-            <Card style={styles.summaryCard}>
-              <Text variant="labelMedium" style={styles.summaryEyebrow}>
-                角色宇宙
-              </Text>
-              <Text variant="headlineSmall" style={styles.summaryHeading}>
-                角色管理
-              </Text>
-              <Text variant="bodyMedium" style={styles.summaryBody}>
-                為不同角色準備專屬提示詞、頭像與背景，並在聊天頁快速切換當前對話身份。
-              </Text>
-              <View style={styles.summaryStatsRow}>
-                <View style={styles.summaryStatChip}>
-                  <Text variant="labelSmall" style={styles.summaryStatLabel}>
-                    目前角色
-                  </Text>
-                  <Text variant="bodySmall" style={styles.summaryStatValue}>
-                    {selectedCharacter?.name ?? characterText.noneSelected}
-                  </Text>
-                </View>
-                <View style={styles.summaryStatChip}>
-                  <Text variant="labelSmall" style={styles.summaryStatLabel}>
-                    角色數量
-                  </Text>
-                  <Text variant="bodySmall" style={styles.summaryStatValue}>
-                    {profiles.length} 張
-                  </Text>
-                </View>
+            <View style={styles.pageHeaderRow}>
+              <View style={styles.pageTitleBlock}>
+                <Text variant="headlineMedium" style={styles.pageTitle}>
+                  角色
+                </Text>
+                <Text variant="bodySmall" style={styles.pageMeta}>
+                  {selectedCharacter?.name
+                    ? `目前使用中：${selectedCharacter.name}`
+                    : characterText.noneSelected}
+                </Text>
               </View>
-              <View style={styles.summaryActionRow}>
-                <Button
-                  mode="contained"
-                  style={styles.addButton}
-                  onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
-                  {characterText.addCharacter}
-                </Button>
-              </View>
-            </Card>
+              <Button
+                mode="contained"
+                style={styles.addButton}
+                onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
+                {characterText.addCharacter}
+              </Button>
+            </View>
 
             <View style={styles.searchBlock}>
-              <Text variant="labelMedium" style={styles.searchLabel}>
-                搜尋角色
-              </Text>
               <TextInput
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -262,7 +240,7 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
             </Text>
             <Text variant="bodyMedium" style={styles.emptyText}>
               {profiles.length === 0
-                ? '建立第一張角色卡後，就能把專屬提示詞、頭像與背景直接帶進聊天。'
+                ? '建立第一張角色後，就能把提示詞、頭像與背景帶進聊天。'
                 : '試試其他關鍵字，或直接建立新的角色。'}
             </Text>
             <Button

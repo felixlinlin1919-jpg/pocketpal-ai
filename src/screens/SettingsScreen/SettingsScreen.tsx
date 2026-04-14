@@ -9,6 +9,7 @@ import {
   Alert,
   Linking,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 
 import {debounce} from 'lodash';
@@ -24,6 +25,7 @@ import {
   List,
   SegmentedButtons,
 } from 'react-native-paper';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 import {
   GlobeIcon,
@@ -31,6 +33,7 @@ import {
   CpuChipIcon,
   ShareIcon,
   LinkExternalIcon,
+  UserCircleIcon,
 } from '../../assets/icons';
 
 import {
@@ -47,6 +50,7 @@ import {createStyles} from './styles';
 
 import {modelStore, uiStore, hfStore} from '../../store';
 import {languageDisplayNames} from '../../locales';
+import {getCharacterImageSource} from '../../utils/characterImageSource';
 
 import {CacheType} from '../../utils/types';
 import {
@@ -97,6 +101,7 @@ export const SettingsScreen: React.FC = observer(() => {
     y: 0.0,
   });
   const [deviceOptions, setDeviceOptions] = useState<DeviceOption[]>([]);
+  const [userAvatarPreviewFailed, setUserAvatarPreviewFailed] = useState(false);
   const [currentBackend, setCurrentBackend] = useState<
     'metal' | 'opencl' | 'hexagon' | 'cpu' | 'blas'
   >(Platform.OS === 'ios' ? 'metal' : 'cpu');
@@ -108,6 +113,11 @@ export const SettingsScreen: React.FC = observer(() => {
       modelStore.setNContext(value);
     }, 500),
   ).current;
+  const userAvatarSource = getCharacterImageSource(uiStore.userAvatar);
+
+  useEffect(() => {
+    setUserAvatarPreviewFailed(false);
+  }, [uiStore.userAvatar]);
 
   useEffect(() => {
     setContextSize(modelStore.contextInitParams.n_ctx.toString());
@@ -271,23 +281,42 @@ export const SettingsScreen: React.FC = observer(() => {
     });
   };
 
+  const handlePickUserAvatar = async () => {
+    try {
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        selectionLimit: 1,
+        includeBase64: false,
+      });
+
+      if (result.didCancel) {
+        return;
+      }
+
+      const selectedUri = result.assets?.[0]?.uri;
+      if (!selectedUri) {
+        Alert.alert('無法選擇頭像', '找不到可用的圖片。');
+        return;
+      }
+
+      uiStore.setUserAvatar(selectedUri);
+    } catch (error) {
+      console.error('Failed to pick user avatar:', error);
+      Alert.alert('無法選擇頭像', '請稍後再試。');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>
       <TouchableWithoutFeedback onPress={handleOutsidePress} accessible={false}>
         <ScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled">
-          <Card elevation={0} style={styles.screenHeader}>
-            <Text variant="labelMedium" style={styles.screenEyebrow}>
-              系統設定
+          <View style={styles.screenHeader}>
+            <Text variant="headlineMedium" style={styles.screenTitle}>
+              設定
             </Text>
-            <Text variant="headlineSmall" style={styles.screenTitle}>
-              本機聊天設定
-            </Text>
-            <Text variant="bodyMedium" style={styles.screenDescription}>
-              在同一個地方調整模型、裝置、語言與匯出偏好，讓整體聊天體驗更貼合你的使用方式。
-            </Text>
-          </Card>
+          </View>
 
           {/* Model Initialization Settings */}
           <Card elevation={0} style={styles.card}>
@@ -890,6 +919,43 @@ export const SettingsScreen: React.FC = observer(() => {
             />
             <Card.Content>
               <View style={styles.settingItemContainer}>
+                <View style={styles.switchContainer}>
+                  <View style={styles.textContainer}>
+                    <Text variant="titleMedium" style={styles.textLabel}>
+                      個人頭像
+                    </Text>
+                    <Text variant="labelSmall" style={styles.textDescription}>
+                      顯示在聊天頁右側訊息與個人識別位置。
+                    </Text>
+                  </View>
+                  <View style={styles.avatarActions}>
+                    {userAvatarSource && !userAvatarPreviewFailed ? (
+                      <Image
+                        source={userAvatarSource}
+                        style={styles.userAvatarPreview}
+                        onError={() => setUserAvatarPreviewFailed(true)}
+                      />
+                    ) : (
+                      <View style={styles.userAvatarFallback}>
+                        <UserCircleIcon
+                          width={20}
+                          height={20}
+                          stroke={theme.colors.onSurfaceVariant}
+                        />
+                      </View>
+                    )}
+                    <Button mode="outlined" onPress={handlePickUserAvatar}>
+                      選擇
+                    </Button>
+                    {uiStore.userAvatar ? (
+                      <Button mode="text" onPress={() => uiStore.setUserAvatar(undefined)}>
+                        清除
+                      </Button>
+                    ) : null}
+                  </View>
+                </View>
+                <Divider />
+
                 {/* Language Selection */}
                 <View style={styles.switchContainer}>
                   <View style={styles.textContainer}>

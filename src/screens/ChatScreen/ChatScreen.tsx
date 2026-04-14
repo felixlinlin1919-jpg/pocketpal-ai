@@ -23,6 +23,7 @@ import {
   uiStore,
 } from '../../store';
 import {hasVideoCapability} from '../../utils/pal-capabilities';
+import {resolveCharacterImageUri} from '../../utils/characterImageSource';
 
 import {L10nContext} from '../../utils';
 import {MessageType} from '../../utils/types';
@@ -51,6 +52,9 @@ const renderBubble = ({
 );
 
 export const ChatScreen: React.FC = observer(() => {
+  (user as any).firstName = '你';
+  (user as any).imageUrl = resolveCharacterImageUri(uiStore.userAvatar);
+
   const currentMessageInfo = useRef<{
     createdAt: number;
     id: string;

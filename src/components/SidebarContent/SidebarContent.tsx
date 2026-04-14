@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {TouchableOpacity, View, Alert, SectionList} from 'react-native';
 import {observer} from 'mobx-react';
-import {Card, Divider, Drawer, Text} from 'react-native-paper';
+import {Divider, Drawer, Text} from 'react-native-paper';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -488,17 +488,9 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
     const ListHeaderComponent = React.useMemo(
       () => (
         <View style={styles.listHeader}>
-          <Card style={styles.heroCard}>
-            <Text variant="labelMedium" style={styles.heroEyebrow}>
-              PocketPal 自用版
-            </Text>
-            <Text variant="headlineSmall" style={styles.heroTitle}>
-              本機 AI 聊天空間
-            </Text>
-            <Text variant="bodyMedium" style={styles.heroDescription}>
-              在同一個 app 裡管理模型、角色與聊天紀錄，讓每次對話都更像在和熟悉的角色互動。
-            </Text>
-          </Card>
+          <Text variant="titleMedium" style={styles.sidebarTitle}>
+            PocketPal
+          </Text>
 
           <View style={styles.navSection}>
             <Text variant="labelMedium" style={styles.sectionLabel}>

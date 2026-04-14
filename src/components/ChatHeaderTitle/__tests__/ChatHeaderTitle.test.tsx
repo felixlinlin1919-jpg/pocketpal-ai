@@ -51,27 +51,27 @@ describe('ChatHeaderTitle', () => {
     expect(getByText('Test Session')).toBeTruthy();
   });
 
-  it('renders model name when active model exists', () => {
+  it('hides model warning when active model exists', () => {
     runInAction(() => {
       modelStore.models = [basicModel];
       modelStore.setActiveModel(basicModel.id);
     });
 
-    const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
-    expect(getByText('basic model')).toBeTruthy();
+    const {queryByText} = render(<ChatHeaderTitle />, {withNavigation: true});
+    expect(queryByText('尚未載入模型')).toBeFalsy();
   });
 
-  it('updates when active model changes', () => {
+  it('keeps header stable when active model changes', () => {
     // Initial model
     runInAction(() => {
       modelStore.models = [basicModel];
       modelStore.setActiveModel(basicModel.id);
     });
 
-    const {getByText, rerender} = render(<ChatHeaderTitle />, {
+    const {getByText, queryByText, rerender} = render(<ChatHeaderTitle />, {
       withNavigation: true,
     });
-    expect(getByText('basic model')).toBeTruthy();
+    expect(queryByText('尚未載入模型')).toBeFalsy();
 
     // Change model
     runInAction(() => {
@@ -80,7 +80,8 @@ describe('ChatHeaderTitle', () => {
     });
 
     rerender(<ChatHeaderTitle />);
-    expect(getByText('downloaded model')).toBeTruthy();
+    expect(getByText('Test Session')).toBeTruthy();
+    expect(queryByText('尚未載入模型')).toBeFalsy();
   });
 
   it('renders selected character name when available', () => {
@@ -99,9 +100,8 @@ describe('ChatHeaderTitle', () => {
     });
 
     const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
-    expect(getByText('目前角色：測試角色')).toBeTruthy();
-    expect(getByText('Thinking：開')).toBeTruthy();
-    expect(getByText('角色提示詞：已啟用')).toBeTruthy();
+    expect(getByText('測試角色')).toBeTruthy();
+    expect(getByText('Thinking 開啟')).toBeTruthy();
   });
 
   it('falls back to current settings when no selected character exists', () => {
@@ -135,9 +135,8 @@ describe('ChatHeaderTitle', () => {
     });
 
     const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
-    expect(getByText('目前角色：未選擇角色')).toBeTruthy();
-    expect(getByText('Thinking：開')).toBeTruthy();
-    expect(getByText('角色提示詞：已啟用')).toBeTruthy();
+    expect(getByText('未選擇角色')).toBeTruthy();
+    expect(getByText('Thinking 開啟')).toBeTruthy();
   });
 
   it('clears selected character from quick switch menu', () => {
@@ -167,9 +166,8 @@ describe('ChatHeaderTitle', () => {
     fireEvent.press(getByText('不使用角色'));
 
     expect(characterProfileStore.selectedCharacterId).toBeUndefined();
-    expect(getByText('目前角色：未選擇角色')).toBeTruthy();
-    expect(getByText('Thinking：開')).toBeTruthy();
-    expect(getByText('角色提示詞：未啟用')).toBeTruthy();
+    expect(getByText('未選擇角色')).toBeTruthy();
+    expect(getByText('Thinking 開啟')).toBeTruthy();
   });
 
   it('shows create and manage actions in quick switch menu', () => {

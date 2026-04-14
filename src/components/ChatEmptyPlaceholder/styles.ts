@@ -14,22 +14,29 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         paddingHorizontal: 20,
       },
       contentCard: {
-        ...design.heroCardStyle,
+        ...design.cardStyle,
         width: '100%',
-        maxWidth: 420,
+        maxWidth: 380,
         alignItems: 'center',
         paddingHorizontal: 24,
-        paddingVertical: 28,
-        gap: 16,
+        paddingVertical: 24,
+        gap: 14,
       },
-      eyebrow: {
-        ...design.sectionTitle,
+      iconBadge: {
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: design.mutedSurface,
+        borderWidth: 1,
+        borderColor: design.cardBorderColor,
       },
       title: {
         color: theme.colors.onSurface,
         textAlign: 'center',
-        fontSize: 24,
-        lineHeight: 30,
+        fontSize: 22,
+        lineHeight: 28,
         fontWeight: '700',
       },
       description: {
@@ -38,13 +45,8 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         lineHeight: 22,
       },
       button: {
-        minWidth: 220,
+        minWidth: 200,
         marginTop: 4,
-      },
-      logo: {
-        width: 88,
-        height: 88,
-        borderRadius: 28,
       },
     };
   })());

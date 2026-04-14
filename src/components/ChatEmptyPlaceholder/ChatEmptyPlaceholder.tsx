@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
 import {Button, Text} from 'react-native-paper';
 import {observer} from 'mobx-react';
 
@@ -9,6 +9,7 @@ import {modelStore} from '../../store';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '@react-navigation/native';
 import {L10nContext} from '../../utils';
+import {ModelIcon} from '../../assets/icons';
 
 interface ChatEmptyPlaceholderProps {
   onSelectModel: () => void;
@@ -55,14 +56,9 @@ export const ChatEmptyPlaceholder = observer(
       <View
         style={[styles.container, {marginBottom: bottomComponentHeight + 100}]}>
         <View style={styles.contentCard}>
-          <Image
-            source={require('../../assets/pocketpal-dark-v2.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text variant="labelMedium" style={styles.eyebrow}>
-            開始聊天
-          </Text>
+          <View style={styles.iconBadge}>
+            <ModelIcon stroke={theme.colors.primary} />
+          </View>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
           <Button

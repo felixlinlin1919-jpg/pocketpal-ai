@@ -25,7 +25,7 @@ export const createStyles = (theme: Theme) => {
     },
     container: {
       flexShrink: 1,
-      gap: 4,
+      gap: 3,
     },
     titleRow: {
       flexDirection: 'row',
@@ -44,23 +44,31 @@ export const createStyles = (theme: Theme) => {
       color: theme.colors.onSurfaceVariant,
       fontSize: 12,
       lineHeight: 16,
+      fontWeight: '600',
     },
     statusRow: {
       flexDirection: 'row',
       alignItems: 'center',
       flexWrap: 'wrap',
-      gap: 4,
+      gap: 6,
       flexShrink: 1,
+    },
+    statusChip: {
+      borderRadius: design.pillRadius,
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      backgroundColor: design.mutedSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
+    },
+    statusChipMuted: {
+      opacity: 0.9,
     },
     statusText: {
       color: '#b8c2d9',
-      fontSize: 11,
-      lineHeight: 15,
+      fontSize: 10,
+      lineHeight: 14,
       fontWeight: '600',
-    },
-    statusDivider: {
-      color: '#63708a',
-      fontSize: 11,
     },
     switchPill: {
       borderRadius: design.pillRadius,

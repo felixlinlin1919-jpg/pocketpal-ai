@@ -4,8 +4,9 @@ import {observer} from 'mobx-react-lite';
 
 import {MessageType, Theme} from '../../utils/types';
 import {getUserAvatarNameColor, getUserInitials} from '../../utils';
-import {characterProfileStore} from '../../store';
+import {characterProfileStore, uiStore} from '../../store';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
+import {UserCircleIcon} from '../../assets/icons';
 
 // TDOD: Add model name and the user's name?
 export const Avatar = React.memo(
@@ -25,11 +26,14 @@ export const Avatar = React.memo(
   }) => {
     const [characterAvatarFailed, setCharacterAvatarFailed] = React.useState(false);
     const selectedCharacter = characterProfileStore.selectedCharacter;
-    const characterAvatarSource = getCharacterImageSource(selectedCharacter?.avatar);
+    const characterAvatarSource = getCharacterImageSource(
+      selectedCharacter?.avatar,
+    );
+    const currentUserAvatarSource = getCharacterImageSource(uiStore.userAvatar);
 
     React.useEffect(() => {
       setCharacterAvatarFailed(false);
-    }, [selectedCharacter?.avatar]);
+    }, [selectedCharacter?.avatar, author.imageUrl, uiStore.userAvatar]);
 
     const renderAvatar = () => {
       const color = getUserAvatarNameColor(
@@ -37,14 +41,17 @@ export const Avatar = React.memo(
         theme.colors.userAvatarNameColors,
       );
       const initials = getUserInitials(author);
+      const resolvedAvatarSource = currentUserIsAuthor
+        ? currentUserAvatarSource ?? (author.imageUrl ? {uri: author.imageUrl} : undefined)
+        : characterAvatarSource;
 
-      if (characterAvatarSource && !characterAvatarFailed) {
+      if (resolvedAvatarSource && !characterAvatarFailed) {
         return (
           <Image
             accessibilityRole="image"
             testID="avatar-image"
             resizeMode="cover"
-            source={characterAvatarSource}
+            source={resolvedAvatarSource}
             onError={() => setCharacterAvatarFailed(true)}
             style={[
               styles.image,
@@ -54,7 +61,7 @@ export const Avatar = React.memo(
         );
       }
 
-      if (author.imageUrl) {
+      if (!currentUserIsAuthor && author.imageUrl) {
         return (
           <Image
             accessibilityRole="image"
@@ -66,6 +73,18 @@ export const Avatar = React.memo(
               currentUserIsAuthor ? styles.selfSpacing : styles.peerSpacing,
             ]}
           />
+        );
+      }
+
+      if (currentUserIsAuthor) {
+        return (
+          <View
+            style={[
+              styles.avatarIconFallback,
+              currentUserIsAuthor ? styles.selfSpacing : styles.peerSpacing,
+            ]}>
+            <UserCircleIcon width={18} height={18} stroke="#cbd5e1" />
+          </View>
         );
       }
 
@@ -117,6 +136,16 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: 46,
+  },
+  avatarIconFallback: {
+    alignItems: 'center',
+    borderRadius: 18,
+    height: 36,
+    justifyContent: 'center',
+    width: 36,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: 'rgba(255,255,255,0.05)',
   },
   initialsText: {
     color: '#0f172a',

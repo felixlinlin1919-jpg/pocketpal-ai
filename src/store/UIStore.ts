@@ -41,6 +41,7 @@ export class UIStore {
   }
 
   displayMemUsage = false;
+  userAvatar: string | undefined = undefined;
 
   iOSBackgroundDownloading = true;
 
@@ -77,6 +78,7 @@ export class UIStore {
         'colorScheme',
         'autoNavigatetoChat',
         'displayMemUsage',
+        'userAvatar',
         'benchmarkShareDialog',
         '_language',
       ],
@@ -131,6 +133,13 @@ export class UIStore {
   setDisplayMemUsage(value: boolean) {
     runInAction(() => {
       this.displayMemUsage = value;
+    });
+  }
+
+  setUserAvatar(value?: string) {
+    runInAction(() => {
+      const trimmedValue = value?.trim();
+      this.userAvatar = trimmedValue ? trimmedValue : undefined;
     });
   }
 

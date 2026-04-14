@@ -10,7 +10,6 @@ import {
   characterProfileStore,
   chatSessionStore,
   modelStore,
-  palStore,
 } from '../../store';
 import {Menu, RenameModal} from '..';
 import {characterText} from '../../constants/characterText';
@@ -32,23 +31,16 @@ export const ChatHeaderTitle: React.FC = observer(() => {
   const selectedCharacter = characterProfileStore.selectedCharacter;
   const [menuVisible, setMenuVisible] = React.useState(false);
   const [renameVisible, setRenameVisible] = React.useState(false);
-  const resolvedPalId = activeSession?.activePalId ?? chatSessionStore.activePalId;
-  const activePal = resolvedPalId
-    ? palStore.pals.find(pal => pal.id === resolvedPalId)
-    : undefined;
   const resolvedThinkingEnabled =
     selectedCharacter?.thinkingEnabled ??
     activeSession?.completionSettings?.enable_thinking ??
     chatSessionStore.newChatCompletionSettings?.enable_thinking ??
     false;
-  const resolvedRolePromptEnabled = selectedCharacter
-    ? !!selectedCharacter.systemPrompt?.trim()
-    : !!activePal?.systemPrompt?.trim();
   const selectedCharacterName =
     selectedCharacter?.name?.trim() || characterText.noneSelected;
   const resolvedChatTitle =
     activeSession?.title?.trim() || l10n.components.chatHeaderTitle.defaultTitle;
-  const resolvedModelName = activeModel?.name?.trim() || '尚未載入模型';
+  const modelStatusText = activeModel?.name?.trim() ? undefined : '尚未載入模型';
   const characterProfiles = characterProfileStore.characterProfiles;
 
   const handleOpenManager = React.useCallback(() => {
@@ -103,37 +95,24 @@ export const ChatHeaderTitle: React.FC = observer(() => {
                   numberOfLines={1}
                   style={styles.subtitle}
                   variant="bodySmall">
-                  {resolvedModelName}
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={styles.subtitle}
-                  variant="bodySmall">
-                  {`${characterText.currentRole}：${selectedCharacterName}`}
+                  {selectedCharacterName}
                 </Text>
                 <View style={styles.statusRow}>
-                  <Text
-                    numberOfLines={1}
-                    style={styles.statusText}
-                    variant="bodySmall">
-                    {resolvedThinkingEnabled
-                      ? characterText.thinkingOn
-                      : characterText.thinkingOff}
-                  </Text>
-                  <Text
-                    numberOfLines={1}
-                    style={styles.statusDivider}
-                    variant="bodySmall">
-                    {'•'}
-                  </Text>
-                  <Text
-                    numberOfLines={1}
-                    style={styles.statusText}
-                    variant="bodySmall">
-                    {resolvedRolePromptEnabled
-                      ? characterText.rolePromptEnabled
-                      : characterText.rolePromptDisabled}
-                  </Text>
+                  <View style={styles.statusChip}>
+                    <Text numberOfLines={1} style={styles.statusText} variant="bodySmall">
+                      {resolvedThinkingEnabled ? 'Thinking 開啟' : 'Thinking 關閉'}
+                    </Text>
+                  </View>
+                  {modelStatusText ? (
+                    <View style={[styles.statusChip, styles.statusChipMuted]}>
+                      <Text
+                        numberOfLines={1}
+                        style={styles.statusText}
+                        variant="bodySmall">
+                        {modelStatusText}
+                      </Text>
+                    </View>
+                  ) : null}
                 </View>
               </View>
             </Pressable>

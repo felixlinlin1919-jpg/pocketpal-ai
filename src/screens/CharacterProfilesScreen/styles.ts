@@ -17,73 +17,30 @@ export const createStyles = (theme: Theme) =>
       gap: 16,
     },
     headerStack: {
-      gap: 14,
+      gap: 12,
     },
-    summaryCard: {
-      ...design.heroCardStyle,
-      padding: 20,
-      gap: 10,
-    },
-    summaryEyebrow: {
-      ...design.sectionTitle,
-    },
-    summaryHeading: {
-      color: theme.colors.onSurface,
-    },
-    summaryTitle: {
-      color: theme.colors.onSurfaceVariant,
-      marginTop: 8,
-    },
-    summaryValue: {
-      color: theme.colors.onSurface,
-    },
-    summaryCaption: {
-      color: theme.colors.onSurfaceVariant,
-    },
-    summaryBody: {
-      color: theme.colors.onSurfaceVariant,
-      lineHeight: 21,
-    },
-    summaryStatsRow: {
+    pageHeaderRow: {
       flexDirection: 'row',
-      gap: 10,
-      flexWrap: 'wrap',
-      marginTop: 4,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 12,
     },
-    summaryStatChip: {
-      flexGrow: 1,
-      minWidth: 140,
-      paddingHorizontal: 12,
-      paddingVertical: 10,
-      borderRadius: 16,
-      backgroundColor: 'rgba(255,255,255,0.05)',
-      borderWidth: 1,
-      borderColor: design.subtleBorderColor,
-      gap: 2,
+    pageTitleBlock: {
+      flex: 1,
+      gap: 4,
     },
-    summaryStatLabel: {
-      color: theme.colors.onSurfaceVariant,
-    },
-    summaryStatValue: {
+    pageTitle: {
       color: theme.colors.onSurface,
-      fontWeight: '600',
+      fontWeight: '800',
     },
-    summaryActionRow: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      marginTop: 4,
+    pageMeta: {
+      color: theme.colors.onSurfaceVariant,
     },
     addButton: {
-      alignSelf: 'flex-start',
-      marginTop: 0,
+      borderRadius: 999,
     },
     searchBlock: {
-      ...design.cardStyle,
-      padding: 16,
       gap: 8,
-    },
-    searchLabel: {
-      ...design.sectionTitle,
     },
     emptyCard: {
       ...design.cardStyle,
@@ -102,6 +59,7 @@ export const createStyles = (theme: Theme) =>
     card: {
       ...design.cardStyle,
       overflow: 'hidden',
+      backgroundColor: design.elevatedSurface,
     },
     selectedCard: {
       borderWidth: 1,
@@ -109,7 +67,7 @@ export const createStyles = (theme: Theme) =>
       shadowOpacity: theme.dark ? 0.28 : 0.12,
     },
     cardPressable: {
-      padding: 16,
+      padding: 18,
       gap: 16,
       position: 'relative',
       overflow: 'hidden',
@@ -134,17 +92,17 @@ export const createStyles = (theme: Theme) =>
       gap: 12,
     },
     avatar: {
-      width: 56,
-      height: 56,
-      borderRadius: 28,
+      width: 64,
+      height: 64,
+      borderRadius: 32,
       backgroundColor: theme.colors.surfaceVariant,
       borderWidth: 1,
       borderColor: design.cardBorderColor,
     },
     avatarPlaceholder: {
-      width: 56,
-      height: 56,
-      borderRadius: 28,
+      width: 64,
+      height: 64,
+      borderRadius: 32,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.surfaceVariant,
@@ -213,11 +171,28 @@ export const createStyles = (theme: Theme) =>
       flexDirection: 'row',
       justifyContent: 'flex-end',
       gap: 8,
+      marginTop: 4,
     },
     editorScrollContent: {
       padding: 16,
       gap: 16,
       paddingBottom: 32,
+    },
+    summaryCard: {
+      ...design.cardStyle,
+      overflow: 'hidden',
+    },
+    summaryEyebrow: {
+      ...design.sectionTitle,
+    },
+    summaryHeading: {
+      color: theme.colors.onSurface,
+    },
+    summaryCaption: {
+      color: theme.colors.onSurfaceVariant,
+    },
+    searchLabel: {
+      ...design.sectionTitle,
     },
     editorHeroBackground: {
       ...StyleSheet.absoluteFillObject,

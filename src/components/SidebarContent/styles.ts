@@ -66,26 +66,16 @@ export const createStyles = (theme: Theme) =>
       width: 170,
     },
     listHeader: {
-      gap: 16,
+      gap: 12,
       paddingHorizontal: 16,
-      paddingTop: 10,
+      paddingTop: 14,
       paddingBottom: 4,
     },
-    heroCard: {
-      ...design.heroCardStyle,
-      paddingHorizontal: 18,
-      paddingVertical: 18,
-      gap: 8,
-    },
-    heroEyebrow: {
-      ...design.sectionTitle,
-    },
-    heroTitle: {
+    sidebarTitle: {
       color: theme.colors.onSurface,
-    },
-    heroDescription: {
-      color: theme.colors.onSurfaceVariant,
-      lineHeight: 20,
+      fontSize: 20,
+      fontWeight: '700',
+      paddingHorizontal: 4,
     },
     navSection: {
       gap: 8,
