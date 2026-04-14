@@ -7,31 +7,49 @@ export const getAppDesign = (theme: Theme) => {
     theme.variant === 'dark'
       ? {
           base: '#06080d',
+          baseAlt: '#0b1018',
           surface: '#10141c',
           surfaceRaised: '#171c26',
+          surfaceFloating: '#1c2230',
           surfaceMuted: 'rgba(255, 255, 255, 0.04)',
+          surfaceSoft: 'rgba(255, 255, 255, 0.06)',
+          surfaceStrong: 'rgba(255, 255, 255, 0.1)',
           accent: '#8fb8ff',
           accentStrong: '#d7e7ff',
+          accentSoft: 'rgba(143, 184, 255, 0.14)',
           textMuted: 'rgba(203, 213, 225, 0.72)',
+          textSubtle: 'rgba(203, 213, 225, 0.54)',
         }
       : theme.variant === 'cream'
         ? {
             base: '#efe6db',
+            baseAlt: '#e8ddcf',
             surface: '#f6efe6',
             surfaceRaised: '#fbf6ef',
+            surfaceFloating: '#fffaf2',
             surfaceMuted: 'rgba(91, 69, 50, 0.06)',
+            surfaceSoft: 'rgba(122, 90, 60, 0.08)',
+            surfaceStrong: 'rgba(122, 90, 60, 0.14)',
             accent: '#7a5a3c',
             accentStrong: '#4f3824',
+            accentSoft: 'rgba(122, 90, 60, 0.14)',
             textMuted: 'rgba(98, 84, 70, 0.78)',
+            textSubtle: 'rgba(98, 84, 70, 0.58)',
           }
         : {
             base: '#f8fafc',
+            baseAlt: '#eef2f7',
             surface: '#ffffff',
             surfaceRaised: '#ffffff',
+            surfaceFloating: '#ffffff',
             surfaceMuted: 'rgba(15, 23, 42, 0.04)',
+            surfaceSoft: 'rgba(15, 23, 42, 0.06)',
+            surfaceStrong: 'rgba(15, 23, 42, 0.12)',
             accent: '#2563eb',
             accentStrong: '#1d4ed8',
+            accentSoft: 'rgba(37, 99, 235, 0.12)',
             textMuted: 'rgba(71, 85, 105, 0.72)',
+            textSubtle: 'rgba(71, 85, 105, 0.56)',
           };
   const cardRadius = 24;
   const innerRadius = 18;
@@ -87,6 +105,31 @@ export const getAppDesign = (theme: Theme) => {
     : theme.variant === 'cream'
       ? 'rgba(122, 90, 60, 0.28)'
       : 'rgba(37, 99, 235, 0.2)';
+  const rowSurface = theme.variant === 'dark'
+    ? palette.surfaceRaised
+    : theme.variant === 'cream'
+      ? palette.surfaceFloating
+      : palette.surfaceRaised;
+  const rowSurfaceMuted = theme.variant === 'dark'
+    ? palette.surfaceSoft
+    : theme.variant === 'cream'
+      ? 'rgba(122, 90, 60, 0.05)'
+      : 'rgba(15, 23, 42, 0.03)';
+  const iconSurface = theme.variant === 'dark'
+    ? 'rgba(255, 255, 255, 0.06)'
+    : theme.variant === 'cream'
+      ? 'rgba(122, 90, 60, 0.08)'
+      : 'rgba(37, 99, 235, 0.08)';
+  const dividerColor = theme.variant === 'dark'
+    ? 'rgba(255, 255, 255, 0.06)'
+    : theme.variant === 'cream'
+      ? 'rgba(91, 69, 50, 0.1)'
+      : 'rgba(15, 23, 42, 0.08)';
+  const inputSurface = theme.variant === 'dark'
+    ? 'rgba(255, 255, 255, 0.05)'
+    : theme.variant === 'cream'
+      ? '#f8f1e8'
+      : '#f8fafc';
 
   const shadow: ViewStyle = theme.variant === 'dark'
     ? {
@@ -128,6 +171,12 @@ export const getAppDesign = (theme: Theme) => {
     heroOverlay,
     accentTint,
     accentBorder,
+    accentSoft: palette.accentSoft,
+    rowSurface,
+    rowSurfaceMuted,
+    iconSurface,
+    dividerColor,
+    inputSurface,
     shadow,
     cardStyle,
     heroCardStyle: {

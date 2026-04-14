@@ -1,24 +1,29 @@
 import {StyleSheet, Platform} from 'react-native';
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+    return {
     container: {
       paddingHorizontal: 16,
       paddingTop: 8,
       gap: 12,
     },
     privacyNote: {
-      color: theme.colors.onSurfaceVariant,
+      color: design.palette.textMuted,
       lineHeight: 18,
-      backgroundColor: theme.colors.surfaceVariant,
-      padding: 10,
-      borderRadius: 8,
+      backgroundColor: design.rowSurface,
+      padding: 12,
+      borderRadius: design.innerRadius,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
     },
     errorSection: {
       backgroundColor: theme.colors.errorContainer,
-      padding: 10,
-      borderRadius: 8,
+      padding: 12,
+      borderRadius: design.innerRadius,
     },
     errorLabel: {
       color: theme.colors.onErrorContainer,
@@ -28,8 +33,10 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.onErrorContainer,
     },
     groupContainer: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 8,
+      backgroundColor: design.rowSurface,
+      borderRadius: design.innerRadius,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
       overflow: 'hidden',
     },
     groupDisabled: {
@@ -68,9 +75,9 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.onSurface,
       fontSize: 11,
       fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.rowSurfaceMuted,
       padding: 8,
-      borderRadius: 4,
+      borderRadius: 10,
     },
     additionalSection: {
       gap: 6,
@@ -79,7 +86,7 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.onSurface,
     },
     textInput: {
-      backgroundColor: theme.colors.surface,
+      backgroundColor: design.inputSurface,
       fontSize: 14,
     },
     button: {},
@@ -90,4 +97,5 @@ export const createStyles = (theme: Theme) =>
       width: '100%',
       paddingHorizontal: 16,
     },
-  });
+  };
+  })());

@@ -86,16 +86,20 @@ export const createStyles = (theme: Theme) =>
     },
     cardBackgroundOverlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: theme.dark
+      backgroundColor: theme.variant === 'dark'
         ? 'rgba(10, 12, 18, 0.44)'
-        : 'rgba(255,255,255,0.36)',
+        : theme.variant === 'cream'
+          ? 'rgba(239, 230, 219, 0.32)'
+          : 'rgba(255,255,255,0.36)',
     },
     visualGlow: {
       position: 'absolute',
       inset: 0,
-      backgroundColor: theme.dark
+      backgroundColor: theme.variant === 'dark'
         ? 'rgba(16, 20, 28, 0.22)'
-        : 'rgba(255,255,255,0.12)',
+        : theme.variant === 'cream'
+          ? 'rgba(122, 90, 60, 0.08)'
+          : 'rgba(255,255,255,0.12)',
     },
     visualAvatarShell: {
       position: 'absolute',
@@ -118,6 +122,7 @@ export const createStyles = (theme: Theme) =>
       paddingVertical: 16,
       gap: 14,
       justifyContent: 'space-between',
+      backgroundColor: design.rowSurface,
     },
     avatar: {
       width: 78,
@@ -138,7 +143,7 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 39,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.rowSurface,
       borderWidth: 1,
       borderColor: design.cardBorderColor,
       shadowColor: '#000',
@@ -193,7 +198,7 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 999,
       paddingHorizontal: 10,
       paddingVertical: 4,
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
     },
@@ -217,6 +222,9 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'space-between',
       gap: 8,
       marginTop: 2,
+      paddingTop: 10,
+      borderTopWidth: 1,
+      borderTopColor: design.dividerColor,
     },
     editorScrollContent: {
       padding: 16,
@@ -246,9 +254,11 @@ export const createStyles = (theme: Theme) =>
     },
     editorHeroOverlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: theme.dark
+      backgroundColor: theme.variant === 'dark'
         ? 'rgba(10, 12, 18, 0.74)'
-        : 'rgba(255,255,255,0.80)',
+        : theme.variant === 'cream'
+          ? 'rgba(248, 241, 232, 0.84)'
+          : 'rgba(255,255,255,0.80)',
     },
     editorHeroFallback: {
       ...StyleSheet.absoluteFillObject,
@@ -293,7 +303,7 @@ export const createStyles = (theme: Theme) =>
       gap: 16,
       padding: 14,
       borderRadius: 20,
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurface,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
     },
@@ -358,9 +368,11 @@ export const createStyles = (theme: Theme) =>
     },
     backgroundPreviewOverlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: theme.dark
+      backgroundColor: theme.variant === 'dark'
         ? 'rgba(0, 0, 0, 0.34)'
-        : 'rgba(255, 255, 255, 0.50)',
+        : theme.variant === 'cream'
+          ? 'rgba(248, 241, 232, 0.58)'
+          : 'rgba(255, 255, 255, 0.50)',
     },
     backgroundPreviewText: {
       color: theme.colors.onSurface,

@@ -15,7 +15,7 @@ export const createStyles = (theme: Theme) =>
         borderTopStartRadius: design.innerRadius,
         borderTopEndRadius: design.innerRadius,
         alignSelf: 'stretch',
-        backgroundColor: design.mutedSurface,
+        backgroundColor: design.inputSurface,
         overflow: 'hidden',
       },
       input: {
@@ -27,7 +27,7 @@ export const createStyles = (theme: Theme) =>
       divider: {
         width: 330,
         height: 0.33,
-        backgroundColor: design.subtleBorderColor,
+        backgroundColor: design.dividerColor,
         marginLeft: 20,
       },
     };

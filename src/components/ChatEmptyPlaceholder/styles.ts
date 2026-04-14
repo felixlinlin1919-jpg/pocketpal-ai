@@ -37,7 +37,7 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         borderRadius: 37,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: theme.colors.surface,
+        backgroundColor: design.rowSurface,
         borderWidth: 1,
         borderColor: design.accentBorder,
         ...design.shadow,
@@ -70,7 +70,7 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         paddingHorizontal: 8,
       },
       footnote: {
-        color: theme.colors.onSurfaceVariant,
+        color: design.palette.textSubtle,
         textAlign: 'center',
         fontSize: 12,
         lineHeight: 18,

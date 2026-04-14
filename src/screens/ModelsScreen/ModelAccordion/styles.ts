@@ -7,21 +7,24 @@ export const createStyles = (theme: Theme) =>
     const design = getAppDesign(theme);
     return {
       accordion: {
-        minHeight: 58,
-        backgroundColor: design.sectionBackground,
+        minHeight: 64,
+        backgroundColor: design.rowSurface,
         borderRadius: design.cardRadius,
         borderWidth: 1,
         borderColor: design.cardBorderColor,
         overflow: 'hidden',
       },
+      activeAccordion: {
+        backgroundColor: design.accentTint,
+      },
       accordionTitle: {
-        fontSize: 15,
+        fontSize: 16,
         fontWeight: '700',
       },
       accordionDescription: {
         fontSize: 12,
-        paddingBottom: 10,
-        color: theme.colors.onSurfaceVariant,
+        paddingBottom: 12,
+        color: design.palette.textMuted,
       },
     };
   })());

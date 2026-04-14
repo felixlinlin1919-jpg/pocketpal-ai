@@ -19,13 +19,13 @@ export const Actions = ({children, style}: ActionsProps) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
       paddingHorizontal: 16,
       paddingTop: 14,
       paddingBottom: 12 + insets.bottom,
       gap: 10,
       borderTopWidth: 1,
-      borderTopColor: design.subtleBorderColor,
+      borderTopColor: design.dividerColor,
     };
   }, [theme, insets]);
 

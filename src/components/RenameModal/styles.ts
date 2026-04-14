@@ -10,7 +10,7 @@ export const createStyles = (theme: MD3Theme) =>
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.56)',
+        backgroundColor: theme.colors.backdrop,
       },
       modalContent: {
         width: '84%',
@@ -32,7 +32,7 @@ export const createStyles = (theme: MD3Theme) =>
       textInput: {
         margin: 16,
         padding: 14,
-        backgroundColor: design.mutedSurface,
+        backgroundColor: design.inputSurface,
         color: theme.colors.onSurface,
         fontSize: 16,
         borderWidth: 1,
@@ -41,9 +41,9 @@ export const createStyles = (theme: MD3Theme) =>
       },
       buttonContainer: {
         flexDirection: 'row',
-        backgroundColor: design.mutedSurface,
+        backgroundColor: design.rowSurfaceMuted,
         borderTopWidth: 1,
-        borderTopColor: design.subtleBorderColor,
+        borderTopColor: design.dividerColor,
       },
       cancelButton: {
         flex: 1,

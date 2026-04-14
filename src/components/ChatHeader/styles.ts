@@ -25,7 +25,9 @@ export const createStyles = ({
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 10,
-        backgroundColor: 'rgba(4, 7, 12, 0.98)',
+        backgroundColor: design.heroBackground,
+        borderBottomWidth: 1,
+        borderBottomColor: design.dividerColor,
       },
       leftSection: {
         flexDirection: 'row',

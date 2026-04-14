@@ -149,8 +149,12 @@ const createBaseColors = (appTheme: AppTheme): MD3BaseColors => {
 
 const createSemanticColors = (
   baseColors: MD3BaseColors,
-  isDark: boolean,
-): SemanticColors => ({
+  appTheme: AppTheme,
+): SemanticColors => {
+  const isDark = appTheme === AppTheme.Dark;
+  const isCream = appTheme === AppTheme.Cream;
+
+  return ({
   // Surface variants
   surfaceContainerHighest: isDark
     ? withOpacity(baseColors.surface, 0.22)
@@ -189,9 +193,9 @@ const createSemanticColors = (
   focusStateOpacity: stateLayerOpacity.focus,
 
   // Menu specific
-  menuBackground: isDark ? '#2a2a2a' : baseColors.surface,
+  menuBackground: isDark ? '#2a2a2a' : isCream ? '#fff8ef' : baseColors.surface,
   menuBackgroundDimmed: withOpacity(baseColors.surface, 0.9),
-  menuBackgroundActive: withOpacity(baseColors.primary, 0.08),
+  menuBackgroundActive: withOpacity(baseColors.primary, isCream ? 0.12 : 0.08),
   menuSeparator: withOpacity(baseColors.primary, 0.5),
   menuGroupSeparator: isDark
     ? withOpacity('#FFFFFF', 0.08)
@@ -212,41 +216,54 @@ const createSemanticColors = (
   ],
   searchBarBackground: isDark
     ? 'rgba(28, 28, 30, 0.92)'
+    : isCream
+      ? 'rgba(122, 90, 60, 0.08)'
     : 'rgba(118, 118, 128, 0.12)',
 
   // Thinking bubble specific
-  thinkingBubbleBackground: isDark ? '#142e4d' : '#f0f5fa',
-  thinkingBubbleText: isDark ? '#6abaff' : '#0a5999',
+  thinkingBubbleBackground: isDark
+    ? '#142e4d'
+    : isCream
+      ? '#efe6db'
+      : '#f0f5fa',
+  thinkingBubbleText: isDark ? '#6abaff' : isCream ? '#7a5a3c' : '#0a5999',
   thinkingBubbleBorder: isDark
     ? 'rgba(74, 140, 199, 0.6)'
+    : isCream
+      ? 'rgba(122, 90, 60, 0.24)'
     : 'rgba(10, 89, 153, 0.4)',
-  thinkingBubbleShadow: isDark ? '#4a9fff' : '#0a5999',
+  thinkingBubbleShadow: isDark ? '#4a9fff' : isCream ? '#7a5a3c' : '#0a5999',
   thinkingBubbleChevronBackground: isDark
     ? 'rgba(74, 140, 199, 0.15)'
+    : isCream
+      ? 'rgba(122, 90, 60, 0.08)'
     : 'rgba(10, 89, 153, 0.1)',
   thinkingBubbleChevronBorder: isDark
     ? 'rgba(74, 140, 199, 0.3)'
+    : isCream
+      ? 'rgba(122, 90, 60, 0.18)'
     : 'rgba(10, 89, 153, 0.2)',
 
   bgStatusActive: isDark ? '#22c55e' : '#22c55e',
   bgStatusIdle: isDark ? '#4b5563' : '#d1d5db',
 
-  btnPrimaryBg: isDark ? '#0f1629' : '#eff6ff',
-  btnPrimaryBorder: isDark ? '#192645' : '#bfdbff',
-  btnPrimaryText: isDark ? '#93c5fd' : '#1447e6',
+  btnPrimaryBg: isDark ? '#0f1629' : isCream ? '#efe0d0' : '#eff6ff',
+  btnPrimaryBorder: isDark ? '#192645' : isCream ? '#c8ac92' : '#bfdbff',
+  btnPrimaryText: isDark ? '#93c5fd' : isCream ? '#6f5134' : '#1447e6',
 
-  btnReadyBg: isDark ? '#052e16' : '#ecfdf5',
-  btnReadyBorder: isDark ? '#166534' : '#bbf7d0',
-  btnReadyText: isDark ? '#6ee7b7' : '#047857',
+  btnReadyBg: isDark ? '#052e16' : isCream ? '#edf3e6' : '#ecfdf5',
+  btnReadyBorder: isDark ? '#166534' : isCream ? '#bfd4b0' : '#bbf7d0',
+  btnReadyText: isDark ? '#6ee7b7' : isCream ? '#48643c' : '#047857',
 
-  btnDownloadBg: isDark ? '#0a1f17' : '#ecfdf5',
-  btnDownloadBorder: isDark ? '#143d2d' : '#bbf7d0',
-  btnDownloadText: isDark ? '#34d399' : '#047857',
+  btnDownloadBg: isDark ? '#0a1f17' : isCream ? '#f1ece2' : '#ecfdf5',
+  btnDownloadBorder: isDark ? '#143d2d' : isCream ? '#d3c0ac' : '#bbf7d0',
+  btnDownloadText: isDark ? '#34d399' : isCream ? '#7a5a3c' : '#047857',
 
-  iconModelTypeText: isDark ? '#93c5fd' : '#3b82f6',
-  iconModelTypeVision: isDark ? '#c4b5fd' : '#9810fa',
-  iconModelTypeAudio: isDark ? '#fdba74' : '#f97316',
+  iconModelTypeText: isDark ? '#93c5fd' : isCream ? '#7a5a3c' : '#3b82f6',
+  iconModelTypeVision: isDark ? '#c4b5fd' : isCream ? '#8a6f9b' : '#9810fa',
+  iconModelTypeAudio: isDark ? '#fdba74' : isCream ? '#b7773c' : '#f97316',
 });
+};
 
 export const fontStyles = {
   regular: {fontFamily: 'Inter-Regular'},
@@ -306,7 +323,7 @@ const createTheme = (appTheme: AppTheme): Theme => {
   const baseColors = createBaseColors(appTheme);
   const semanticColors = createSemanticColors(
     baseColors,
-    appTheme === AppTheme.Dark,
+    appTheme,
   );
 
   return {

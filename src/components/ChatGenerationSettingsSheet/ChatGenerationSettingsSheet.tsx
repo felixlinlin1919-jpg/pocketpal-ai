@@ -7,7 +7,7 @@ import {
   defaultCompletionSettings,
   palStore,
 } from '../../store';
-import {styles} from './styles';
+import {createStyles} from './styles';
 import {
   COMPLETION_PARAMS_METADATA,
   validateCompletionSettings,
@@ -17,12 +17,14 @@ import {Button, SegmentedButtons, Text} from 'react-native-paper';
 import {L10nContext} from '../../utils';
 import {ChevronDownIcon} from '../../assets/icons';
 import {Menu} from '../Menu';
+import {useTheme} from '../../hooks';
 interface ResetButtonProps {
   session: any;
   resetMenuVisible: boolean;
   setResetMenuVisible: (visible: boolean) => void;
   handleResetToDefault: () => void;
   handleResetToPreset: () => void;
+  styles: ReturnType<typeof createStyles>;
 }
 
 const ChevronDownButtonIcon = ({color}: {color: string}) => (
@@ -36,6 +38,7 @@ const ResetButton = ({
   setResetMenuVisible,
   handleResetToDefault,
   handleResetToPreset,
+  styles,
 }: ResetButtonProps) => {
   const l10n = useContext(L10nContext);
 
@@ -90,6 +93,8 @@ export const ChatGenerationSettingsSheet = ({
   onClose: () => void;
 }) => {
   const l10n = useContext(L10nContext);
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const session = chatSessionStore.sessions.find(
     item => item.id === chatSessionStore.activeSessionId,
   );
@@ -361,6 +366,7 @@ export const ChatGenerationSettingsSheet = ({
             setResetMenuVisible={setResetMenuVisible}
             handleResetToDefault={handleResetToDefault}
             handleResetToPreset={handleResetToPreset}
+            styles={styles}
           />
           <View style={styles.rightButtons}>
             {!isEditingPresetSettings && (

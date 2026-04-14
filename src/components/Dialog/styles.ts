@@ -47,9 +47,9 @@ export const createStyles = (theme: Theme, scrollableBorderShown?: boolean) =>
         paddingTop: 12,
         paddingBottom: 18,
         gap: 10,
-        backgroundColor: design.mutedSurface,
+        backgroundColor: design.rowSurfaceMuted,
         borderTopWidth: 1,
-        borderTopColor: design.subtleBorderColor,
+        borderTopColor: design.dividerColor,
       },
     };
   })());

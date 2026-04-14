@@ -9,7 +9,9 @@ export const createStyles = (theme: Theme) =>
     return {
     card: {
       ...design.cardStyle,
-      margin: 6,
+      marginHorizontal: 2,
+      marginVertical: 6,
+      backgroundColor: design.rowSurface,
     },
     cardContent: {
       paddingBottom: 6,
@@ -32,7 +34,10 @@ export const createStyles = (theme: Theme) =>
     warningContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 8,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderRadius: design.innerRadius,
+      backgroundColor: design.rowSurfaceMuted,
       marginBottom: 12,
     },
     warningContent: {
@@ -59,7 +64,8 @@ export const createStyles = (theme: Theme) =>
     },
     compactHeader: {
       paddingHorizontal: 18,
-      paddingVertical: 16,
+      paddingTop: 18,
+      paddingBottom: 14,
     },
     headerContent: {
       flexDirection: 'row',
@@ -91,6 +97,10 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.onSurface,
       flex: 1,
     },
+    summaryText: {
+      fontSize: 12,
+      color: theme.colors.onSurfaceVariant,
+    },
     metaRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
@@ -99,14 +109,42 @@ export const createStyles = (theme: Theme) =>
     },
     metaChip: {
       borderRadius: 999,
-      paddingHorizontal: 8,
+      paddingHorizontal: 10,
       paddingVertical: 4,
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
     },
     metaChipText: {
       fontSize: 11,
+      color: theme.colors.onSurfaceVariant,
+    },
+    metaChipActive: {
+      backgroundColor: theme.colors.btnPrimaryBg,
+      borderColor: theme.colors.btnPrimaryBorder,
+    },
+    metaChipActiveText: {
+      color: theme.colors.btnPrimaryText,
+    },
+    metaChipReady: {
+      backgroundColor: theme.colors.btnReadyBg,
+      borderColor: theme.colors.btnReadyBorder,
+    },
+    metaChipReadyText: {
+      color: theme.colors.btnReadyText,
+    },
+    metaChipDownloading: {
+      backgroundColor: theme.colors.secondaryContainer,
+      borderColor: theme.colors.secondary,
+    },
+    metaChipDownloadingText: {
+      color: theme.colors.onSecondaryContainer,
+    },
+    metaChipPending: {
+      backgroundColor: design.rowSurfaceMuted,
+      borderColor: design.subtleBorderColor,
+    },
+    metaChipPendingText: {
       color: theme.colors.onSurfaceVariant,
     },
     sizeInfo: {
@@ -141,7 +179,7 @@ export const createStyles = (theme: Theme) =>
       gap: 12,
     },
     descriptionContainer: {
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
       borderRadius: design.innerRadius,
       padding: 12,
       borderWidth: 1,
@@ -158,7 +196,7 @@ export const createStyles = (theme: Theme) =>
       gap: 10,
     },
     technicalDetailCard: {
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurface,
       borderRadius: design.innerRadius,
       padding: 10,
       flex: 1,
@@ -182,10 +220,10 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'space-between',
       paddingVertical: 12,
       paddingHorizontal: 12,
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
       borderRadius: design.innerRadius,
       borderWidth: 1,
-      borderColor: theme.colors.primaryContainer,
+      borderColor: design.accentBorder,
     },
     hfLinkContent: {
       flexDirection: 'row',
@@ -199,7 +237,11 @@ export const createStyles = (theme: Theme) =>
     // Action buttons section
     actionButtonsContainer: {
       paddingHorizontal: 18,
+      paddingTop: 10,
       paddingBottom: 12,
+      borderTopWidth: 1,
+      borderTopColor: design.dividerColor,
+      backgroundColor: design.rowSurfaceMuted,
     },
     actionButtonsRow: {
       flexDirection: 'row',
@@ -215,7 +257,7 @@ export const createStyles = (theme: Theme) =>
     iconButton: {
       padding: 10,
       borderRadius: design.innerRadius,
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.iconSurface,
       alignItems: 'center',
       justifyContent: 'center',
       minWidth: 40,
@@ -245,7 +287,7 @@ export const createStyles = (theme: Theme) =>
       fontStyle: 'italic',
     },
     projectionModelsContainer: {
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
       borderRadius: design.innerRadius,
       padding: 12,
       borderWidth: 1,
@@ -267,7 +309,7 @@ export const createStyles = (theme: Theme) =>
       marginHorizontal: 20,
     },
     fullModelNameContainer: {
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
       borderRadius: design.innerRadius,
       padding: 12,
       borderWidth: 1,

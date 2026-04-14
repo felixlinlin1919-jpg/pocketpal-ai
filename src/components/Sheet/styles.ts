@@ -17,7 +17,7 @@ export const createStyles = (theme: Theme) =>
         width: 34,
         height: 34,
         borderRadius: 17,
-        backgroundColor: design.mutedSurface,
+        backgroundColor: design.iconSurface,
         borderWidth: 1,
         borderColor: design.subtleBorderColor,
       },
@@ -30,7 +30,7 @@ export const createStyles = (theme: Theme) =>
         justifyContent: 'space-between',
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: design.subtleBorderColor,
+        borderBottomColor: design.dividerColor,
       },
       title: {
         color: theme.colors.onSurface,

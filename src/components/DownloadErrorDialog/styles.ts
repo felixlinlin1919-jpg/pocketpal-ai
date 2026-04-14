@@ -35,12 +35,12 @@ export const createStyles = (theme: Theme) =>
         color: theme.colors.error,
         fontSize: 13,
       },
-      stepsContainer: {
-        marginTop: 16,
-        backgroundColor: design.mutedSurface,
-        borderRadius: design.innerRadius,
-        borderWidth: 1,
-        borderColor: design.cardBorderColor,
+    stepsContainer: {
+      marginTop: 16,
+      backgroundColor: design.rowSurface,
+      borderRadius: design.innerRadius,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
         paddingVertical: 6,
       },
     };

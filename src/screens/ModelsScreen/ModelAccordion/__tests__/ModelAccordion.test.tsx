@@ -92,11 +92,10 @@ describe('ModelAccordion', () => {
     const accordion = getByTestId(`model-accordion-${activeModel.type}`).parent;
 
     expect(accordion?.props.style).toEqual(
-      // Wow, this is a mess.
       expect.arrayContaining([
         expect.arrayContaining([
           expect.objectContaining({
-            backgroundColor: themeFixtures.lightTheme.colors.tertiaryContainer,
+            backgroundColor: 'rgba(37, 99, 235, 0.12)',
             borderColor: themeFixtures.lightTheme.colors.primary,
           }),
         ]),

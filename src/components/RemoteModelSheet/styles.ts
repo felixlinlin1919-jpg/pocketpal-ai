@@ -14,7 +14,7 @@ export const createStyles = (theme: Theme) => {
       flexDirection: 'row',
       alignItems: 'flex-start',
       marginBottom: 16,
-      backgroundColor: theme.colors.tertiaryContainer,
+      backgroundColor: design.rowSurface,
       padding: 12,
       borderRadius: design.innerRadius,
       borderWidth: 1,
@@ -51,7 +51,7 @@ export const createStyles = (theme: Theme) => {
     dividerLine: {
       flex: 1,
       height: 1,
-      backgroundColor: design.subtleBorderColor,
+      backgroundColor: design.dividerColor,
     },
     dividerText: {
       marginHorizontal: 12,

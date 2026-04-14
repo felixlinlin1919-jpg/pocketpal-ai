@@ -9,9 +9,10 @@ export const createStyles = (theme: Theme) =>
 
     return {
     menu: {
-      shadowColor: 'rgba(0, 0, 0, 0.14)',
+      shadowColor: theme.variant === 'dark' ? '#000000' : '#433326',
       shadowRadius: 32,
       shadowOffset: {width: 0, height: 12},
+      shadowOpacity: theme.variant === 'dark' ? 0.28 : 0.14,
       elevation: 10,
       borderRadius: 22,
       maxWidth: '90%',
@@ -37,7 +38,7 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: 'transparent',
     },
     separator: {
-      backgroundColor: design.subtleBorderColor,
+      backgroundColor: design.dividerColor,
     },
     };
   })());

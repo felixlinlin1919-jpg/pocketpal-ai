@@ -32,7 +32,7 @@ export const createStyles = (theme: Theme) =>
         fontWeight: '800',
       },
       screenDescription: {
-        color: theme.colors.onSurfaceVariant,
+        color: design.palette.textMuted,
         lineHeight: 22,
       },
       card: {
@@ -80,9 +80,7 @@ export const createStyles = (theme: Theme) =>
         lineHeight: 22,
       },
       textDescription: {
-        color: theme.dark
-          ? 'rgba(203, 213, 225, 0.68)'
-          : 'rgba(71, 85, 105, 0.72)',
+        color: design.palette.textSubtle,
         lineHeight: 20,
         marginTop: 4,
       },
@@ -133,7 +131,7 @@ export const createStyles = (theme: Theme) =>
         minWidth: 126,
         borderRadius: 18,
         borderColor: design.cardBorderColor,
-        backgroundColor: design.mutedSurface,
+        backgroundColor: design.rowSurface,
       },
       buttonContent: {
         flexDirection: 'row-reverse',
@@ -147,7 +145,7 @@ export const createStyles = (theme: Theme) =>
       },
       advancedAccordion: {
         minHeight: 58,
-        backgroundColor: design.mutedSurface,
+        backgroundColor: design.rowSurface,
         borderRadius: 18,
         borderWidth: 1,
         borderColor: design.subtleBorderColor,

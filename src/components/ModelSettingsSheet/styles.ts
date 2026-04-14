@@ -18,7 +18,7 @@ export const createStyles = (theme: Theme) =>
       },
       multimodalDivider: {
         marginVertical: 18,
-        backgroundColor: design.subtleBorderColor,
+        backgroundColor: design.dividerColor,
       },
       multimodalSectionTitle: {
         ...design.sectionTitle,

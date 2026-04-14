@@ -81,7 +81,7 @@ export const createStyles = (theme: Theme) => {
       borderRadius: 12,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.iconSurface,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
     },
@@ -106,7 +106,7 @@ export const createStyles = (theme: Theme) => {
       lineHeight: 16,
     },
     selectedMenuItem: {
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.accentSoft,
       borderRadius: 14,
     },
     clearRoleItem: {

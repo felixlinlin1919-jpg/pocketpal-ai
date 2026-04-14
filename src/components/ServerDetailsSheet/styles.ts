@@ -47,7 +47,13 @@ export const createStyles = (theme: Theme) => {
     modelItem: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: 4,
+      paddingVertical: 10,
+      paddingHorizontal: 12,
+      borderRadius: design.innerRadius,
+      backgroundColor: design.rowSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
+      marginBottom: 8,
     },
     modelDot: {
       width: 6,
@@ -75,7 +81,7 @@ export const createStyles = (theme: Theme) => {
     },
     removeDescription: {
       fontSize: 12,
-      color: theme.colors.onSurfaceVariant,
+      color: design.palette.textMuted,
       marginTop: 4,
     },
     errorText: {

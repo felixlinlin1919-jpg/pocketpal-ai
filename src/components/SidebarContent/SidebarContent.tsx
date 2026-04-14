@@ -568,7 +568,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
               </Text>
               <Drawer.Section showDivider={false} style={styles.navCard}>
                 <Drawer.Item
-                  label="Dev Tools"
+                  label="開發工具"
                   icon={() => (
                     <SettingsIcon
                       width={24}

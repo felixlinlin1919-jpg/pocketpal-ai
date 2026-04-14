@@ -130,6 +130,13 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
         ? '本機模型'
         : 'Hugging Face';
     const availabilityLabel = isDownloaded ? '已可使用' : '尚未下載';
+    const statusLabel = isDownloading
+      ? '下載中'
+      : isActiveModel
+        ? '使用中'
+        : isDownloaded
+          ? '已安裝'
+          : '尚未安裝';
 
     // Check projection model status for downloaded vision models
     const projectionModelStatus = modelStore.getProjectionModelStatus(model);
@@ -641,13 +648,50 @@ export const ModelCard: React.FC<ModelCardProps> = observer(
                     ellipsizeMode="middle">
                     {model.name}
                   </Text>
+                  <Text
+                    variant="bodySmall"
+                    style={styles.summaryText}
+                    numberOfLines={1}>
+                    {model.author
+                      ? `作者 ${model.author}`
+                      : isRemoteModel
+                        ? model.serverName || '遠端來源'
+                        : getModelSizeString(model, isActiveModel, l10n)}
+                  </Text>
                   <View style={styles.metaRow}>
                     <View style={styles.metaChip}>
                       <Text style={styles.metaChipText}>{originLabel}</Text>
                     </View>
-                    <View style={styles.metaChip}>
-                      <Text style={styles.metaChipText}>{availabilityLabel}</Text>
+                    <View
+                      style={[
+                        styles.metaChip,
+                        isActiveModel
+                          ? styles.metaChipActive
+                          : isDownloading
+                            ? styles.metaChipDownloading
+                            : isDownloaded
+                              ? styles.metaChipReady
+                              : styles.metaChipPending,
+                      ]}>
+                      <Text
+                        style={[
+                          styles.metaChipText,
+                          isActiveModel
+                            ? styles.metaChipActiveText
+                            : isDownloading
+                              ? styles.metaChipDownloadingText
+                              : isDownloaded
+                                ? styles.metaChipReadyText
+                                : styles.metaChipPendingText,
+                        ]}>
+                        {statusLabel}
+                      </Text>
                     </View>
+                    {!isDownloaded && !isDownloading && (
+                      <View style={styles.metaChip}>
+                        <Text style={styles.metaChipText}>{availabilityLabel}</Text>
+                      </View>
+                    )}
                   </View>
                 </View>
               </View>

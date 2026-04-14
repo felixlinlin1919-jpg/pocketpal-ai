@@ -11,52 +11,85 @@ export const createStyles = (theme: Theme) =>
       },
       container: {
         flex: 1,
-        paddingHorizontal: 12,
+        paddingHorizontal: 14,
         backgroundColor: theme.colors.background,
       },
       listContainer: {
-        paddingBottom: 160,
-        gap: 12,
+        paddingTop: 8,
+        paddingBottom: 180,
+        gap: 14,
+      },
+      headerStack: {
+        gap: 14,
       },
       heroCard: {
         ...design.cardStyle,
-        padding: 20,
-        gap: 8,
-        marginTop: 8,
-        marginBottom: 14,
+        padding: 22,
+        gap: 12,
       },
       heroEyebrow: {
         ...design.sectionTitle,
       },
       heroTitle: {
         color: theme.colors.onSurface,
+        fontWeight: '800',
       },
       heroDescription: {
-        color: theme.colors.onSurfaceVariant,
+        color: design.palette.textMuted,
         lineHeight: 22,
+      },
+      searchBar: {
+        borderRadius: design.innerRadius,
+        backgroundColor: design.inputSurface,
+        borderWidth: 1,
+        borderColor: design.cardBorderColor,
+        elevation: 0,
+      },
+      searchInput: {
+        color: theme.colors.onSurface,
+        fontSize: 15,
       },
       statsRow: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 10,
-        marginTop: 4,
       },
-      statChip: {
-        borderRadius: 999,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        backgroundColor: design.mutedSurface,
+      statCard: {
+        flex: 1,
+        minWidth: 92,
+        borderRadius: design.innerRadius,
+        backgroundColor: design.rowSurface,
         borderWidth: 1,
-        borderColor: design.cardBorderColor,
+        borderColor: design.subtleBorderColor,
+        paddingHorizontal: 14,
+        paddingVertical: 12,
       },
-      statChipText: {
-        color: theme.colors.onSurfaceVariant,
+      statLabel: {
+        color: design.palette.textMuted,
+        letterSpacing: 0.3,
+      },
+      statValue: {
+        color: theme.colors.onSurface,
+        fontWeight: '800',
+        marginTop: 6,
       },
       filtersSection: {
+        ...design.cardStyle,
+        padding: 16,
         gap: 10,
+        backgroundColor: design.rowSurface,
       },
       filtersLabel: {
         ...design.sectionTitle,
+      },
+      filtersHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: 10,
+      },
+      filtersMeta: {
+        color: design.palette.textMuted,
       },
       filtersRow: {
         flexDirection: 'row',
@@ -65,9 +98,12 @@ export const createStyles = (theme: Theme) =>
       },
       filterChip: {
         borderRadius: 999,
+        backgroundColor: design.rowSurfaceMuted,
+        borderWidth: 1,
+        borderColor: design.subtleBorderColor,
       },
       groupSpacing: {
-        marginBottom: 12,
+        marginBottom: 14,
       },
       header: {
         paddingVertical: 12,
@@ -87,6 +123,22 @@ export const createStyles = (theme: Theme) =>
       filterIcon: {
         borderRadius: 8,
         marginHorizontal: 2,
+      },
+      emptyCard: {
+        ...design.cardStyle,
+        padding: 28,
+        gap: 12,
+        alignItems: 'center',
+        backgroundColor: design.rowSurface,
+      },
+      emptyTitle: {
+        color: theme.colors.onSurface,
+        fontWeight: '700',
+      },
+      emptyText: {
+        color: design.palette.textMuted,
+        textAlign: 'center',
+        lineHeight: 22,
       },
     };
   })());

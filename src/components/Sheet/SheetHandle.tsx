@@ -14,9 +14,7 @@ export const SheetHandle: React.FC<BottomSheetHandleProps> = () => {
         style={[
           styles.indicator,
           {
-            backgroundColor: theme.dark
-              ? 'rgba(255,255,255,0.18)'
-              : design.subtleBorderColor,
+            backgroundColor: design.dividerColor,
           },
         ]}
       />

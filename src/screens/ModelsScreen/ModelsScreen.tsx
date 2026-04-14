@@ -7,7 +7,7 @@ import 'react-native-get-random-values';
 import {observer} from 'mobx-react-lite';
 import * as RNFS from '@dr.pogodin/react-native-fs';
 import {pick, types} from '@react-native-documents/picker';
-import {Card, Chip, Portal, Snackbar, Text} from 'react-native-paper';
+import {Chip, Portal, Snackbar, Text, Searchbar, Button} from 'react-native-paper';
 
 import {useTheme} from '../../hooks';
 
@@ -39,6 +39,7 @@ export const ModelsScreen: React.FC = observer(() => {
   const [isCopyingModel, setIsCopyingModel] = useState(false);
   const [selectedModel, setSelectedModel] = useState<Model | undefined>();
   const [settingsVisible, setSettingsVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Centralized error state tracking - derive directly from MobX stores
   const [activeError, setActiveError] = useState<ErrorState | null>(null);
@@ -282,6 +283,27 @@ export const ModelsScreen: React.FC = observer(() => {
   // (model state changes not-downloaded -> downloaded)
   const filteredAndSortedModels = computed(() => {
     let result = models;
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
+    if (normalizedQuery.length > 0) {
+      result = result.filter(model => {
+        const haystack = [
+          model.name,
+          model.filename,
+          model.author,
+          model.type,
+          model.origin,
+          model.serverName,
+          model.remoteModelId,
+          ...(model.capabilities || []),
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
+        return haystack.includes(normalizedQuery);
+      });
+    }
+
     if (filters.includes('downloaded')) {
       result = result.filter(model => model.isDownloaded);
     }
@@ -392,6 +414,13 @@ export const ModelsScreen: React.FC = observer(() => {
     }))
     .filter(group => group.items.length > 0);
 
+  const downloadedCount = modelStore.models.filter(model => model.isDownloaded)
+    .length;
+  const remoteCount = modelStore.models.filter(
+    model => model.origin === ModelOrigin.REMOTE,
+  ).length;
+  const visibleCount = filteredAndSortedModels.length;
+
   return (
     <View style={styles.container} testID="models-screen">
       {/* Show Error Snackbar only if no dialog is visible */}
@@ -412,59 +441,104 @@ export const ModelsScreen: React.FC = observer(() => {
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={styles.listContainer}
         ListHeaderComponent={
-          <Card elevation={0} style={styles.heroCard}>
-            <Text variant="labelMedium" style={styles.heroEyebrow}>
-              模型庫
-            </Text>
-            <Text variant="headlineSmall" style={styles.heroTitle}>
-              模型管理
-            </Text>
-            <Text variant="bodyMedium" style={styles.heroDescription}>
-              在這裡管理已下載、本機匯入與遠端連線模型，保持聊天與裝置狀態在最適合你的節奏。
-            </Text>
-            <View style={styles.statsRow}>
-              <View style={styles.statChip}>
-                <Text variant="labelMedium" style={styles.statChipText}>
-                  已下載 {modelStore.models.filter(model => model.isDownloaded).length}
-                </Text>
-              </View>
-              <View style={styles.statChip}>
-                <Text variant="labelMedium" style={styles.statChipText}>
-                  全部模型 {modelStore.models.length}
-                </Text>
-              </View>
-              <View style={styles.statChip}>
-                <Text variant="labelMedium" style={styles.statChipText}>
-                  伺服器 {serverStore.servers.length}
-                </Text>
+          <View style={styles.headerStack}>
+            <View style={styles.heroCard}>
+              <Text variant="labelMedium" style={styles.heroEyebrow}>
+                模型庫
+              </Text>
+              <Text variant="headlineMedium" style={styles.heroTitle}>
+                選擇今天要聊天的模型
+              </Text>
+              <Text variant="bodyMedium" style={styles.heroDescription}>
+                已下載、本機匯入與遠端模型都集中在這裡，切換與維護都更直覺。
+              </Text>
+              <Searchbar
+                placeholder="搜尋模型名稱、作者或來源"
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                style={styles.searchBar}
+                inputStyle={styles.searchInput}
+                iconColor={theme.colors.onSurfaceVariant}
+                placeholderTextColor={theme.colors.onSurfaceVariant}
+                testID="models-searchbar"
+              />
+              <View style={styles.statsRow}>
+                <View style={styles.statCard}>
+                  <Text variant="labelSmall" style={styles.statLabel}>
+                    已安裝
+                  </Text>
+                  <Text variant="titleMedium" style={styles.statValue}>
+                    {downloadedCount}
+                  </Text>
+                </View>
+                <View style={styles.statCard}>
+                  <Text variant="labelSmall" style={styles.statLabel}>
+                    顯示中
+                  </Text>
+                  <Text variant="titleMedium" style={styles.statValue}>
+                    {visibleCount}
+                  </Text>
+                </View>
+                <View style={styles.statCard}>
+                  <Text variant="labelSmall" style={styles.statLabel}>
+                    遠端來源
+                  </Text>
+                  <Text variant="titleMedium" style={styles.statValue}>
+                    {remoteCount}
+                  </Text>
+                </View>
               </View>
             </View>
+
             <View style={styles.filtersSection}>
-              <Text variant="labelMedium" style={styles.filtersLabel}>
-                篩選與檢視
-              </Text>
+              <View style={styles.filtersHeader}>
+                <Text variant="labelMedium" style={styles.filtersLabel}>
+                  篩選與排列
+                </Text>
+                <Text variant="bodySmall" style={styles.filtersMeta}>
+                  共 {flatListModels.length} 個區塊
+                </Text>
+              </View>
               <View style={styles.filtersRow}>
                 <Chip
                   selected={filters.includes('downloaded')}
                   onPress={() => toggleFilter('downloaded')}
-                  style={styles.filterChip}>
-                  已下載
+                  style={styles.filterChip}
+                  selectedColor={theme.colors.primary}>
+                  已安裝
                 </Chip>
                 <Chip
                   selected={filters.includes('hf')}
                   onPress={() => toggleFilter('hf')}
-                  style={styles.filterChip}>
+                  style={styles.filterChip}
+                  selectedColor={theme.colors.primary}>
                   Hugging Face
                 </Chip>
                 <Chip
                   selected={filters.includes('grouped')}
                   onPress={() => toggleFilter('grouped')}
-                  style={styles.filterChip}>
-                  分組顯示
+                  style={styles.filterChip}
+                  selectedColor={theme.colors.primary}>
+                  依類型分組
                 </Chip>
               </View>
             </View>
-          </Card>
+          </View>
+        }
+        ListEmptyComponent={
+          <View style={styles.emptyCard}>
+            <Text variant="titleMedium" style={styles.emptyTitle}>
+              找不到符合條件的模型
+            </Text>
+            <Text variant="bodyMedium" style={styles.emptyText}>
+              你可以調整搜尋關鍵字，或直接加入新的本機與遠端模型。
+            </Text>
+            {searchQuery.trim().length > 0 && (
+              <Button mode="contained-tonal" onPress={() => setSearchQuery('')}>
+                清除搜尋
+              </Button>
+            )}
+          </View>
         }
         data={flatListModels}
         keyExtractor={item => item.type}

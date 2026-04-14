@@ -16,7 +16,7 @@ export const createStyles = (theme: Theme) =>
       marginHorizontal: 16,
       marginTop: 8,
       marginBottom: 10,
-      backgroundColor: design.subtleBorderColor,
+      backgroundColor: design.dividerColor,
       height: 1,
     },
     contentWrapper: {
@@ -82,7 +82,7 @@ export const createStyles = (theme: Theme) =>
     },
     navCard: {
       ...design.cardStyle,
-      backgroundColor: design.sectionBackground,
+      backgroundColor: design.rowSurface,
       paddingVertical: 6,
     },
     sectionLabel: {
@@ -107,8 +107,8 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: 16,
       paddingVertical: 12,
       borderBottomWidth: 1,
-      borderBottomColor: design.subtleBorderColor,
-      backgroundColor: design.sectionBackground,
+      borderBottomColor: design.dividerColor,
+      backgroundColor: design.rowSurface,
     },
     selectedCountText: {
       fontSize: 16,
@@ -148,7 +148,7 @@ export const createStyles = (theme: Theme) =>
       alignItems: 'center',
       paddingVertical: 12,
       paddingHorizontal: 16,
-      backgroundColor: design.sectionBackground,
+      backgroundColor: design.rowSurface,
     },
     selectAllCheckbox: {
       marginRight: 12,
@@ -158,7 +158,7 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.onSurface,
     },
     selectAllDivider: {
-      backgroundColor: design.subtleBorderColor,
+      backgroundColor: design.dividerColor,
     },
     };
   })());

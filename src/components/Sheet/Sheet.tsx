@@ -11,6 +11,7 @@ import {Text} from 'react-native-paper';
 import {CloseIcon} from '../../assets/icons';
 import {useTheme} from '../../hooks';
 import {createStyles} from './styles';
+import {getAppDesign} from '../../utils/appDesign';
 import BottomSheetKeyboardAwareScrollView from './BottomSheetAwareScrollview';
 import {Dimensions, TouchableOpacity, View} from 'react-native';
 import {CustomBackdrop} from './CustomBackdrop';
@@ -60,6 +61,7 @@ export const Sheet = forwardRef(
     }, [ref, innerRef]);
 
     const theme = useTheme();
+    const design = getAppDesign(theme);
     const styles = createStyles(theme);
 
     useEffect(() => {
@@ -96,11 +98,11 @@ export const Sheet = forwardRef(
         activeOffsetY={[-1, 1]}
         failOffsetX={[-5, 5]}
         backgroundStyle={{
-          backgroundColor: theme.colors.surface,
+          backgroundColor: design.overlaySurface,
           borderTopLeftRadius: 28,
           borderTopRightRadius: 28,
           borderWidth: 1,
-          borderColor: 'rgba(255,255,255,0.08)',
+          borderColor: design.cardBorderColor,
         }}
         snapPoints={snapPoints}
         onDismiss={onDismiss}
