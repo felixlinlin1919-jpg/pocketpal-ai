@@ -61,8 +61,11 @@ const CharacterProfileCard = ({
 
   return (
     <Card style={[styles.card, isSelected && styles.selectedCard]}>
-      <View style={styles.cardPressable}>
-        <TouchableOpacity activeOpacity={0.85} onPress={onSelect}>
+      <TouchableOpacity
+        activeOpacity={0.88}
+        onPress={onSelect}
+        style={styles.cardPressable}>
+        <View style={styles.cardHero}>
           {backgroundSource && !backgroundLoadFailed ? (
             <Image
               source={backgroundSource}
@@ -73,6 +76,20 @@ const CharacterProfileCard = ({
             <View style={styles.cardBackgroundFallback} />
           )}
           <View style={styles.cardBackgroundOverlay} />
+          {isSelected && (
+            <View style={styles.floatingSelectedBadge}>
+              <CheckCircleIcon
+                width={14}
+                height={14}
+                stroke={theme.colors.onPrimary}
+              />
+              <Text variant="labelSmall" style={styles.selectedBadgeText}>
+                目前使用中
+              </Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.cardBody}>
           <View style={styles.profileRow}>
             {hasValidAvatar ? (
               <Image
@@ -80,6 +97,10 @@ const CharacterProfileCard = ({
                 style={styles.avatar}
                 onError={() => setAvatarLoadFailed(true)}
               />
+            ) : profile.emoji?.trim() ? (
+              <View style={styles.avatarPlaceholder}>
+                <Text style={styles.avatarEmoji}>{profile.emoji.trim()}</Text>
+              </View>
             ) : (
               <View style={styles.avatarPlaceholder}>
                 <UserCircleIcon
@@ -95,22 +116,14 @@ const CharacterProfileCard = ({
                 <Text variant="titleMedium" style={styles.profileName}>
                   {profile.name}
                 </Text>
-                {isSelected && (
-                  <View style={styles.selectedBadge}>
-                    <CheckCircleIcon
-                      width={14}
-                      height={14}
-                      stroke={theme.colors.onPrimary}
-                    />
-                    <Text variant="labelSmall" style={styles.selectedBadgeText}>
-                      目前使用中
-                    </Text>
-                  </View>
-                )}
               </View>
 
               <Text variant="bodyMedium" style={styles.profileMeta}>
-                {isSelected ? '目前角色' : '點一下即可切換到這個角色'}
+                {profile.description?.trim()
+                  ? profile.description.trim()
+                  : isSelected
+                    ? '這個角色正在陪你聊天'
+                    : '點一下即可切換到這個角色'}
               </Text>
 
               <View style={styles.statusRow}>
@@ -138,25 +151,25 @@ const CharacterProfileCard = ({
               </View>
             </View>
           </View>
-        </TouchableOpacity>
 
-        {backgroundSource && (
-          <Image
-            source={backgroundSource}
-            style={styles.hiddenBackgroundProbe}
-            onError={() => setBackgroundLoadFailed(true)}
-          />
-        )}
+          {backgroundSource && (
+            <Image
+              source={backgroundSource}
+              style={styles.hiddenBackgroundProbe}
+              onError={() => setBackgroundLoadFailed(true)}
+            />
+          )}
 
-        <View style={styles.actionRow}>
-          <Button mode="text" onPress={onEdit}>
-            編輯角色
-          </Button>
-          <Button mode="text" textColor={theme.colors.error} onPress={onDelete}>
-            刪除角色
-          </Button>
+          <View style={styles.actionRow}>
+            <Button mode="text" onPress={onEdit}>
+              編輯
+            </Button>
+            <Button mode="text" textColor={theme.colors.error} onPress={onDelete}>
+              刪除
+            </Button>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </Card>
   );
 };
@@ -180,8 +193,8 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
     }
 
     return profiles.filter(profile =>
-      [profile.name, profile.systemPrompt]
-        .filter(Boolean)
+      [profile.name, profile.description, profile.systemPrompt, profile.emoji]
+        .filter((value): value is string => !!value)
         .some(value => value.toLowerCase().includes(query)),
     );
   }, [profiles, searchQuery]);
@@ -202,7 +215,9 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
       <FlatList
         data={filteredProfiles}
         keyExtractor={item => item.id}
+        numColumns={2}
         contentContainerStyle={styles.contentContainer}
+        columnWrapperStyle={styles.gridRow}
         ListHeaderComponent={
           <View style={styles.headerStack}>
             <View style={styles.pageHeaderRow}>

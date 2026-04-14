@@ -48,6 +48,8 @@ export class CharacterProfileStore {
     const profile: CharacterProfile = {
       id: createCharacterProfileId(),
       name: draft.name.trim(),
+      description: this.normalizeOptionalValue(draft.description),
+      emoji: this.normalizeEmojiValue(draft.emoji),
       avatar: this.normalizeOptionalValue(draft.avatar),
       background: this.normalizeOptionalValue(draft.background),
       systemPrompt: draft.systemPrompt.trim(),
@@ -79,6 +81,12 @@ export class CharacterProfileStore {
     runInAction(() => {
       if (updates.name !== undefined) {
         profile.name = updates.name.trim();
+      }
+      if (updates.description !== undefined) {
+        profile.description = this.normalizeOptionalValue(updates.description);
+      }
+      if (updates.emoji !== undefined) {
+        profile.emoji = this.normalizeEmojiValue(updates.emoji);
       }
       if (updates.systemPrompt !== undefined) {
         profile.systemPrompt = updates.systemPrompt.trim();
@@ -140,6 +148,11 @@ export class CharacterProfileStore {
   private normalizeOptionalValue(value?: string): string | undefined {
     const trimmedValue = value?.trim();
     return trimmedValue ? trimmedValue : undefined;
+  }
+
+  private normalizeEmojiValue(value?: string): string | undefined {
+    const trimmedValue = value?.trim();
+    return trimmedValue ? Array.from(trimmedValue)[0] : undefined;
   }
 }
 

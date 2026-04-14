@@ -1,57 +1,60 @@
 import {StyleSheet} from 'react-native';
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = ({theme}: {theme: Theme}) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     container: {
-      // Don't use flex: 1 since we're in a FlatList ListEmptyComponent
-      // The FlatList already handles centering with justifyContent: 'center'
       alignItems: 'center',
       paddingHorizontal: 24,
-      paddingTop: 20,
-      gap: 16,
-      minHeight: 400, // Ensure minimum height for proper centering
+      paddingTop: 28,
+      gap: 18,
+      minHeight: 400,
     },
     content: {
       alignItems: 'center',
-      gap: 6,
-      maxWidth: '100%',
+      gap: 10,
+      maxWidth: 320,
     },
     title: {
       color: theme.colors.onSurface,
       textAlign: 'center',
-      marginBottom: 2,
-      ...theme.fonts.titleLarge,
+      fontSize: 28,
+      lineHeight: 34,
+      fontWeight: '800',
     },
     subtitle: {
-      color: theme.colors.primary,
-      textAlign: 'center',
-      marginBottom: 6,
-      ...theme.fonts.titleSmall,
-    },
-    description: {
       color: theme.colors.onSurfaceVariant,
       textAlign: 'center',
-      marginBottom: 16,
       ...theme.fonts.bodyMedium,
     },
     experimentalNotice: {
-      backgroundColor: theme.colors.errorContainer,
-      borderRadius: 6,
+      backgroundColor: `${theme.colors.primary}18`,
+      borderRadius: 999,
       paddingHorizontal: 12,
       paddingVertical: 6,
-      marginBottom: 12,
+      marginBottom: 6,
       maxWidth: '100%',
+      borderWidth: 1,
+      borderColor: design.accentBorder,
     },
     experimentalText: {
-      color: theme.colors.onErrorContainer,
+      color: '#cfe0ff',
       textAlign: 'center',
       ...theme.fonts.bodySmall,
     },
     instructionsContainer: {
       alignItems: 'flex-start',
-      gap: 3,
-      maxWidth: '100%',
+      gap: 5,
+      width: '100%',
+      padding: 16,
+      borderRadius: design.cardRadius,
+      backgroundColor: design.mutedSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
     },
     instructionsTitle: {
       color: theme.colors.onSurface,
@@ -64,8 +67,14 @@ export const createStyles = ({theme}: {theme: Theme}) =>
     },
 
     logo: {
-      width: 96,
-      height: 96,
-      borderRadius: 24,
+      width: 84,
+      height: 84,
+      borderRadius: 28,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: design.accentTint,
+      borderWidth: 1,
+      borderColor: design.accentBorder,
     },
-  });
+    };
+  })());

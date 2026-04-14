@@ -57,10 +57,7 @@ export const AboutScreen: React.FC = () => {
           <View style={styles.header}>
             <View style={styles.headerContent}>
               <Text variant="titleLarge" style={styles.title}>
-                PocketPal AI
-              </Text>
-              <Text variant="bodyMedium" style={styles.description}>
-                {l10n.about.description}
+                應用資訊
               </Text>
               <View style={styles.buildBadge}>
                 <Text style={styles.buildBadgeText}>
@@ -89,10 +86,7 @@ export const AboutScreen: React.FC = () => {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>專案來源</Text>
-            <Text variant="bodyMedium" style={styles.description}>
-              此版本以 PocketPal AI 為基礎調整，定位為本機自用版。
-            </Text>
+            <Text style={styles.sectionTitle}>版本資訊</Text>
             <Button
               mode="outlined"
               onPress={() =>
@@ -105,10 +99,7 @@ export const AboutScreen: React.FC = () => {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>自用版狀態</Text>
-            <Text variant="bodyMedium" style={styles.description}>
-              雲端回饋、內容檢舉、排行榜與官方驗證流程已停用，不影響本地聊天與角色功能。
-            </Text>
+            <Text style={styles.sectionTitle}>功能狀態</Text>
             <View style={styles.noticeCard}>
               <Text style={styles.noticeTitle}>未啟用的功能</Text>
               <Text style={styles.noticeText}>

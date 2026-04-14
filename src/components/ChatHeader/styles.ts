@@ -32,26 +32,8 @@ export const createStyles = ({
       leftSection: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 10,
+        gap: 8,
         flexShrink: 1,
-      },
-      characterAvatar: {
-        width: 42,
-        height: 42,
-        borderRadius: 21,
-        backgroundColor: theme.colors.surfaceVariant,
-        borderWidth: 1,
-        borderColor: design.cardBorderColor,
-      },
-      characterAvatarFallback: {
-        width: 42,
-        height: 42,
-        borderRadius: 21,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: design.elevatedSurface,
-        borderWidth: 1,
-        borderColor: design.cardBorderColor,
       },
       menuIcon: {
         height: 40,

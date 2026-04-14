@@ -489,7 +489,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
       () => (
         <View style={styles.listHeader}>
           <Text variant="titleMedium" style={styles.sidebarTitle}>
-            PocketPal
+            聊天
           </Text>
 
           <View style={styles.navSection}>

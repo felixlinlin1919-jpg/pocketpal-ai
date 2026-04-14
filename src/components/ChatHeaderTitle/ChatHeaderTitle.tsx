@@ -42,6 +42,15 @@ export const ChatHeaderTitle: React.FC = observer(() => {
     activeSession?.title?.trim() || l10n.components.chatHeaderTitle.defaultTitle;
   const modelStatusText = activeModel?.name?.trim() ? undefined : '尚未載入模型';
   const characterProfiles = characterProfileStore.characterProfiles;
+  const selectedCharacterAvatarSource = getCharacterImageSource(
+    selectedCharacter?.avatar,
+  );
+  const [selectedAvatarLoadFailed, setSelectedAvatarLoadFailed] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    setSelectedAvatarLoadFailed(false);
+  }, [selectedCharacter?.avatar]);
 
   const handleOpenManager = React.useCallback(() => {
     setMenuVisible(false);
@@ -83,20 +92,41 @@ export const ChatHeaderTitle: React.FC = observer(() => {
               style={styles.pressable}
               testID="chat-header-role-trigger">
               <View style={styles.container}>
-                <View style={styles.titleRow}>
-                  <Text numberOfLines={1} style={styles.title} variant="titleSmall">
-                    {resolvedChatTitle}
-                  </Text>
-                  <View style={styles.switchPill}>
-                    <Text style={styles.switchPillText}>切換角色</Text>
+                <View style={styles.identityRow}>
+                  {selectedCharacterAvatarSource && !selectedAvatarLoadFailed ? (
+                    <Image
+                      source={selectedCharacterAvatarSource}
+                      style={styles.identityAvatar}
+                      onError={() => setSelectedAvatarLoadFailed(true)}
+                    />
+                  ) : selectedCharacter?.emoji?.trim() ? (
+                    <View style={styles.identityAvatarFallback}>
+                      <Text style={styles.identityEmoji}>
+                        {selectedCharacter.emoji.trim()}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View style={styles.identityAvatarFallback}>
+                      <UserCircleIcon width={16} height={16} stroke="#8c9abb" />
+                    </View>
+                  )}
+                  <View style={styles.titleBlock}>
+                    <View style={styles.titleRow}>
+                      <Text
+                        numberOfLines={1}
+                        style={styles.title}
+                        variant="titleSmall">
+                        {resolvedChatTitle}
+                      </Text>
+                    </View>
+                    <Text
+                      numberOfLines={1}
+                      style={styles.subtitle}
+                      variant="bodySmall">
+                      {selectedCharacterName}
+                    </Text>
                   </View>
                 </View>
-                <Text
-                  numberOfLines={1}
-                  style={styles.subtitle}
-                  variant="bodySmall">
-                  {selectedCharacterName}
-                </Text>
                 <View style={styles.statusRow}>
                   <View style={styles.statusChip}>
                     <Text numberOfLines={1} style={styles.statusText} variant="bodySmall">
@@ -160,6 +190,10 @@ export const ChatHeaderTitle: React.FC = observer(() => {
               leadingIcon={() =>
                 profileAvatarSource ? (
                   <Image source={profileAvatarSource} style={styles.menuAvatar} />
+                ) : profile.emoji?.trim() ? (
+                  <View style={styles.menuAvatarFallback}>
+                    <Text style={styles.menuEmoji}>{profile.emoji.trim()}</Text>
+                  </View>
                 ) : (
                   <View style={styles.menuAvatarFallback}>
                     <UserCircleIcon

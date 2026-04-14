@@ -88,6 +88,18 @@ export const Avatar = React.memo(
         );
       }
 
+      if (selectedCharacter?.emoji?.trim()) {
+        return (
+          <View
+            style={[
+              styles.avatarIconFallback,
+              currentUserIsAuthor ? styles.selfSpacing : styles.peerSpacing,
+            ]}>
+            <Text style={styles.emojiText}>{selectedCharacter.emoji.trim()}</Text>
+          </View>
+        );
+      }
+
       return (
         <View
           style={[
@@ -150,5 +162,9 @@ const styles = StyleSheet.create({
   initialsText: {
     color: '#0f172a',
     fontWeight: '700',
+  },
+  emojiText: {
+    fontSize: 18,
+    lineHeight: 20,
   },
 });

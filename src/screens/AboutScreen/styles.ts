@@ -33,7 +33,6 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     title: {
       ...theme.fonts.headlineLarge,
       color: theme.colors.onSurface,
-      marginBottom: theme.spacing.default / 2,
       letterSpacing: -0.5,
     },
     description: {
@@ -86,7 +85,7 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     sectionTitle: {
       ...theme.fonts.titleMedium,
       color: theme.colors.onSurface,
-      marginBottom: theme.spacing.default,
+      marginBottom: theme.spacing.default / 1.5,
     },
     actionButton: {
       borderWidth: 1,

@@ -3,6 +3,15 @@ import {StyleSheet, ViewStyle} from 'react-native';
 import {Theme} from './types';
 
 export const getAppDesign = (theme: Theme) => {
+  const palette = {
+    base: theme.dark ? '#06080d' : '#f8fafc',
+    surface: theme.dark ? '#10141c' : '#ffffff',
+    surfaceRaised: theme.dark ? '#171c26' : '#ffffff',
+    surfaceMuted: theme.dark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(15, 23, 42, 0.04)',
+    accent: theme.dark ? '#8fb8ff' : '#2563eb',
+    accentStrong: theme.dark ? '#d7e7ff' : '#1d4ed8',
+    textMuted: theme.dark ? 'rgba(203, 213, 225, 0.72)' : 'rgba(71, 85, 105, 0.72)',
+  };
   const cardRadius = 24;
   const innerRadius = 18;
   const pillRadius = 999;
@@ -63,6 +72,7 @@ export const getAppDesign = (theme: Theme) => {
   };
 
   return {
+    palette,
     cardRadius,
     innerRadius,
     pillRadius,
@@ -111,7 +121,7 @@ export const getAppDesign = (theme: Theme) => {
       fontWeight: '700' as const,
     },
     bodyMuted: {
-      color: theme.colors.onSurfaceVariant,
+      color: palette.textMuted,
       fontSize: 14,
       lineHeight: 21,
     },

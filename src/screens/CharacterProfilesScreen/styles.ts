@@ -16,6 +16,9 @@ export const createStyles = (theme: Theme) =>
       padding: 16,
       gap: 16,
     },
+    gridRow: {
+      gap: 12,
+    },
     headerStack: {
       gap: 12,
     },
@@ -53,7 +56,7 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.onSurfaceVariant,
     },
     listContent: {
-      gap: 12,
+      height: 12,
       paddingBottom: 24,
     },
     card: {
@@ -67,14 +70,17 @@ export const createStyles = (theme: Theme) =>
       shadowOpacity: theme.dark ? 0.28 : 0.12,
     },
     cardPressable: {
-      padding: 18,
-      gap: 16,
+      position: 'relative',
+      overflow: 'hidden',
+    },
+    cardHero: {
+      height: 128,
       position: 'relative',
       overflow: 'hidden',
     },
     cardBackgroundPreview: {
       ...StyleSheet.absoluteFillObject,
-      opacity: 0.15,
+      opacity: 0.32,
     },
     cardBackgroundFallback: {
       ...StyleSheet.absoluteFillObject,
@@ -83,8 +89,26 @@ export const createStyles = (theme: Theme) =>
     cardBackgroundOverlay: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor: theme.dark
-        ? 'rgba(10, 12, 18, 0.82)'
-        : 'rgba(255,255,255,0.84)',
+        ? 'rgba(10, 12, 18, 0.54)'
+        : 'rgba(255,255,255,0.56)',
+    },
+    floatingSelectedBadge: {
+      position: 'absolute',
+      top: 14,
+      right: 14,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      borderRadius: 999,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      backgroundColor: theme.colors.primary,
+    },
+    cardBody: {
+      paddingHorizontal: 16,
+      paddingVertical: 16,
+      gap: 14,
+      marginTop: -24,
     },
     profileRow: {
       flexDirection: 'row',
@@ -98,6 +122,11 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.surfaceVariant,
       borderWidth: 1,
       borderColor: design.cardBorderColor,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 8},
+      shadowOpacity: 0.16,
+      shadowRadius: 18,
+      elevation: 6,
     },
     avatarPlaceholder: {
       width: 64,
@@ -108,6 +137,15 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.surfaceVariant,
       borderWidth: 1,
       borderColor: design.cardBorderColor,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 8},
+      shadowOpacity: 0.16,
+      shadowRadius: 18,
+      elevation: 6,
+    },
+    avatarEmoji: {
+      fontSize: 28,
+      lineHeight: 34,
     },
     infoContainer: {
       flex: 1,
@@ -181,12 +219,14 @@ export const createStyles = (theme: Theme) =>
     summaryCard: {
       ...design.cardStyle,
       overflow: 'hidden',
+      padding: 20,
     },
     summaryEyebrow: {
       ...design.sectionTitle,
     },
     summaryHeading: {
       color: theme.colors.onSurface,
+      fontWeight: '800',
     },
     summaryCaption: {
       color: theme.colors.onSurfaceVariant,
@@ -233,6 +273,10 @@ export const createStyles = (theme: Theme) =>
       borderWidth: 2,
       borderColor: design.cardBorderColor,
     },
+    heroEmoji: {
+      fontSize: 34,
+      lineHeight: 40,
+    },
     editorCard: {
       ...design.cardStyle,
       padding: 16,
@@ -273,6 +317,10 @@ export const createStyles = (theme: Theme) =>
     previewHint: {
       color: theme.colors.onSurfaceVariant,
       textAlign: 'center',
+    },
+    previewEmoji: {
+      fontSize: 28,
+      lineHeight: 32,
     },
     avatarPreview: {
       width: 72,

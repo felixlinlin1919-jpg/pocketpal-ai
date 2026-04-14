@@ -40,6 +40,10 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
   const existingProfile = profileId ? getCharacterProfile(profileId) : undefined;
 
   const [name, setName] = React.useState(existingProfile?.name ?? '');
+  const [description, setDescription] = React.useState(
+    existingProfile?.description ?? '',
+  );
+  const [emoji, setEmoji] = React.useState(existingProfile?.emoji ?? '');
   const [systemPrompt, setSystemPrompt] = React.useState(
     existingProfile?.systemPrompt ?? '',
   );
@@ -131,6 +135,8 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
     const payload = {
       name,
+      description,
+      emoji,
       systemPrompt,
       thinkingEnabled,
       avatar,
@@ -204,11 +210,15 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 />
               ) : (
                 <View style={styles.editorAvatarFallback}>
-                  <UserCircleIcon
-                    width={32}
-                    height={32}
-                    stroke={theme.colors.onSurfaceVariant}
-                  />
+                  {emoji.trim() ? (
+                    <Text style={styles.heroEmoji}>{emoji.trim()}</Text>
+                  ) : (
+                    <UserCircleIcon
+                      width={32}
+                      height={32}
+                      stroke={theme.colors.onSurfaceVariant}
+                    />
+                  )}
                 </View>
               )}
             </View>
@@ -219,7 +229,8 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
               {name.trim() || '未命名角色'}
             </Text>
             <Text variant="bodySmall" style={styles.summaryCaption}>
-              {thinkingEnabled ? 'Thinking 已啟用' : 'Thinking 已關閉'}
+              {description.trim() ||
+                (thinkingEnabled ? 'Thinking 已啟用' : 'Thinking 已關閉')}
             </Text>
           </View>
         </Card>
@@ -237,6 +248,29 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                 value={name}
                 onChangeText={setName}
                 placeholder="請輸入角色名稱"
+              />
+            </View>
+            <View style={styles.fieldGroup}>
+              <Text variant="titleSmall" style={styles.fieldLabel}>
+                描述
+              </Text>
+              <TextInput
+                value={description}
+                onChangeText={setDescription}
+                placeholder="用一句話描述這個角色"
+                multiline
+                numberOfLines={3}
+              />
+            </View>
+            <View style={styles.fieldGroup}>
+              <Text variant="titleSmall" style={styles.fieldLabel}>
+                Emoji 頭像
+              </Text>
+              <TextInput
+                value={emoji}
+                onChangeText={setEmoji}
+                placeholder="例如：🦊"
+                maxLength={2}
               />
             </View>
           </View>
@@ -299,6 +333,10 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                     style={styles.avatarPreview}
                     onError={() => setAvatarPreviewFailed(true)}
                   />
+                ) : emoji.trim() ? (
+                  <View style={styles.avatarPreviewPlaceholder}>
+                    <Text style={styles.previewEmoji}>{emoji.trim()}</Text>
+                  </View>
                 ) : (
                   <View style={styles.avatarPreviewPlaceholder}>
                     <UserCircleIcon

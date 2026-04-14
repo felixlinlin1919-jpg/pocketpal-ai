@@ -25,13 +25,13 @@ describe('AboutScreen', () => {
   it('renders self-build information', () => {
     const {getByText} = render(<AboutScreen />);
 
-    expect(getByText('PocketPal AI')).toBeTruthy();
+    expect(getByText('應用資訊')).toBeTruthy();
     expect(getByText('v1.0.0 (100)')).toBeTruthy();
     expect(
       getByText(`${appVariant.label} · ${appVariant.shortLabel}`),
     ).toBeTruthy();
-    expect(getByText('專案來源')).toBeTruthy();
-    expect(getByText('自用版狀態')).toBeTruthy();
+    expect(getByText('版本資訊')).toBeTruthy();
+    expect(getByText('功能狀態')).toBeTruthy();
   });
 
   it('copies version to clipboard when version button is pressed', () => {

@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {observer} from 'mobx-react';
 
+import {VideoRecorderIcon} from '../../assets/icons';
 import {useTheme} from '../../hooks';
 import {createStyles} from './styles';
 import {L10nContext} from '../../utils';
@@ -20,11 +21,9 @@ export const VideoPalEmptyPlaceholder = observer(
     return (
       <View
         style={[styles.container, {paddingBottom: bottomComponentHeight + 20}]}>
-        <Image
-          source={require('../../assets/pocketpal-dark-v2.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <View style={styles.logo}>
+          <VideoRecorderIcon width={30} height={30} stroke={theme.colors.primary} />
+        </View>
 
         <View style={styles.content}>
           <Text style={styles.title}>{l10n.video.emptyPlaceholder.title}</Text>

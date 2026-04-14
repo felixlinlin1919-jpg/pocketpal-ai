@@ -29,9 +29,9 @@ export const ChatEmptyPlaceholder = observer(
     const getContent = () => {
       if (!hasAvailableModels) {
         return {
-          title: l10n.components.chatEmptyPlaceholder.noModelsTitle,
-          description: l10n.components.chatEmptyPlaceholder.noModelsDescription,
-          buttonText: l10n.components.chatEmptyPlaceholder.noModelsButton,
+          title: '尚未加入模型',
+          description: '先加入一個模型，這裡就會變成你的對話首頁。',
+          buttonText: '前往模型庫',
           onPress: () => {
             navigation.navigate('Models');
           },
@@ -39,10 +39,9 @@ export const ChatEmptyPlaceholder = observer(
       }
 
       return {
-        title: l10n.components.chatEmptyPlaceholder.activateModelTitle,
-        description:
-          l10n.components.chatEmptyPlaceholder.activateModelDescription,
-        buttonText: l10n.components.chatEmptyPlaceholder.activateModelButton,
+        title: '選擇要聊天的模型',
+        description: '載入模型後，就能開始新的對話，角色設定也會一併套用。',
+        buttonText: '選擇模型',
         onPress: onSelectModel,
       };
     };

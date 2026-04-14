@@ -1,6 +1,8 @@
 export interface CharacterProfile {
   id: string;
   name: string;
+  description?: string;
+  emoji?: string;
   avatar?: string;
   background?: string;
   systemPrompt: string;
@@ -11,7 +13,13 @@ export interface CharacterProfile {
 
 export type CharacterProfileDraft = Pick<
   CharacterProfile,
-  'name' | 'avatar' | 'background' | 'systemPrompt' | 'thinkingEnabled'
+  | 'name'
+  | 'description'
+  | 'emoji'
+  | 'avatar'
+  | 'background'
+  | 'systemPrompt'
+  | 'thinkingEnabled'
 >;
 
 export type CharacterProfileUpdate = Partial<CharacterProfileDraft>;
