@@ -67,7 +67,7 @@ const App = observer(() => {
 
   return (
     <GestureHandlerRootView style={styles.root}>
-      <MemorySnapshotTrigger />
+      {isDebugMode && <MemorySnapshotTrigger />}
       <SafeAreaProvider>
         <KeyboardProvider statusBarTranslucent navigationBarTranslucent>
           <PaperProvider theme={theme}>
