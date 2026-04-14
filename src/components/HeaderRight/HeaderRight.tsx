@@ -8,7 +8,6 @@ import {
   // ClockFastForwardIcon,
   DotsVerticalIcon,
   DuplicateIcon,
-  EditBoxIcon,
   EditIcon,
   GridIcon,
   SettingsIcon,
@@ -145,14 +144,6 @@ export const HeaderRight: React.FC = observer(() => {
   return (
     <View style={styles.headerRightContainer}>
       {uiStore.displayMemUsage && <UsageStats width={40} height={20} />}
-      <IconButton
-        icon={() => <EditBoxIcon stroke={theme.colors.primary} />}
-        testID="reset-button"
-        style={styles.chatBtn}
-        onPress={() => {
-          chatSessionStore.resetActiveSession();
-        }}
-      />
       <Menu
         visible={menuVisible}
         onDismiss={closeMenu}

@@ -16,9 +16,6 @@ export const createStyles = (theme: Theme) =>
       padding: 16,
       gap: 16,
     },
-    gridRow: {
-      gap: 12,
-    },
     headerStack: {
       gap: 12,
     },
@@ -70,17 +67,18 @@ export const createStyles = (theme: Theme) =>
       shadowOpacity: theme.dark ? 0.28 : 0.12,
     },
     cardPressable: {
-      position: 'relative',
+      flexDirection: 'row',
       overflow: 'hidden',
     },
-    cardHero: {
-      height: 128,
+    cardVisual: {
+      width: 112,
+      minHeight: 178,
       position: 'relative',
       overflow: 'hidden',
     },
     cardBackgroundPreview: {
       ...StyleSheet.absoluteFillObject,
-      opacity: 0.32,
+      opacity: 0.42,
     },
     cardBackgroundFallback: {
       ...StyleSheet.absoluteFillObject,
@@ -89,13 +87,23 @@ export const createStyles = (theme: Theme) =>
     cardBackgroundOverlay: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor: theme.dark
-        ? 'rgba(10, 12, 18, 0.54)'
-        : 'rgba(255,255,255,0.56)',
+        ? 'rgba(10, 12, 18, 0.44)'
+        : 'rgba(255,255,255,0.36)',
+    },
+    visualGlow: {
+      position: 'absolute',
+      inset: 0,
+      backgroundColor: theme.dark
+        ? 'rgba(16, 20, 28, 0.22)'
+        : 'rgba(255,255,255,0.12)',
+    },
+    visualAvatarShell: {
+      position: 'absolute',
+      left: 16,
+      right: 16,
+      bottom: 16,
     },
     floatingSelectedBadge: {
-      position: 'absolute',
-      top: 14,
-      right: 14,
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
@@ -105,20 +113,16 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.primary,
     },
     cardBody: {
+      flex: 1,
       paddingHorizontal: 16,
       paddingVertical: 16,
       gap: 14,
-      marginTop: -24,
-    },
-    profileRow: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      gap: 12,
+      justifyContent: 'space-between',
     },
     avatar: {
-      width: 64,
-      height: 64,
-      borderRadius: 32,
+      width: 78,
+      height: 78,
+      borderRadius: 39,
       backgroundColor: theme.colors.surfaceVariant,
       borderWidth: 1,
       borderColor: design.cardBorderColor,
@@ -129,9 +133,9 @@ export const createStyles = (theme: Theme) =>
       elevation: 6,
     },
     avatarPlaceholder: {
-      width: 64,
-      height: 64,
-      borderRadius: 32,
+      width: 78,
+      height: 78,
+      borderRadius: 39,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.surfaceVariant,
@@ -144,34 +148,37 @@ export const createStyles = (theme: Theme) =>
       elevation: 6,
     },
     avatarEmoji: {
-      fontSize: 28,
-      lineHeight: 34,
+      fontSize: 34,
+      lineHeight: 40,
     },
     infoContainer: {
       flex: 1,
-      gap: 6,
+      gap: 7,
+      minWidth: 0,
+    },
+    cardTopRow: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 10,
     },
     titleRow: {
       flexDirection: 'row',
       alignItems: 'center',
       flexWrap: 'wrap',
-      gap: 8,
+      gap: 6,
     },
     profileName: {
       color: theme.colors.onSurface,
       flexShrink: 1,
+      fontWeight: '800',
+    },
+    inlineEmoji: {
+      fontSize: 18,
+      lineHeight: 22,
     },
     profileMeta: {
       color: theme.colors.onSurfaceVariant,
-    },
-    selectedBadge: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 4,
-      borderRadius: 999,
-      paddingHorizontal: 8,
-      paddingVertical: 4,
-      backgroundColor: theme.colors.primary,
+      lineHeight: 21,
     },
     selectedBadgeText: {
       color: theme.colors.onPrimary,
@@ -207,9 +214,9 @@ export const createStyles = (theme: Theme) =>
     },
     actionRow: {
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       gap: 8,
-      marginTop: 4,
+      marginTop: 2,
     },
     editorScrollContent: {
       padding: 16,

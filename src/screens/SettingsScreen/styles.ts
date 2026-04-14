@@ -171,5 +171,11 @@ export const createStyles = (theme: Theme) =>
       segmentedButtons: {
         marginVertical: 10,
       },
+      themeSegmented: {
+        marginTop: 12,
+      },
+      themeSegmentButton: {
+        borderRadius: 14,
+      },
     };
   })());

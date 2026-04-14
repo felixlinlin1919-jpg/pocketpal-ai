@@ -7,23 +7,16 @@ export const createStyles = (theme: Theme) => {
   const design = getAppDesign(theme);
 
   return StyleSheet.create({
-    anchorRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-      flexShrink: 1,
-    },
     pressable: {
       flexShrink: 1,
-      borderRadius: 18,
+      borderRadius: 20,
       backgroundColor: 'transparent',
-      paddingHorizontal: 6,
-      paddingVertical: 4,
+      paddingHorizontal: 4,
+      paddingVertical: 2,
       minWidth: 0,
     },
     container: {
       flexShrink: 1,
-      gap: 6,
     },
     identityRow: {
       flexDirection: 'row',
@@ -55,59 +48,25 @@ export const createStyles = (theme: Theme) => {
     titleBlock: {
       flex: 1,
       minWidth: 0,
-      gap: 1,
-    },
-    titleRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      minWidth: 0,
+      gap: 2,
     },
     title: {
       flexShrink: 1,
       color: theme.colors.onSurface,
-      fontSize: 17,
-      lineHeight: 20,
+      fontSize: 18,
+      lineHeight: 22,
       fontWeight: '800',
     },
     subtitle: {
       color: theme.colors.onSurfaceVariant,
-      fontSize: 12,
-      lineHeight: 16,
+      fontSize: 13,
+      lineHeight: 17,
       fontWeight: '500',
     },
-    statusRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flexWrap: 'wrap',
-      gap: 6,
-      flexShrink: 1,
-      paddingLeft: 46,
-    },
-    statusChip: {
-      borderRadius: design.pillRadius,
-      paddingHorizontal: 8,
-      paddingVertical: 3,
-      backgroundColor: design.mutedSurface,
-      borderWidth: 1,
-      borderColor: design.subtleBorderColor,
-    },
-    statusChipMuted: {
-      opacity: 0.9,
-    },
-    statusText: {
-      color: '#b8c2d9',
-      fontSize: 10,
-      lineHeight: 14,
-      fontWeight: '600',
-    },
-    renameButton: {
-      margin: 0,
-      width: 38,
-      height: 38,
-      borderRadius: 19,
-      backgroundColor: design.elevatedSurface,
-      borderWidth: 1,
-      borderColor: design.cardBorderColor,
+    metaText: {
+      color: theme.colors.onSurfaceVariant,
+      fontSize: 11,
+      lineHeight: 15,
     },
     menuAvatar: {
       width: 24,
@@ -131,9 +90,24 @@ export const createStyles = (theme: Theme) => {
       lineHeight: 14,
       color: theme.colors.onSurfaceVariant,
     },
+    menuTrailing: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+    },
+    menuCheck: {
+      fontSize: 12,
+      lineHeight: 14,
+      fontWeight: '800',
+      color: theme.colors.primary,
+    },
     menuEmoji: {
       fontSize: 14,
       lineHeight: 16,
+    },
+    selectedMenuItem: {
+      backgroundColor: design.mutedSurface,
+      borderRadius: 14,
     },
     clearRoleItem: {
       opacity: 0.94,

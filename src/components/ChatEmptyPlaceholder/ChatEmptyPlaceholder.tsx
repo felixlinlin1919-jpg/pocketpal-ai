@@ -51,27 +51,32 @@ export const ChatEmptyPlaceholder = observer(
     if (hasActiveModel) {
       return <View />;
     }
-    return (
-      <View
-        style={[styles.container, {marginBottom: bottomComponentHeight + 100}]}>
-        <View style={styles.contentCard}>
-          <View style={styles.iconBadge}>
-            <ModelIcon stroke={theme.colors.primary} />
+      return (
+        <View
+          style={[styles.container, {marginBottom: bottomComponentHeight + 100}]}>
+          <View style={styles.hero}>
+            <View style={styles.heroHalo} />
+            <View style={styles.iconBadge}>
+              <ModelIcon stroke={theme.colors.primary} />
+            </View>
+            <Text style={styles.eyebrow}>聊天首頁</Text>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.description}>{description}</Text>
+            <Button
+              mode="contained"
+              onPress={onPress}
+              style={styles.button}
+              loading={modelStore.isContextLoading}
+              disabled={hasActiveModel}>
+              {modelStore.isContextLoading
+                ? l10n.components?.chatEmptyPlaceholder?.loading
+                : buttonText}
+            </Button>
+            <Text style={styles.footnote}>
+              本機模型與角色設定準備好後，這裡會成為你的主要對話空間。
+            </Text>
           </View>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
-          <Button
-            mode="contained"
-            onPress={onPress}
-            style={styles.button}
-            loading={modelStore.isContextLoading}
-            disabled={hasActiveModel}>
-            {modelStore.isContextLoading
-              ? l10n.components?.chatEmptyPlaceholder?.loading
-              : buttonText}
-          </Button>
         </View>
-      </View>
-    );
-  },
+      );
+    },
 );

@@ -15,7 +15,7 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       flatListContentContainer: {
         flexGrow: 1,
         paddingHorizontal: 8,
-        paddingTop: 16,
+        paddingTop: 8,
         paddingBottom: 28,
       },
       footer: {
@@ -90,6 +90,7 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       },
       headerWrapper: {
         zIndex: 100,
+        backgroundColor: theme.colors.background,
       },
       customBottomComponent: {
         position: 'absolute',

@@ -18,7 +18,7 @@ const md3BaseColors: Partial<MD3BaseColors> = {
 enum AppTheme {
   Light = 'light',
   Dark = 'dark',
-  X1 = 'x1',
+  Cream = 'cream',
 }
 
 const createBaseColors = (appTheme: AppTheme): MD3BaseColors => {
@@ -62,49 +62,49 @@ const createBaseColors = (appTheme: AppTheme): MD3BaseColors => {
       scrim: 'rgba(0, 0, 0, 0.25)',
       backdrop: 'rgba(66, 66, 66, 0.8)',
     };
-  } else if (appTheme === AppTheme.X1) {
+  } else if (appTheme === AppTheme.Cream) {
     return {
-      primary: 'rgb(37,99,235)',
-      onPrimary: 'rgb(255, 255, 255)',
-      primaryContainer: 'rgb(219, 225, 255)',
-      onPrimaryContainer: 'rgb(0, 23, 75)',
-      secondary: 'rgb(109, 59, 215)',
-      onSecondary: 'rgb(255, 255, 255)',
-      secondaryContainer: 'rgb(233, 221, 255)',
-      onSecondaryContainer: 'rgb(35, 0, 92)',
-      tertiary: 'rgb(249,115,22)',
-      onTertiary: 'rgb(255, 255, 255)',
-      tertiaryContainer: 'rgb(255, 219, 202)',
-      onTertiaryContainer: 'rgb(52, 17, 0)',
+      primary: '#5a4532',
+      onPrimary: '#fffaf4',
+      primaryContainer: '#e5d7c7',
+      onPrimaryContainer: '#302316',
+      secondary: '#8e6b58',
+      onSecondary: '#fffaf4',
+      secondaryContainer: '#eddccf',
+      onSecondaryContainer: '#342318',
+      tertiary: '#6c6f96',
+      onTertiary: '#ffffff',
+      tertiaryContainer: '#dde0f7',
+      onTertiaryContainer: '#1f2244',
       error: 'rgb(186, 26, 26)',
       onError: 'rgb(255, 255, 255)',
       errorContainer: 'rgb(255, 218, 214)',
       onErrorContainer: 'rgb(65, 0, 2)',
-      background: 'rgb(254, 251, 255)',
-      onBackground: 'rgb(27, 27, 31)',
-      surface: 'rgb(254, 251, 255)',
-      onSurface: 'rgb(27, 27, 31)',
-      surfaceVariant: 'rgb(226, 226, 236)',
-      onSurfaceVariant: 'rgb(69, 70, 79)',
-      outline: 'rgb(117, 118, 128)',
-      outlineVariant: 'rgb(197, 198, 208)',
+      background: '#efe6db',
+      onBackground: '#251d15',
+      surface: '#f6efe6',
+      onSurface: '#2f261c',
+      surfaceVariant: '#d7c9ba',
+      onSurfaceVariant: '#625446',
+      outline: '#b9aa9c',
+      outlineVariant: '#d9ccbf',
       shadow: 'rgb(0, 0, 0)',
       scrim: 'rgb(0, 0, 0)',
-      inverseSurface: 'rgb(48, 48, 52)',
-      inverseOnSurface: 'rgb(242, 240, 244)',
-      inversePrimary: 'rgb(180, 197, 255)',
-      inverseSecondary: 'rgb(208, 188, 255)',
+      inverseSurface: '#3a2f25',
+      inverseOnSurface: '#f8f2ea',
+      inversePrimary: '#e9d7c1',
+      inverseSecondary: '#f0ddd0',
       elevation: {
         level0: 'transparent',
-        level1: 'rgb(241, 243, 253)',
-        level2: 'rgb(234, 238, 252)',
-        level3: 'rgb(226, 233, 251)',
-        level4: 'rgb(224, 231, 251)',
-        level5: 'rgb(218, 228, 250)',
+        level1: '#f4ecdf',
+        level2: '#f1e8db',
+        level3: '#ede3d6',
+        level4: '#e9dfd2',
+        level5: '#e6dccf',
       },
-      surfaceDisabled: 'rgba(27, 27, 31, 0.12)',
-      onSurfaceDisabled: 'rgba(27, 27, 31, 0.38)',
-      backdrop: 'rgba(46, 48, 56, 0.4)',
+      surfaceDisabled: 'rgba(47, 38, 28, 0.12)',
+      onSurfaceDisabled: 'rgba(47, 38, 28, 0.38)',
+      backdrop: 'rgba(58, 47, 37, 0.28)',
     };
   }
 
@@ -311,6 +311,12 @@ const createTheme = (appTheme: AppTheme): Theme => {
 
   return {
     ...baseTheme,
+    variant:
+      appTheme === AppTheme.Dark
+        ? 'dark'
+        : appTheme === AppTheme.Cream
+          ? 'cream'
+          : 'light',
     colors: {
       ...baseColors,
       ...semanticColors,
@@ -419,4 +425,4 @@ const createTheme = (appTheme: AppTheme): Theme => {
 
 export const lightTheme = createTheme(AppTheme.Light);
 export const darkTheme = createTheme(AppTheme.Dark);
-export const x1Theme = createTheme(AppTheme.X1);
+export const creamTheme = createTheme(AppTheme.Cream);

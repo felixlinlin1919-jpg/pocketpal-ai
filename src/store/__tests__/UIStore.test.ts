@@ -31,6 +31,9 @@ describe('UIStore', () => {
   it('should set color scheme', () => {
     uiStore.setColorScheme('dark');
     expect(uiStore.colorScheme).toBe('dark');
+
+    uiStore.setColorScheme('cream');
+    expect(uiStore.colorScheme).toBe('cream');
   });
 
   it('should set auto navigate to chat', () => {

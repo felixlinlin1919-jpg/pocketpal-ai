@@ -58,6 +58,9 @@ const CharacterProfileCard = ({
     : !hasResolvedBackground || backgroundLoadFailed
       ? '背景路徑失效'
       : '已設定背景';
+  const descriptionText =
+    profile.description?.trim() ||
+    (isSelected ? '這個角色正在陪你聊天' : '點一下即可切換到這個角色');
 
   return (
     <Card style={[styles.card, isSelected && styles.selectedCard]}>
@@ -65,7 +68,7 @@ const CharacterProfileCard = ({
         activeOpacity={0.88}
         onPress={onSelect}
         style={styles.cardPressable}>
-        <View style={styles.cardHero}>
+        <View style={styles.cardVisual}>
           {backgroundSource && !backgroundLoadFailed ? (
             <Image
               source={backgroundSource}
@@ -76,21 +79,8 @@ const CharacterProfileCard = ({
             <View style={styles.cardBackgroundFallback} />
           )}
           <View style={styles.cardBackgroundOverlay} />
-          {isSelected && (
-            <View style={styles.floatingSelectedBadge}>
-              <CheckCircleIcon
-                width={14}
-                height={14}
-                stroke={theme.colors.onPrimary}
-              />
-              <Text variant="labelSmall" style={styles.selectedBadgeText}>
-                目前使用中
-              </Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.cardBody}>
-          <View style={styles.profileRow}>
+          <View style={styles.visualGlow} />
+          <View style={styles.visualAvatarShell}>
             {hasValidAvatar ? (
               <Image
                 source={avatarSource}
@@ -110,45 +100,61 @@ const CharacterProfileCard = ({
                 />
               </View>
             )}
-
+          </View>
+        </View>
+        <View style={styles.cardBody}>
+          <View style={styles.cardTopRow}>
             <View style={styles.infoContainer}>
               <View style={styles.titleRow}>
                 <Text variant="titleMedium" style={styles.profileName}>
                   {profile.name}
                 </Text>
+                {profile.emoji?.trim() ? (
+                  <Text style={styles.inlineEmoji}>{profile.emoji.trim()}</Text>
+                ) : null}
               </View>
-
-              <Text variant="bodyMedium" style={styles.profileMeta}>
-                {profile.description?.trim()
-                  ? profile.description.trim()
-                  : isSelected
-                    ? '這個角色正在陪你聊天'
-                    : '點一下即可切換到這個角色'}
+              <Text
+                variant="bodyMedium"
+                numberOfLines={2}
+                style={styles.profileMeta}>
+                {descriptionText}
               </Text>
-
-              <View style={styles.statusRow}>
-                <View style={styles.statusChip}>
-                  <Text variant="labelSmall" style={styles.statusChipText}>
-                    {hasValidAvatar ? '有頭像' : '無頭像'}
-                  </Text>
-                </View>
-                <View
-                  style={[
-                    styles.statusChip,
-                    backgroundStatusText === '背景路徑失效' &&
-                      styles.statusChipWarning,
-                  ]}>
-                  <Text
-                    variant="labelSmall"
-                    style={[
-                      styles.statusChipText,
-                      backgroundStatusText === '背景路徑失效' &&
-                        styles.statusChipWarningText,
-                    ]}>
-                    {backgroundStatusText}
-                  </Text>
-                </View>
+            </View>
+            {isSelected && (
+              <View style={styles.floatingSelectedBadge}>
+                <CheckCircleIcon
+                  width={14}
+                  height={14}
+                  stroke={theme.colors.onPrimary}
+                />
+                <Text variant="labelSmall" style={styles.selectedBadgeText}>
+                  目前使用中
+                </Text>
               </View>
+            )}
+          </View>
+
+          <View style={styles.statusRow}>
+            <View style={styles.statusChip}>
+              <Text variant="labelSmall" style={styles.statusChipText}>
+                {hasValidAvatar ? '有頭像' : profile.emoji?.trim() ? 'Emoji 角色' : '無頭像'}
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.statusChip,
+                backgroundStatusText === '背景路徑失效' &&
+                  styles.statusChipWarning,
+              ]}>
+              <Text
+                variant="labelSmall"
+                style={[
+                  styles.statusChipText,
+                  backgroundStatusText === '背景路徑失效' &&
+                    styles.statusChipWarningText,
+                ]}>
+                {backgroundStatusText}
+              </Text>
             </View>
           </View>
 
@@ -215,9 +221,7 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
       <FlatList
         data={filteredProfiles}
         keyExtractor={item => item.id}
-        numColumns={2}
         contentContainerStyle={styles.contentContainer}
-        columnWrapperStyle={styles.gridRow}
         ListHeaderComponent={
           <View style={styles.headerStack}>
             <View style={styles.pageHeaderRow}>

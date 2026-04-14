@@ -8,7 +8,4 @@ export const styles = StyleSheet.create({
   menuBtn: {
     marginLeft: 0,
   },
-  chatBtn: {
-    marginRight: 0,
-  },
 });

@@ -126,18 +126,18 @@ describe('SettingsScreen', () => {
     expect(uiStore.setAutoNavigateToChat).toHaveBeenCalledWith(false);
   });
 
-  it('toggles Dark Mode switch', async () => {
+  it('changes theme option', async () => {
     const {getByTestId} = render(<SettingsScreen />, {
       withSafeArea: true,
       withNavigation: true,
     });
-    const darkModeSwitch = getByTestId('dark-mode-switch');
+    const creamThemeButton = getByTestId('theme-option-cream');
 
     await act(async () => {
-      fireEvent(darkModeSwitch, 'valueChange', true);
+      fireEvent.press(creamThemeButton);
     });
 
-    expect(uiStore.setColorScheme).toHaveBeenCalledWith('dark');
+    expect(uiStore.setColorScheme).toHaveBeenCalledWith('cream');
   });
 
   it('toggles GPU acceleration switch on iOS and adjusts GPU layers', async () => {

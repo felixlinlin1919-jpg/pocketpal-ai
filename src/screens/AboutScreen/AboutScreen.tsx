@@ -94,7 +94,7 @@ export const AboutScreen: React.FC = () => {
               }
               style={styles.actionButton}
               icon={GithubButtonIcon}>
-              {l10n.about.githubButton}
+              查看原始碼
             </Button>
           </View>
 

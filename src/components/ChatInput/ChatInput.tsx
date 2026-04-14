@@ -500,7 +500,7 @@ export const ChatInput = observer(
                     styles.palBtn,
                     {
                       backgroundColor:
-                        uiStore.colorScheme === 'dark'
+                        theme.dark
                           ? theme.colors.inverseOnSurface
                           : theme.colors.inverseSurface,
                     },

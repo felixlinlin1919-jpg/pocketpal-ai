@@ -1007,8 +1007,7 @@ export const SettingsScreen: React.FC = observer(() => {
                 </View>
                 <Divider />
 
-                {/* Dark Mode */}
-                <View style={styles.switchContainer}>
+                <View style={styles.settingItemContainer}>
                   <View style={styles.textContainer}>
                     <View style={styles.labelWithIconContainer}>
                       <MoonIcon
@@ -1018,16 +1017,42 @@ export const SettingsScreen: React.FC = observer(() => {
                         stroke={theme.colors.onSurface}
                       />
                       <Text variant="titleMedium" style={styles.textLabel}>
-                        {l10n.settings.darkMode}
+                        主題
                       </Text>
                     </View>
+                    <Text variant="labelSmall" style={styles.textDescription}>
+                      切換深色、淺色或紙色介面。
+                    </Text>
                   </View>
-                  <Switch
-                    testID="dark-mode-switch"
-                    value={uiStore.colorScheme === 'dark'}
+                  <SegmentedButtons
+                    style={styles.themeSegmented}
+                    density="small"
+                    value={uiStore.colorScheme}
                     onValueChange={value =>
-                      uiStore.setColorScheme(value ? 'dark' : 'light')
+                      uiStore.setColorScheme(
+                        value as 'light' | 'dark' | 'cream',
+                      )
                     }
+                    buttons={[
+                      {
+                        value: 'dark',
+                        label: '深色',
+                        testID: 'theme-option-dark',
+                        style: styles.themeSegmentButton,
+                      },
+                      {
+                        value: 'light',
+                        label: '淺色',
+                        testID: 'theme-option-light',
+                        style: styles.themeSegmentButton,
+                      },
+                      {
+                        value: 'cream',
+                        label: '紙色',
+                        testID: 'theme-option-cream',
+                        style: styles.themeSegmentButton,
+                      },
+                    ]}
                   />
                 </View>
 

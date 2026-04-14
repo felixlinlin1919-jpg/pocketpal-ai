@@ -6,7 +6,7 @@ import {useTheme} from '../useTheme';
 
 import {uiStore} from '../../store';
 
-import {darkTheme, lightTheme} from '../../utils/theme';
+import {creamTheme, darkTheme, lightTheme} from '../../utils/theme';
 
 describe('useTheme', () => {
   beforeEach(() => {
@@ -33,6 +33,20 @@ describe('useTheme', () => {
       expect(result.current).toEqual(
         expect.objectContaining({
           ...darkTheme,
+        }),
+      );
+    });
+  });
+
+  it('should return cream theme when colorScheme is cream', async () => {
+    uiStore.setColorScheme('cream');
+
+    const {result} = renderHook(() => useTheme());
+
+    await waitFor(() => {
+      expect(result.current).toEqual(
+        expect.objectContaining({
+          ...creamTheme,
         }),
       );
     });

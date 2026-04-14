@@ -1,15 +1,19 @@
 import {StyleSheet} from 'react-native';
 
 import {Theme} from '../../utils/types';
+import {getAppDesign} from '../../utils/appDesign';
 
 export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+  StyleSheet.create((() => {
+    const design = getAppDesign(theme);
+
+    return {
     menu: {
-      shadowColor: 'rgba(0, 0, 0, 0.05)',
-      shadowRadius: 70,
-      shadowOffset: {width: 0, height: 0},
-      elevation: 5,
-      borderRadius: 12,
+      shadowColor: 'rgba(0, 0, 0, 0.14)',
+      shadowRadius: 32,
+      shadowOffset: {width: 0, height: 12},
+      elevation: 10,
+      borderRadius: 22,
       maxWidth: '90%',
     },
     menuWithSubmenu: {
@@ -17,14 +21,15 @@ export const createStyles = (theme: Theme) =>
       shadowOpacity: 0,
     },
     content: {
-      paddingVertical: 0,
-      backgroundColor: theme.colors.menuBackground,
-      borderRadius: 12,
-      // overflow: 'hidden', This removes shadow
+      paddingVertical: 8,
+      backgroundColor: design.elevatedSurface,
+      borderRadius: 22,
       marginRight: 10,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
     },
     contentWithSubmenu: {
-      backgroundColor: theme.colors.menuBackground,
+      backgroundColor: design.elevatedSurface,
     },
     groupSeparator: {
       height: 6,
@@ -32,6 +37,7 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: 'transparent',
     },
     separator: {
-      backgroundColor: theme.colors.menuSeparator,
+      backgroundColor: design.subtleBorderColor,
     },
-  });
+    };
+  })());

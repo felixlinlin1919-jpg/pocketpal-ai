@@ -45,7 +45,7 @@ describe('AboutScreen', () => {
   it('opens GitHub URL when GitHub button is pressed', () => {
     const {getByText} = render(<AboutScreen />);
 
-    fireEvent.press(getByText('Star on GitHub'));
+    fireEvent.press(getByText('查看原始碼'));
 
     expect(Linking.openURL).toHaveBeenCalledWith(
       'https://github.com/a-ghorbani/pocketpal-ai',

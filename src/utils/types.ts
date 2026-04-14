@@ -287,6 +287,7 @@ export interface ThemeSpacing {
 }
 
 export interface Theme extends MD3Theme {
+  variant: 'dark' | 'light' | 'cream';
   colors: MD3BaseColors & SemanticColors;
   borders: ThemeBorders;
   spacing: ThemeSpacing;

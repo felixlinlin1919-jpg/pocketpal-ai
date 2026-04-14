@@ -29,7 +29,7 @@ export class UIStore {
   autoNavigatetoChat = true;
 
   //colorScheme = useColorScheme();
-  colorScheme: 'light' | 'dark' =
+  colorScheme: 'light' | 'dark' | 'cream' =
     Appearance.getColorScheme() === 'dark' ? 'dark' : 'light';
 
   // Current selected language (default to English)
@@ -103,7 +103,7 @@ export class UIStore {
     });
   }
 
-  setColorScheme(colorScheme: 'light' | 'dark') {
+  setColorScheme(colorScheme: 'light' | 'dark' | 'cream') {
     runInAction(() => {
       this.colorScheme = colorScheme;
     });
