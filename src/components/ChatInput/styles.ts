@@ -39,6 +39,10 @@ export const createStyles = ({
       borderWidth: 1,
       borderColor: design.cardBorderColor,
     },
+    plusButtonActive: {
+      backgroundColor: design.accentTint,
+      borderColor: design.accentBorder,
+    },
     thinkingToggle: {
       height: 32,
       width: 32,
@@ -121,6 +125,39 @@ export const createStyles = ({
       borderTopWidth: 1,
       borderTopColor: design.dividerColor,
       backgroundColor: design.rowSurfaceMuted,
+    },
+    attachmentTray: {
+      marginHorizontal: 14,
+      marginBottom: 10,
+      padding: 12,
+      borderRadius: 20,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
+      backgroundColor: design.rowSurface,
+      gap: 10,
+    },
+    attachmentTrayTitle: {
+      color: theme.colors.onSurfaceVariant,
+      fontWeight: '700',
+      letterSpacing: 0.8,
+    },
+    attachmentActions: {
+      flexDirection: 'row',
+      gap: 10,
+      flexWrap: 'wrap',
+    },
+    attachmentAction: {
+      borderRadius: 999,
+      paddingHorizontal: 14,
+      paddingVertical: 8,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
+      backgroundColor: design.iconSurface,
+    },
+    attachmentActionText: {
+      color: theme.colors.onSurface,
+      fontSize: 13,
+      fontWeight: '700',
     },
     leftControls: {
       flexDirection: 'row',

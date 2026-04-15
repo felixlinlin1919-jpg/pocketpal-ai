@@ -1,15 +1,10 @@
-import {View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import {Pressable, View} from 'react-native';
+import React, {useState} from 'react';
 import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
-import {Menu as PaperMenu, Icon} from 'react-native-paper';
-import {
-  MenuItemProps as PaperMenuItemProps,
-  MenuProps as PaperMenuProps,
-} from 'react-native-paper';
+import {Icon, Text} from 'react-native-paper';
+import {MenuItemProps as PaperMenuItemProps} from 'react-native-paper';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
-
-import {SubMenu} from '../SubMenu/SubMenu';
 
 import {useTheme} from '../../../hooks';
 
@@ -28,7 +23,10 @@ export interface MenuItemProps
   onSubmenuOpen?: () => void;
   onSubmenuClose?: () => void;
   selectable?: boolean;
-  submenuProps?: Omit<PaperMenuProps, 'theme'>;
+  submenuProps?: {
+    style?: StyleProp<ViewStyle>;
+    contentStyle?: StyleProp<ViewStyle>;
+  };
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
@@ -49,8 +47,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   ...menuItemProps
 }) => {
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
-  const [submenuPosition, setSubmenuPosition] = useState({x: 0, y: 0});
-  const itemRef = useRef<View>(null);
 
   const theme = useTheme();
 
@@ -124,63 +120,82 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   };
 
   const handlePress = (e: any) => {
+    if (menuItemProps.disabled || isGroupLabel) {
+      return;
+    }
+
     if (submenu) {
-      itemRef.current?.measure((x, y, width, height, pageX, pageY) => {
-        const willOpen = !isSubmenuOpen;
-        setSubmenuPosition({x: pageX + width, y: pageY + height});
-        setIsSubmenuOpen(willOpen);
-        if (willOpen) {
-          onSubmenuOpen?.();
-        } else {
-          onSubmenuClose?.();
-        }
-      });
+      const willOpen = !isSubmenuOpen;
+      setIsSubmenuOpen(willOpen);
+      if (willOpen) {
+        onSubmenuOpen?.();
+      } else {
+        onSubmenuClose?.();
+      }
     } else {
       menuItemProps.onPress?.(e);
     }
   };
 
+  const leadingIconRenderer = getLeadingIcon();
+  const trailingIconRenderer = getTrailingIcon();
+  const iconProps = {
+    color: menuItemProps.disabled
+      ? theme.colors.onSurfaceDisabled
+      : theme.colors.menuText,
+    size: 18,
+  };
+
   return (
-    <View ref={itemRef}>
-      <PaperMenu.Item
-        {...menuItemProps}
+    <View>
+      <Pressable
         onPress={handlePress}
         disabled={isGroupLabel || menuItemProps.disabled}
-        title={label}
+        accessibilityRole="menuitem"
+        accessibilityState={{
+          disabled: isGroupLabel || menuItemProps.disabled,
+          selected,
+          expanded: submenu ? isSubmenuOpen : undefined,
+        }}
         style={[
           styles.container,
           isSubmenuOpen && styles.activeParent,
           isGroupLabel && styles.groupLabel,
           style,
-        ]}
-        dense
-        contentStyle={[
-          styles.contentContainer,
-          !getLeadingIcon() && styles.noLeadingIcon,
-          !getTrailingIcon() && styles.noTrailingIcon,
-        ]}
-        titleStyle={[
-          styles.label,
-          {
-            color: danger ? theme.colors.menuDangerText : theme.colors.menuText,
-          },
-          menuItemProps.disabled && styles.labelDisabled,
-          labelStyle,
-        ]}
-        leadingIcon={getLeadingIcon()}
-        trailingIcon={getTrailingIcon()}
-      />
+        ]}>
+        <View
+          style={[
+            styles.contentContainer,
+            !leadingIconRenderer && styles.noLeadingIcon,
+            !trailingIconRenderer && styles.noTrailingIcon,
+          ]}>
+          {leadingIconRenderer?.(iconProps)}
+          <Text
+            numberOfLines={2}
+            style={[
+              styles.label,
+              {
+                color: danger
+                  ? theme.colors.menuDangerText
+                  : theme.colors.menuText,
+              },
+              menuItemProps.disabled && styles.labelDisabled,
+              labelStyle,
+            ]}>
+            {label}
+          </Text>
+          {trailingIconRenderer?.(iconProps)}
+        </View>
+      </Pressable>
       {submenu && (
-        <SubMenu
-          visible={isSubmenuOpen}
-          onDismiss={() => {
-            setIsSubmenuOpen(false);
-            onSubmenuClose?.();
-          }}
-          anchor={submenuPosition}
-          {...submenuProps}>
-          {submenu}
-        </SubMenu>
+        <View
+          style={[
+            styles.submenuInline,
+            submenuProps?.style,
+            submenuProps?.contentStyle,
+          ]}>
+          {isSubmenuOpen && submenu}
+        </View>
       )}
     </View>
   );

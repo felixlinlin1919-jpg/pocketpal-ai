@@ -19,7 +19,6 @@ import {IconButton, Text} from 'react-native-paper';
 import {hasVideoCapability} from '../../utils/pal-capabilities';
 
 import {
-  ChevronUpIcon,
   VideoRecorderIcon,
   PlusIcon,
   AtomIcon,
@@ -29,12 +28,12 @@ import {useTheme} from '../../hooks';
 
 import {createStyles} from './styles';
 
-import {chatSessionStore, modelStore, palStore, uiStore} from '../../store';
+import {chatSessionStore, modelStore, palStore} from '../../store';
 
 import {MessageType} from '../../utils/types';
 import {L10nContext, UserContext} from '../../utils';
 
-import {SendButton, StopButton, Menu} from '..';
+import {SendButton, StopButton} from '..';
 
 export interface ChatInputTopLevelProps {
   /** Whether the AI is currently streaming tokens */
@@ -105,11 +104,9 @@ export const ChatInput = observer(
     onSendPress,
     onStopPress,
     onCancelEdit,
-    onPalBtnPress,
     isStopVisible,
     sendButtonVisibilityMode,
     textInputProps,
-    isPickerVisible,
     inputBackgroundColor,
     isCameraActive = false,
     onStartCamera,
@@ -128,7 +125,6 @@ export const ChatInput = observer(
     const user = React.useContext(UserContext);
     const inputRef = React.useRef<TextInput>(null);
     const editBarHeight = React.useRef(new Animated.Value(0)).current;
-    const iconRotation = React.useRef(new Animated.Value(0)).current;
     const activePalId = chatSessionStore.activePalId;
     const currentActivePal = palStore.pals.find(pal => pal.id === activePalId);
 
@@ -146,8 +142,9 @@ export const ChatInput = observer(
     const selectedImages = defaultImages ?? internalSelectedImages;
     const setSelectedImages =
       onDefaultImagesChange ?? setInternalSelectedImages;
-    // State for image upload menu
-    const [showImageUploadMenu, setShowImageUploadMenu] = React.useState(false);
+    // State for the inline attachment tray. Keeping it inside the composer avoids
+    // paper-theme overlay artifacts from portal-based menus.
+    const [showAttachmentTray, setShowAttachmentTray] = React.useState(false);
     // State for showing "model not loaded" helper text
     const [showModelWarning, setShowModelWarning] = React.useState(false);
     const isEditMode = chatSessionStore.isEditMode;
@@ -181,14 +178,6 @@ export const ChatInput = observer(
         onCancelEdit?.();
       }
     }, [isEditMode, editBarHeight, onCancelEdit]);
-
-    React.useEffect(() => {
-      Animated.spring(iconRotation, {
-        toValue: isPickerVisible ? 1 : 0,
-        useNativeDriver: true,
-        friction: 8,
-      }).start();
-    }, [isPickerVisible, iconRotation]);
 
     const handleChangeText = (newText: string) => {
       if (isVideoCapable && onPromptTextChange) {
@@ -228,9 +217,9 @@ export const ChatInput = observer(
       }
     };
 
-    // Handle plus button press to show image upload menu
+    // Handle plus button press to show the inline image attachment tray
     const handlePlusButtonPress = () => {
-      setShowImageUploadMenu(true);
+      setShowAttachmentTray(prev => !prev);
     };
 
     // Need to figure this out:
@@ -245,7 +234,7 @@ export const ChatInput = observer(
               l10n.camera.permissionTitle,
               l10n.camera.permissionMessage,
             );
-            setShowImageUploadMenu(false);
+            setShowAttachmentTray(false);
             return;
           }
         }
@@ -263,7 +252,7 @@ export const ChatInput = observer(
           const newImages = [...selectedImages, result.assets[0].uri];
           setSelectedImages(newImages);
         }
-        setShowImageUploadMenu(false);
+        setShowAttachmentTray(false);
       } catch (error) {
         console.error('Error taking photo:', error);
         Alert.alert(
@@ -299,7 +288,7 @@ export const ChatInput = observer(
             setSelectedImages(newImages);
           }
         }
-        setShowImageUploadMenu(false);
+        setShowAttachmentTray(false);
       } catch (error) {
         console.error('Error selecting images:', error);
         Alert.alert(
@@ -332,11 +321,6 @@ export const ChatInput = observer(
       (sendButtonVisibilityMode === 'always' || value.trim());
     const isSendButtonEnabled = value.trim().length > 0 && hasActiveModel;
     const sendButtonOpacity = isSendButtonEnabled ? 1 : 0.4;
-
-    const rotateInterpolate = iconRotation.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '180deg'],
-    });
 
     const onSurfaceColor = currentActivePal?.color?.[0] || theme.colors.text;
     const onSurfaceColorVariant = onSurfaceColor + '55'; // for disabled state or placeholder text
@@ -458,89 +442,50 @@ export const ChatInput = observer(
             />
           </View>
 
+          {showAttachmentTray && showImageUpload && !isVideoCapable && (
+            <View style={styles.attachmentTray}>
+              <Text variant="labelSmall" style={styles.attachmentTrayTitle}>
+                加入圖片
+              </Text>
+              <View style={styles.attachmentActions}>
+                <TouchableOpacity
+                  style={styles.attachmentAction}
+                  onPress={handleTakePhoto}
+                  accessibilityRole="button"
+                  accessibilityLabel="拍照">
+                  <Text style={styles.attachmentActionText}>拍照</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.attachmentAction}
+                  onPress={handleSelectImages}
+                  accessibilityRole="button"
+                  accessibilityLabel="從相簿選擇">
+                  <Text style={styles.attachmentActionText}>相簿</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
           {/* Control Bar (Bottom Row) */}
           <View style={styles.controlBar}>
             {/* Left Controls */}
             <View style={styles.leftControls}>
               {/* Plus Button for Image Upload (only for regular chat) */}
               {showImageUpload && !isVideoCapable && (
-                <Menu
-                  visible={showImageUploadMenu}
-                  onDismiss={() => setShowImageUploadMenu(false)}
-                  anchorPosition="top"
-                  anchor={
-                    <TouchableOpacity
-                      style={styles.plusButton}
-                      disabled={!isPlusButtonEnabled}
-                      onPress={
-                        isPlusButtonEnabled ? handlePlusButtonPress : () => {}
-                      }
-                      accessibilityLabel="加入圖片"
-                      accessibilityRole="button">
-                      <PlusIcon width={20} height={20} stroke={plusColor} />
-                    </TouchableOpacity>
-                  }>
-                  <Menu.Item
-                    label={l10n.camera?.takePhoto || 'Camera'}
-                    icon="camera"
-                    onPress={handleTakePhoto}
-                  />
-                  <Menu.Item
-                    label={l10n.common?.gallery || 'Gallery'}
-                    icon="image"
-                    onPress={handleSelectImages}
-                  />
-                </Menu>
-              )}
-
-              {/* Pal Selector */}
-              <View style={styles.palSelector}>
                 <TouchableOpacity
                   style={[
-                    styles.palBtn,
-                    {
-                      backgroundColor:
-                        theme.dark
-                          ? theme.colors.inverseOnSurface
-                          : theme.colors.inverseSurface,
-                    },
-                    currentActivePal?.color && {
-                      backgroundColor: currentActivePal?.color?.[0],
-                    },
+                    styles.plusButton,
+                    showAttachmentTray && styles.plusButtonActive,
                   ]}
-                  onPress={onPalBtnPress}
-                  accessibilityLabel="Select Pal"
+                  disabled={!isPlusButtonEnabled}
+                  onPress={
+                    isPlusButtonEnabled ? handlePlusButtonPress : () => {}
+                  }
+                  accessibilityLabel="加入圖片"
                   accessibilityRole="button">
-                  <Animated.View
-                    style={{
-                      transform: [{rotate: rotateInterpolate}],
-                    }}>
-                    <ChevronUpIcon stroke={inputBackgroundColor} />
-                  </Animated.View>
+                  <PlusIcon width={20} height={20} stroke={plusColor} />
                 </TouchableOpacity>
-
-                {/* Pal Name Display */}
-                {currentActivePal?.name && hasActiveModel && (
-                  <Text
-                    style={[
-                      styles.palNameCompact,
-                      {
-                        color: onSurfaceColor,
-                      },
-                    ]}>
-                    角色：{' '}
-                    <Text
-                      style={[
-                        styles.palNameValueCompact,
-                        {
-                          color: onSurfaceColor,
-                        },
-                      ]}>
-                      {currentActivePal?.name}
-                    </Text>
-                  </Text>
-                )}
-              </View>
+              )}
 
               {/* Thinking Toggle Button */}
               {showThinkingToggle && !isCameraActive && (

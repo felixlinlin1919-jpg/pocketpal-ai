@@ -232,7 +232,13 @@ export const createStyles = (theme: Theme) =>
       paddingBottom: 32,
     },
     summaryCard: {
-      ...design.cardStyle,
+      ...design.heroCardStyle,
+      backgroundColor:
+        theme.variant === 'cream' ? design.rowSurface : design.heroBackground,
+      borderColor:
+        theme.variant === 'cream'
+          ? design.subtleBorderColor
+          : design.cardBorderColor,
       overflow: 'hidden',
       padding: 20,
     },
@@ -257,12 +263,13 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.variant === 'dark'
         ? 'rgba(10, 12, 18, 0.74)'
         : theme.variant === 'cream'
-          ? 'rgba(255, 248, 239, 0.78)'
+          ? 'rgba(255, 248, 239, 0.68)'
           : 'rgba(255,255,255,0.80)',
     },
     editorHeroFallback: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: design.rowSurfaceMuted,
+      backgroundColor:
+        theme.variant === 'cream' ? design.rowSurface : design.rowSurfaceMuted,
     },
     editorHeroContent: {
       gap: 8,
@@ -278,7 +285,7 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 42,
       borderWidth: 2,
       borderColor: design.cardBorderColor,
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.rowSurface,
     },
     editorAvatarFallback: {
       width: 84,
@@ -286,7 +293,7 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 42,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.iconSurface,
       borderWidth: 2,
       borderColor: design.cardBorderColor,
     },

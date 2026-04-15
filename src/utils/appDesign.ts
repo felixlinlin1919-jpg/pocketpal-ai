@@ -51,6 +51,7 @@ export const getAppDesign = (theme: Theme) => {
             textMuted: 'rgba(71, 85, 105, 0.72)',
             textSubtle: 'rgba(71, 85, 105, 0.56)',
           };
+  const spacingDefault = theme.spacing?.default ?? 8;
   const cardRadius = 24;
   const innerRadius = 18;
   const pillRadius = 999;
@@ -221,7 +222,7 @@ export const getAppDesign = (theme: Theme) => {
       fontSize: 14,
       lineHeight: 21,
     },
-    sectionSpacing: theme.spacing.default * 1.25,
+    sectionSpacing: spacingDefault * 1.25,
   };
 };
 

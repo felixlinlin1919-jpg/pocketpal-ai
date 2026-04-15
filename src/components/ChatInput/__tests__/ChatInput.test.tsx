@@ -265,7 +265,7 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('Add image');
+    const plusButton = getByLabelText('加入圖片');
     expect(plusButton).toBeDefined();
   });
 
@@ -284,7 +284,7 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = queryByLabelText('Add image');
+    const plusButton = queryByLabelText('加入圖片');
     expect(plusButton).toBeNull();
   });
 
@@ -304,16 +304,16 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('Add image');
+    const plusButton = getByLabelText('加入圖片');
     expect(plusButton).toBeTruthy();
     expect(plusButton.props.accessibilityState.disabled).toBe(false);
   });
 
-  it('shows pal selector button', () => {
+  it('does not show legacy pal selector button', () => {
     expect.assertions(1);
     const onSendPress = jest.fn();
     const onPalBtnPress = jest.fn();
-    const {getByLabelText} = render(
+    const {queryByLabelText} = render(
       <UserContext.Provider value={user}>
         <ChatInput
           {...{
@@ -325,9 +325,7 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const palButton = getByLabelText('Select Pal');
-    fireEvent.press(palButton);
-    expect(onPalBtnPress).toHaveBeenCalledTimes(1);
+    expect(queryByLabelText('Select Pal')).toBeNull();
   });
 
   it('shows video button for video pal type', async () => {
@@ -473,7 +471,7 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('Add image');
+    const plusButton = getByLabelText('加入圖片');
     expect(plusButton.props.accessibilityState.disabled).toBe(true);
   });
 
@@ -493,7 +491,7 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('Add image');
+    const plusButton = getByLabelText('加入圖片');
     expect(plusButton.props.accessibilityState.disabled).toBe(false);
   });
 
@@ -571,11 +569,11 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('Add image');
+      const plusButton = getByLabelText('加入圖片');
       fireEvent.press(plusButton);
 
-      // Menu should be visible after pressing plus button
-      // This would need to be tested with the actual menu implementation
+      expect(getByLabelText('拍照')).toBeTruthy();
+      expect(getByLabelText('從相簿選擇')).toBeTruthy();
     });
 
     it('handles camera photo capture successfully', async () => {
@@ -598,15 +596,10 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('Add image');
+      const plusButton = getByLabelText('加入圖片');
       fireEvent.press(plusButton);
+      fireEvent.press(getByLabelText('拍照'));
 
-      // Since testing the menu interaction is complex, let's test that the camera function works
-      // by calling it directly (this tests the core functionality)
-      expect(launchCamera).toHaveBeenCalledTimes(0); // Initially not called
-
-      // The plus button should open the menu, but testing menu interaction is complex
-      // For now, we'll test that the component renders correctly with image upload enabled
       expect(plusButton).toBeTruthy();
     });
 
@@ -628,12 +621,11 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('Add image');
+      const plusButton = getByLabelText('加入圖片');
       fireEvent.press(plusButton);
+      fireEvent.press(getByLabelText('拍照'));
 
-      // Test that the component renders correctly even when camera errors are configured
       expect(plusButton).toBeTruthy();
-      expect(launchCamera).toHaveBeenCalledTimes(0); // Not called until menu interaction
     });
 
     it('handles image library selection successfully', async () => {
@@ -656,12 +648,11 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('Add image');
+      const plusButton = getByLabelText('加入圖片');
       fireEvent.press(plusButton);
+      fireEvent.press(getByLabelText('從相簿選擇'));
 
-      // Test that the component renders correctly with image library functionality
       expect(plusButton).toBeTruthy();
-      expect(launchImageLibrary).toHaveBeenCalledTimes(0); // Not called until menu interaction
     });
 
     it('sends message with selected images', () => {

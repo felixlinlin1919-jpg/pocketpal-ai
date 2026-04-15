@@ -10,8 +10,7 @@ export const createStyles = (theme: Theme) =>
     container: {
       minHeight: 54,
       backgroundColor: 'transparent',
-      paddingRight: 12,
-      paddingLeft: 12,
+      justifyContent: 'center',
       maxWidth: 'auto',
       borderRadius: 16,
       marginHorizontal: 6,
@@ -26,19 +25,21 @@ export const createStyles = (theme: Theme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      marginLeft: 12,
-      marginRight: 12,
+      gap: 10,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
       maxWidth: 'auto',
       flexGrow: 1,
     },
     noLeadingIcon: {
-      marginLeft: 0,
+      paddingLeft: 12,
     },
     noTrailingIcon: {
-      marginRight: 0,
+      paddingRight: 12,
     },
     label: {
       ...theme.fonts.titleSmall,
+      flex: 1,
       textAlign: 'left',
       paddingLeft: 0,
       fontWeight: '600',
@@ -51,6 +52,8 @@ export const createStyles = (theme: Theme) =>
     },
     trailingContainer: {
       alignItems: 'flex-end',
+      justifyContent: 'center',
+      width: 28,
     },
     groupLabel: {
       paddingTop: 12,
@@ -58,6 +61,15 @@ export const createStyles = (theme: Theme) =>
     },
     activeParent: {
       backgroundColor: theme.colors.menuBackgroundActive,
+    },
+    submenuInline: {
+      marginHorizontal: 8,
+      marginBottom: 6,
+      paddingVertical: 4,
+      borderRadius: 16,
+      backgroundColor: design.mutedSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
     },
     };
   })());

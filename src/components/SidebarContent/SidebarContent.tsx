@@ -1,5 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {TouchableOpacity, View, Alert, SectionList} from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Alert,
+  SectionList,
+  TextInput,
+} from 'react-native';
 import {observer} from 'mobx-react';
 import {Divider, Drawer, Text} from 'react-native-paper';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -14,7 +20,6 @@ import {
   ChatIcon,
   EditIcon,
   ModelIcon,
-  PalIcon,
   SettingsIcon,
   ShareIcon,
   TrashIcon,
@@ -265,6 +270,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
     const [menuPosition, setMenuPosition] = useState({x: 0, y: 0});
     const [sessionToRename, setSessionToRename] =
       useState<SessionMetaData | null>(null);
+    const [historyQuery, setHistoryQuery] = useState('');
 
     const theme = useTheme();
     const styles = createStyles(theme);
@@ -273,12 +279,17 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
 
     // Convert groupedSessions to SectionList format
     // observer() HOC handles MobX reactivity, transformation is cheap
-    const sections = Object.entries(chatSessionStore.groupedSessions).map(
-      ([dateLabel, sessions]) => ({
+    const normalizedHistoryQuery = historyQuery.trim().toLowerCase();
+    const sections = Object.entries(chatSessionStore.groupedSessions)
+      .map(([dateLabel, sessions]) => ({
         title: dateLabel,
-        data: sessions,
-      }),
-    );
+        data: normalizedHistoryQuery
+          ? sessions.filter(session =>
+              session.title.toLowerCase().includes(normalizedHistoryQuery),
+            )
+          : sessions,
+      }))
+      .filter(section => section.data.length > 0);
 
     useEffect(() => {
       chatSessionStore.loadSessionList();
@@ -527,13 +538,6 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
                 testID="drawer-item-models"
               />
               <Drawer.Item
-                label={l10n.components.sidebarContent.menuItems.pals}
-                icon={() => <PalIcon stroke={theme.colors.primary} />}
-                onPress={() => props.navigation.navigate(ROUTES.PALS)}
-                style={styles.menuDrawerItem}
-                testID="drawer-item-pals"
-              />
-              <Drawer.Item
                 label={l10n.components.sidebarContent.menuItems.settings}
                 icon={() => (
                   <SettingsIcon
@@ -587,9 +591,41 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
           <Text variant="labelMedium" style={styles.historyLabel}>
             聊天紀錄
           </Text>
+          <View style={styles.historySearchBox}>
+            <TextInput
+              value={historyQuery}
+              onChangeText={setHistoryQuery}
+              placeholder="搜尋聊天紀錄"
+              placeholderTextColor={theme.colors.onSurfaceVariant}
+              style={styles.historySearchInput}
+              autoCorrect={false}
+              clearButtonMode="while-editing"
+              testID="chat-history-search-input"
+            />
+          </View>
         </View>
       ),
-      [l10n, theme, styles, props.navigation],
+      [historyQuery, l10n, theme, styles, props.navigation],
+    );
+
+    const ListEmptyComponent = React.useMemo(
+      () =>
+        normalizedHistoryQuery ? (
+          <View style={styles.historyEmptyState}>
+            <Text variant="bodyMedium" style={styles.historyEmptyTitle}>
+              找不到符合的聊天紀錄
+            </Text>
+            <Text variant="bodySmall" style={styles.historyEmptyHint}>
+              換個關鍵字再試一次。
+            </Text>
+          </View>
+        ) : null,
+      [
+        normalizedHistoryQuery,
+        styles.historyEmptyHint,
+        styles.historyEmptyState,
+        styles.historyEmptyTitle,
+      ],
     );
 
     return (
@@ -625,10 +661,11 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
                 sections={sections}
                 keyExtractor={keyExtractor}
                 renderItem={renderItem}
-                renderSectionHeader={renderSectionHeader}
-                stickySectionHeadersEnabled={false}
-                contentContainerStyle={styles.scrollViewContent}
-              />
+              renderSectionHeader={renderSectionHeader}
+              ListEmptyComponent={ListEmptyComponent}
+              stickySectionHeadersEnabled={false}
+              contentContainerStyle={styles.scrollViewContent}
+            />
             </>
           ) : (
             <SectionList
@@ -637,6 +674,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
               renderItem={renderItem}
               renderSectionHeader={renderSectionHeader}
               ListHeaderComponent={ListHeaderComponent}
+              ListEmptyComponent={ListEmptyComponent}
               stickySectionHeadersEnabled={false}
               contentContainerStyle={styles.scrollViewContent}
             />

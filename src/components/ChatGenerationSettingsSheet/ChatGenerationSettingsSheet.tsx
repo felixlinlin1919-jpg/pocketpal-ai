@@ -340,11 +340,11 @@ export const ChatGenerationSettingsSheet = ({
               buttons={[
                 {
                   value: 'pal',
-                  label: `Pal (${activePal.name})`,
+                  label: `舊版角色（${activePal.name}）`,
                 },
                 {
                   value: 'custom',
-                  label: 'Custom',
+                  label: '自訂',
                 },
               ]}
               density="medium"

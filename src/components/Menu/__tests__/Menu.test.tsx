@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {render} from '../../../../jest/test-utils';
 import {Menu} from '../Menu';
 
@@ -38,32 +37,21 @@ describe('Menu', () => {
     expect(groupSeparators).toHaveLength(1);
   });
 
-  it('passes statusBarHeight to PaperMenu', () => {
-    (useSafeAreaInsets as jest.Mock).mockReturnValue({
-      top: 59,
-      right: 0,
-      bottom: 34,
-      left: 0,
-    });
-
-    const PaperMenu = require('react-native-paper').Menu;
-    const {UNSAFE_getByType} = render(
+  it('renders with coordinate anchor without Paper portal composition', () => {
+    const {getByText} = render(
       <Menu visible={true} onDismiss={() => {}} anchor={undefined}>
         <Menu.Item label="Item 1" onPress={() => {}} />
       </Menu>,
     );
 
-    const paperMenuInstance = UNSAFE_getByType(PaperMenu);
-    expect(paperMenuInstance.props.statusBarHeight).toBe(59);
+    expect(getByText('Item 1')).toBeTruthy();
   });
 
   it('does not render when visible is true but has no children', () => {
-    const PaperMenu = require('react-native-paper').Menu;
-    const {UNSAFE_getByType} = render(
+    const {queryByText} = render(
       <Menu visible={true} onDismiss={() => {}} anchor={undefined} />,
     );
 
-    const paperMenuInstance = UNSAFE_getByType(PaperMenu);
-    expect(paperMenuInstance.props.visible).toBe(false);
+    expect(queryByText('Item 1')).toBeNull();
   });
 });

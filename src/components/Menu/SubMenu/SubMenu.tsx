@@ -1,38 +1,49 @@
 import React from 'react';
 
-import {
-  Menu as PaperMenu,
-  MenuProps as PaperMenuProps,
-} from 'react-native-paper';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Modal, Pressable, StyleProp, View, ViewStyle} from 'react-native';
 
 import {useTheme} from '../../../hooks';
 
 import {createStyles} from './styles';
 
-interface SubMenuProps extends Omit<PaperMenuProps, 'theme'> {}
+interface SubMenuProps {
+  visible?: boolean;
+  onDismiss?: () => void;
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  contentStyle?: StyleProp<ViewStyle>;
+  anchor?: {x: number; y: number};
+  testID?: string;
+}
 
 export const SubMenu: React.FC<SubMenuProps> = ({
   visible,
   onDismiss,
   children,
   style,
-  ...menuProps
+  contentStyle,
+  anchor = {x: 16, y: 16},
+  testID,
 }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const statusBarHeight = useSafeAreaInsets().top;
 
   return (
-    <PaperMenu
-      visible={visible}
-      onDismiss={onDismiss}
-      style={[styles.menu, style]}
-      contentStyle={styles.content}
-      statusBarHeight={statusBarHeight}
-      {...menuProps}>
-      {children}
-    </PaperMenu>
+    <Modal
+      visible={!!visible}
+      transparent
+      animationType="none"
+      statusBarTranslucent
+      onRequestClose={onDismiss}>
+      <View style={styles.modalRoot} pointerEvents="box-none">
+        <Pressable style={styles.dismissLayer} onPress={onDismiss} />
+        <View
+          testID={testID}
+          style={[styles.menu, {left: anchor.x, top: anchor.y}, style]}>
+          <View style={[styles.content, contentStyle]}>{children}</View>
+        </View>
+      </View>
+    </Modal>
   );
 };
 

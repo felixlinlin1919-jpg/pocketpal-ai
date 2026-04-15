@@ -8,7 +8,16 @@ export const createStyles = (theme: Theme) =>
     const design = getAppDesign(theme);
 
     return {
+    modalRoot: {
+      ...StyleSheet.absoluteFillObject,
+    },
+    dismissLayer: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: 'transparent',
+    },
     menu: {
+      position: 'absolute',
+      minWidth: 190,
       backgroundColor: 'transparent',
       shadowColor: theme.variant === 'dark' ? '#000000' : '#5f4631',
       shadowRadius: theme.variant === 'cream' ? 18 : 28,
