@@ -20,6 +20,22 @@ export const getAppDesign = (theme: Theme) => {
           textMuted: 'rgba(203, 213, 225, 0.72)',
           textSubtle: 'rgba(203, 213, 225, 0.54)',
         }
+      : theme.variant === 'anime'
+        ? {
+            base: '#0f1224',
+            baseAlt: '#151936',
+            surface: '#171a32',
+            surfaceRaised: '#202543',
+            surfaceFloating: '#282d52',
+            surfaceMuted: 'rgba(255, 159, 202, 0.07)',
+            surfaceSoft: 'rgba(143, 216, 255, 0.08)',
+            surfaceStrong: 'rgba(255, 159, 202, 0.16)',
+            accent: '#ff9fca',
+            accentStrong: '#ffd6ea',
+            accentSoft: 'rgba(255, 159, 202, 0.16)',
+            textMuted: 'rgba(248, 236, 245, 0.74)',
+            textSubtle: 'rgba(248, 236, 245, 0.56)',
+          }
       : theme.variant === 'cream'
         ? {
             base: '#efe6db',
@@ -56,88 +72,120 @@ export const getAppDesign = (theme: Theme) => {
   const innerRadius = 18;
   const pillRadius = 999;
   const screenPadding = 16;
-  const cardBorderColor = theme.variant === 'dark'
+  const cardBorderColor = theme.variant === 'anime'
+    ? 'rgba(255, 159, 202, 0.12)'
+    : theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.08)'
     : theme.variant === 'cream'
       ? 'rgba(91, 69, 50, 0.14)'
       : 'rgba(15, 23, 42, 0.08)';
-  const subtleBorderColor = theme.variant === 'dark'
+  const subtleBorderColor = theme.variant === 'anime'
+    ? 'rgba(143, 216, 255, 0.08)'
+    : theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.05)'
     : theme.variant === 'cream'
       ? 'rgba(91, 69, 50, 0.08)'
       : 'rgba(15, 23, 42, 0.05)';
-  const heroBackground = theme.variant === 'dark'
+  const heroBackground = theme.variant === 'anime'
+    ? '#1b1f3b'
+    : theme.variant === 'dark'
     ? 'rgba(22, 28, 39, 0.96)'
     : theme.variant === 'cream'
       ? '#f8f1e8'
       : 'rgba(255, 255, 255, 0.98)';
-  const sectionBackground = theme.variant === 'dark'
+  const sectionBackground = theme.variant === 'anime'
+    ? 'rgba(23, 26, 50, 0.94)'
+    : theme.variant === 'dark'
     ? 'rgba(14, 16, 20, 0.94)'
     : theme.variant === 'cream'
       ? 'rgba(91, 69, 50, 0.06)'
       : 'rgba(255, 255, 255, 0.94)';
-  const mutedSurface = theme.variant === 'dark'
+  const mutedSurface = theme.variant === 'anime'
+    ? 'rgba(255, 159, 202, 0.07)'
+    : theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.04)'
     : theme.variant === 'cream'
       ? 'rgba(248, 241, 232, 0.96)'
       : 'rgba(15, 23, 42, 0.04)';
-  const overlaySurface = theme.variant === 'dark'
+  const overlaySurface = theme.variant === 'anime'
+    ? 'rgba(22, 25, 49, 0.9)'
+    : theme.variant === 'dark'
     ? 'rgba(9, 12, 18, 0.82)'
     : theme.variant === 'cream'
       ? 'rgba(255, 248, 239, 0.96)'
       : 'rgba(255, 255, 255, 0.86)';
-  const elevatedSurface = theme.variant === 'dark'
+  const elevatedSurface = theme.variant === 'anime'
+    ? 'rgba(32, 37, 67, 0.96)'
+    : theme.variant === 'dark'
     ? 'rgba(18, 23, 33, 0.96)'
     : theme.variant === 'cream'
       ? 'rgba(255, 248, 239, 0.94)'
       : 'rgba(255, 255, 255, 0.98)';
-  const heroOverlay = theme.variant === 'dark'
+  const heroOverlay = theme.variant === 'anime'
+    ? 'rgba(7, 9, 24, 0.62)'
+    : theme.variant === 'dark'
     ? 'rgba(8, 11, 18, 0.68)'
     : theme.variant === 'cream'
       ? 'rgba(122, 90, 60, 0.12)'
       : 'rgba(248, 250, 252, 0.78)';
-  const accentTint = theme.variant === 'dark'
+  const accentTint = theme.variant === 'anime'
+    ? 'rgba(255, 159, 202, 0.16)'
+    : theme.variant === 'dark'
     ? 'rgba(96, 165, 250, 0.16)'
     : theme.variant === 'cream'
       ? 'rgba(122, 90, 60, 0.18)'
       : 'rgba(37, 99, 235, 0.12)';
-  const accentBorder = theme.variant === 'dark'
+  const accentBorder = theme.variant === 'anime'
+    ? 'rgba(255, 159, 202, 0.3)'
+    : theme.variant === 'dark'
     ? 'rgba(96, 165, 250, 0.28)'
     : theme.variant === 'cream'
       ? 'rgba(122, 90, 60, 0.28)'
       : 'rgba(37, 99, 235, 0.2)';
-  const rowSurface = theme.variant === 'dark'
+  const rowSurface = theme.variant === 'anime'
+    ? palette.surfaceRaised
+    : theme.variant === 'dark'
     ? palette.surfaceRaised
     : theme.variant === 'cream'
       ? '#fff8ef'
       : palette.surfaceRaised;
-  const rowSurfaceMuted = theme.variant === 'dark'
+  const rowSurfaceMuted = theme.variant === 'anime'
+    ? 'rgba(143, 216, 255, 0.07)'
+    : theme.variant === 'dark'
     ? palette.surfaceSoft
     : theme.variant === 'cream'
       ? '#f4eadc'
       : 'rgba(15, 23, 42, 0.03)';
-  const iconSurface = theme.variant === 'dark'
+  const iconSurface = theme.variant === 'anime'
+    ? 'rgba(255, 159, 202, 0.1)'
+    : theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.06)'
     : theme.variant === 'cream'
       ? 'rgba(122, 90, 60, 0.08)'
       : 'rgba(37, 99, 235, 0.08)';
-  const dividerColor = theme.variant === 'dark'
+  const dividerColor = theme.variant === 'anime'
+    ? 'rgba(143, 216, 255, 0.08)'
+    : theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.06)'
     : theme.variant === 'cream'
       ? 'rgba(91, 69, 50, 0.1)'
       : 'rgba(15, 23, 42, 0.08)';
-  const inputSurface = theme.variant === 'dark'
+  const inputSurface = theme.variant === 'anime'
+    ? 'rgba(255, 255, 255, 0.08)'
+    : theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.05)'
     : theme.variant === 'cream'
       ? '#fff8ef'
       : '#f8fafc';
-  const modalBackdrop = theme.variant === 'dark'
+  const modalBackdrop = theme.variant === 'anime'
+    ? 'rgba(7, 9, 24, 0.7)'
+    : theme.variant === 'dark'
     ? 'rgba(3, 6, 12, 0.72)'
     : theme.variant === 'cream'
       ? 'rgba(70, 50, 32, 0.22)'
       : 'rgba(15, 23, 42, 0.18)';
 
-  const shadow: ViewStyle = theme.variant === 'dark'
+  const shadow: ViewStyle = theme.variant === 'dark' || theme.variant === 'anime'
     ? {
         shadowColor: '#000000',
         shadowOffset: {width: 0, height: 12},

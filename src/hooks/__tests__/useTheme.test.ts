@@ -6,7 +6,7 @@ import {useTheme} from '../useTheme';
 
 import {uiStore} from '../../store';
 
-import {creamTheme, darkTheme, lightTheme} from '../../utils/theme';
+import {animeTheme, creamTheme, darkTheme, lightTheme} from '../../utils/theme';
 
 describe('useTheme', () => {
   beforeEach(() => {
@@ -47,6 +47,20 @@ describe('useTheme', () => {
       expect(result.current).toEqual(
         expect.objectContaining({
           ...creamTheme,
+        }),
+      );
+    });
+  });
+
+  it('should return anime theme when colorScheme is anime', async () => {
+    uiStore.setColorScheme('anime');
+
+    const {result} = renderHook(() => useTheme());
+
+    await waitFor(() => {
+      expect(result.current).toEqual(
+        expect.objectContaining({
+          ...animeTheme,
         }),
       );
     });

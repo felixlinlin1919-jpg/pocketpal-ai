@@ -9,6 +9,7 @@ import {
   type AvailableLanguage,
 } from '../locales';
 import {ErrorState} from '../utils/errors';
+import type {AppThemeVariant} from '../utils/types';
 
 export class UIStore {
   static readonly GROUP_KEYS = {
@@ -29,7 +30,7 @@ export class UIStore {
   autoNavigatetoChat = true;
 
   //colorScheme = useColorScheme();
-  colorScheme: 'light' | 'dark' | 'cream' =
+  colorScheme: AppThemeVariant =
     Appearance.getColorScheme() === 'dark' ? 'dark' : 'light';
 
   // Current selected language (default to English)
@@ -103,7 +104,7 @@ export class UIStore {
     });
   }
 
-  setColorScheme(colorScheme: 'light' | 'dark' | 'cream') {
+  setColorScheme(colorScheme: AppThemeVariant) {
     runInAction(() => {
       this.colorScheme = colorScheme;
     });

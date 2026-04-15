@@ -6,6 +6,7 @@ import {getAppDesign} from '../../utils/appDesign';
 export const createStyles = (theme: Theme) =>
   StyleSheet.create((() => {
     const design = getAppDesign(theme);
+    const isDarkSurface = theme.variant === 'dark' || theme.variant === 'anime';
 
     return {
     safeArea: {
@@ -86,7 +87,7 @@ export const createStyles = (theme: Theme) =>
     },
     cardBackgroundOverlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: theme.variant === 'dark'
+      backgroundColor: isDarkSurface
           ? 'rgba(10, 12, 18, 0.44)'
         : theme.variant === 'cream'
           ? 'rgba(244, 234, 220, 0.54)'
@@ -95,7 +96,7 @@ export const createStyles = (theme: Theme) =>
     visualGlow: {
       position: 'absolute',
       inset: 0,
-      backgroundColor: theme.variant === 'dark'
+      backgroundColor: isDarkSurface
         ? 'rgba(16, 20, 28, 0.22)'
         : theme.variant === 'cream'
           ? 'rgba(122, 90, 60, 0.05)'
@@ -260,7 +261,7 @@ export const createStyles = (theme: Theme) =>
     },
     editorHeroOverlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: theme.variant === 'dark'
+      backgroundColor: isDarkSurface
         ? 'rgba(10, 12, 18, 0.74)'
         : theme.variant === 'cream'
           ? 'rgba(255, 248, 239, 0.68)'
@@ -375,7 +376,7 @@ export const createStyles = (theme: Theme) =>
     },
     backgroundPreviewOverlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: theme.variant === 'dark'
+      backgroundColor: isDarkSurface
         ? 'rgba(0, 0, 0, 0.34)'
         : theme.variant === 'cream'
           ? 'rgba(248, 241, 232, 0.58)'

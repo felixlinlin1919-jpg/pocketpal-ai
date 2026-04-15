@@ -5,6 +5,7 @@ import {getAppDesign} from '../../utils/appDesign';
 export const createStyles = ({theme}: {theme: Theme}) =>
   StyleSheet.create((() => {
     const design = getAppDesign(theme);
+    const isDarkSurface = theme.variant === 'dark' || theme.variant === 'anime';
     return {
       container: {
         flex: 1,
@@ -65,7 +66,7 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         backgroundColor: design.overlaySurface,
         shadowColor: theme.variant === 'cream' ? '#60462f' : '#000',
         shadowOffset: {width: 0, height: 10},
-        shadowOpacity: theme.variant === 'dark' ? 0.24 : 0.1,
+        shadowOpacity: isDarkSurface ? 0.24 : 0.1,
         shadowRadius: 20,
         elevation: 8,
       },
@@ -80,7 +81,11 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         zIndex: 0,
       },
       characterBackgroundImage: {
-        opacity: theme.variant === 'dark' ? 0.2 : theme.variant === 'cream' ? 0.34 : 0.24,
+        opacity: isDarkSurface
+          ? 0.2
+          : theme.variant === 'cream'
+            ? 0.34
+            : 0.24,
       },
       characterBackgroundOverlay: {
         ...StyleSheet.absoluteFillObject,

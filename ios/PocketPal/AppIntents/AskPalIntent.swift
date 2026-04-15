@@ -111,10 +111,9 @@ enum AskPalError: Error, LocalizedError {
         case .emptyMessage:
             return "Please provide a message to send to the Pal"
         case .noModelAvailable:
-            return "No AI model is available. Please download a model in the PocketPal app first."
+            return "No AI model is available. Please download a model in KyoKyoNook first."
         case .inferenceFailed(let details):
             return "Failed to generate response: \(details)"
         }
     }
 }
-

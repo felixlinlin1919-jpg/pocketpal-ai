@@ -53,6 +53,7 @@ import {languageDisplayNames} from '../../locales';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
 
 import {CacheType} from '../../utils/types';
+import type {AppThemeVariant} from '../../utils/types';
 import {
   L10nContext,
   formatBytes,
@@ -1021,7 +1022,7 @@ export const SettingsScreen: React.FC = observer(() => {
                       </Text>
                     </View>
                     <Text variant="labelSmall" style={styles.textDescription}>
-                      切換深色、淺色或紙色介面。
+                      切換深色、淺色、紙色或動漫夜色介面。
                     </Text>
                   </View>
                   <SegmentedButtons
@@ -1029,9 +1030,7 @@ export const SettingsScreen: React.FC = observer(() => {
                     density="small"
                     value={uiStore.colorScheme}
                     onValueChange={value =>
-                      uiStore.setColorScheme(
-                        value as 'light' | 'dark' | 'cream',
-                      )
+                      uiStore.setColorScheme(value as AppThemeVariant)
                     }
                     buttons={[
                       {
@@ -1050,6 +1049,12 @@ export const SettingsScreen: React.FC = observer(() => {
                         value: 'cream',
                         label: '紙色',
                         testID: 'theme-option-cream',
+                        style: styles.themeSegmentButton,
+                      },
+                      {
+                        value: 'anime',
+                        label: '動漫夜色',
+                        testID: 'theme-option-anime',
                         style: styles.themeSegmentButton,
                       },
                     ]}

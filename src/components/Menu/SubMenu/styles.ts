@@ -6,6 +6,7 @@ import {getAppDesign} from '../../../utils/appDesign';
 export const createStyles = (theme: Theme) =>
   StyleSheet.create((() => {
     const design = getAppDesign(theme);
+    const isDarkSurface = theme.variant === 'dark' || theme.variant === 'anime';
 
     return {
     modalRoot: {
@@ -21,11 +22,11 @@ export const createStyles = (theme: Theme) =>
       marginTop: 0,
       marginLeft: 0,
       backgroundColor: 'transparent',
-      shadowColor: theme.variant === 'dark' ? '#000000' : '#5f4631',
+      shadowColor: isDarkSurface ? '#000000' : '#5f4631',
       shadowRadius: theme.variant === 'cream' ? 18 : 24,
       shadowOffset: {width: 0, height: 10},
-      shadowOpacity: theme.variant === 'dark' ? 0.24 : 0.1,
-      elevation: theme.variant === 'dark' ? 8 : 4,
+      shadowOpacity: isDarkSurface ? 0.24 : 0.1,
+      elevation: isDarkSurface ? 8 : 4,
     },
     content: {
       paddingVertical: 6,

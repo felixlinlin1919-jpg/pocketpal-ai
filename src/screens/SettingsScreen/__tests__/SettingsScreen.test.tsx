@@ -138,6 +138,14 @@ describe('SettingsScreen', () => {
     });
 
     expect(uiStore.setColorScheme).toHaveBeenCalledWith('cream');
+
+    const animeThemeButton = getByTestId('theme-option-anime');
+
+    await act(async () => {
+      fireEvent.press(animeThemeButton);
+    });
+
+    expect(uiStore.setColorScheme).toHaveBeenCalledWith('anime');
   });
 
   it('toggles GPU acceleration switch on iOS and adjusts GPU layers', async () => {

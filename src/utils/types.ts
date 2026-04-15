@@ -291,8 +291,10 @@ export interface ThemeSpacing {
   default: number;
 }
 
+export type AppThemeVariant = 'dark' | 'light' | 'cream' | 'anime';
+
 export interface Theme extends MD3Theme {
-  variant: 'dark' | 'light' | 'cream';
+  variant: AppThemeVariant;
   colors: MD3BaseColors & SemanticColors;
   borders: ThemeBorders;
   spacing: ThemeSpacing;

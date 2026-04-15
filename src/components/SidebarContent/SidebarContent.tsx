@@ -551,7 +551,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
                 testID="drawer-item-settings"
               />
               <Drawer.Item
-                label={l10n.components.sidebarContent.menuItems.appInfo}
+                label="關於 KyoKyoNook"
                 icon={() => (
                   <AppInfoIcon
                     width={24}

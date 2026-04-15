@@ -16,19 +16,49 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       flexGrow: 1,
       padding: theme.spacing.default,
       paddingBottom: theme.spacing.default + insets.bottom,
+      gap: theme.spacing.default,
+    },
+    heroCard: {
+      ...design.heroCardStyle,
+      padding: theme.spacing.default,
+      flexDirection: 'row',
+      gap: theme.spacing.default,
+      alignItems: 'center',
+    },
+    brandIcon: {
+      width: 92,
+      height: 92,
+      borderRadius: 28,
+      borderWidth: 1,
+      borderColor: design.cardBorderColor,
+      backgroundColor: design.mutedSurface,
+    },
+    heroContent: {
+      flex: 1,
+      gap: 8,
+    },
+    heroTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      flexWrap: 'wrap',
+    },
+    brandName: {
+      ...design.titleLarge,
+      fontSize: 26,
+      lineHeight: 31,
+    },
+    brandTagline: {
+      ...theme.fonts.titleSmall,
+      color: theme.colors.onSurface,
+    },
+    brandDescription: {
+      ...design.bodyMuted,
     },
     card: {
       ...design.cardStyle,
-      overflow: 'hidden',
-    },
-    header: {
-      padding: theme.spacing.default * 2,
-      backgroundColor: design.mutedSurface,
-      borderBottomWidth: 1,
-      borderBottomColor: design.subtleBorderColor,
-    },
-    headerContent: {
-      gap: theme.spacing.default,
+      padding: theme.spacing.default,
+      gap: theme.spacing.default / 1.25,
     },
     title: {
       ...theme.fonts.headlineLarge,
@@ -42,14 +72,16 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     },
     buildBadge: {
       alignSelf: 'flex-start',
-      backgroundColor: 'rgba(96, 165, 250, 0.14)',
+      backgroundColor: design.accentTint,
       borderRadius: 999,
-      paddingHorizontal: theme.spacing.default,
-      paddingVertical: 6,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderWidth: 1,
+      borderColor: design.accentBorder,
     },
     buildBadgeText: {
       ...theme.fonts.labelMedium,
-      color: '#bfdbfe',
+      color: design.palette.accentStrong,
     },
     versionContainer: {
       flexDirection: 'row',
@@ -59,8 +91,9 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     versionButton: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: theme.colors.surfaceContainerHigh,
-      paddingHorizontal: theme.spacing.default,
+      alignSelf: 'flex-start',
+      backgroundColor: design.rowSurface,
+      paddingHorizontal: 12,
       paddingVertical: theme.spacing.default / 2,
       borderRadius: design.innerRadius,
       gap: theme.spacing.default / 2,
@@ -70,6 +103,25 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     versionText: {
       ...theme.fonts.bodyMedium,
       color: theme.colors.onSurface,
+    },
+    infoRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: theme.spacing.default,
+      paddingVertical: 10,
+      borderTopWidth: 1,
+      borderTopColor: design.subtleBorderColor,
+    },
+    infoLabel: {
+      ...theme.fonts.bodyMedium,
+      color: design.palette.textSubtle,
+    },
+    infoValue: {
+      ...theme.fonts.bodyMedium,
+      color: theme.colors.onSurface,
+      flexShrink: 1,
+      textAlign: 'right',
     },
     llamaBuildText: {
       ...theme.fonts.bodySmall,
@@ -83,22 +135,51 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       borderBottomColor: design.subtleBorderColor,
     },
     sectionTitle: {
-      ...theme.fonts.titleMedium,
-      color: theme.colors.onSurface,
-      marginBottom: theme.spacing.default / 1.5,
+      ...design.sectionTitle,
+      marginBottom: 2,
     },
     actionButton: {
-      borderWidth: 1,
-      borderColor: theme.colors.surfaceVariant,
-    },
-    noticeCard: {
       marginTop: theme.spacing.default,
-      borderRadius: design.innerRadius,
-      padding: theme.spacing.default,
-      backgroundColor: design.mutedSurface,
-      gap: theme.spacing.default / 2,
       borderWidth: 1,
       borderColor: design.cardBorderColor,
+      borderRadius: design.innerRadius,
+    },
+    navRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+      paddingVertical: 12,
+      borderTopWidth: 1,
+      borderTopColor: design.subtleBorderColor,
+    },
+    navIcon: {
+      width: 42,
+      height: 42,
+      borderRadius: 16,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: design.iconSurface,
+      borderWidth: 1,
+      borderColor: design.subtleBorderColor,
+    },
+    navText: {
+      flex: 1,
+      gap: 2,
+    },
+    navTitle: {
+      ...theme.fonts.titleSmall,
+      color: theme.colors.onSurface,
+    },
+    navSubtitle: {
+      ...theme.fonts.bodySmall,
+      color: design.palette.textSubtle,
+      lineHeight: 18,
+    },
+    noticeCard: {
+      ...design.cardStyle,
+      borderRadius: design.innerRadius,
+      padding: theme.spacing.default,
+      gap: theme.spacing.default / 2,
     },
     noticeTitle: {
       ...theme.fonts.titleSmall,
@@ -107,6 +188,52 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
     noticeText: {
       ...theme.fonts.bodyMedium,
       color: theme.colors.onSurfaceVariant,
+    },
+    detailHero: {
+      ...design.heroCardStyle,
+      padding: theme.spacing.default * 1.25,
+      gap: 8,
+    },
+    detailTitle: {
+      ...design.titleLarge,
+    },
+    detailSubtitle: {
+      ...design.bodyMuted,
+    },
+    detailCard: {
+      ...design.cardStyle,
+      padding: theme.spacing.default,
+      gap: theme.spacing.default * 1.25,
+    },
+    detailSection: {
+      gap: 8,
+      paddingBottom: theme.spacing.default,
+      borderBottomWidth: 1,
+      borderBottomColor: design.subtleBorderColor,
+    },
+    detailSectionTitle: {
+      ...theme.fonts.titleMedium,
+      color: theme.colors.onSurface,
+      fontWeight: '700',
+    },
+    detailBody: {
+      ...theme.fonts.bodyMedium,
+      color: theme.colors.onSurfaceVariant,
+      lineHeight: 22,
+    },
+    detailListItem: {
+      ...theme.fonts.bodyMedium,
+      color: theme.colors.onSurface,
+      lineHeight: 22,
+    },
+    footerNote: {
+      ...design.chipStyle,
+      borderRadius: design.innerRadius,
+    },
+    footerNoteText: {
+      ...theme.fonts.bodySmall,
+      color: design.palette.textSubtle,
+      lineHeight: 18,
     },
     };
   })());

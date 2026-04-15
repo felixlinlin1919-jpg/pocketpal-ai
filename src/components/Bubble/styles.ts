@@ -16,6 +16,7 @@ export const styles = ({
 }) => {
   const design = getAppDesign(theme);
   const isUserMessage = currentUserIsAuthor && message.type !== 'image';
+  const isDarkSurface = theme.variant === 'dark' || theme.variant === 'anime';
 
   return StyleSheet.create({
     contentContainer: {
@@ -46,7 +47,11 @@ export const styles = ({
         width: 0,
         height: 6,
       },
-      shadowOpacity: theme.variant === 'dark' ? (currentUserIsAuthor ? 0.18 : 0.1) : 0.08,
+      shadowOpacity: isDarkSurface
+        ? currentUserIsAuthor
+          ? 0.18
+          : 0.1
+        : 0.08,
       shadowRadius: 14,
       elevation: 3,
     },

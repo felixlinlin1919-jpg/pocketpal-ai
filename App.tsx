@@ -34,7 +34,7 @@ import {
   ChatScreen,
   ModelsScreen,
   SettingsScreen,
-  AboutScreen,
+  AboutNavigator,
   CharacterProfilesNavigator,
 
   // Dev tools screen. Only available in debug mode.
@@ -137,10 +137,10 @@ const App = observer(() => {
                     />
                     <Drawer.Screen
                       name={ROUTES.APP_INFO}
-                      component={gestureHandlerRootHOC(AboutScreen)}
+                      component={gestureHandlerRootHOC(AboutNavigator)}
                       options={{
-                        headerStyle: styles.headerWithoutDivider,
-                        title: currentL10n.screenTitles.appInfo,
+                        headerShown: false,
+                        title: '關於 KyoKyoNook',
                       }}
                     />
 

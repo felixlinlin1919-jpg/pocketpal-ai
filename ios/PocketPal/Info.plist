@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>私聊 AI</string>
+	<string>KyoKyoNook</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -57,11 +57,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>私聊 AI 會使用相機拍攝圖片與影片，僅供裝置上的本機 AI 分析使用，資料不會傳送到外部伺服器。</string>
+	<string>KyoKyoNook 會使用相機拍攝圖片與影片，僅供裝置上的本機 AI 分析使用，資料不會傳送到外部伺服器。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>私聊 AI 會存取照片圖庫以選擇圖片，僅供裝置上的本機 AI 分析使用，資料不會傳送到外部伺服器。</string>
+	<string>KyoKyoNook 會存取照片圖庫以選擇圖片，僅供裝置上的本機 AI 分析使用，資料不會傳送到外部伺服器。</string>
 	<key>NSSiriUsageDescription</key>
-	<string>私聊 AI 會使用 Siri，讓你能以語音指令向本機角色提問。</string>
+	<string>KyoKyoNook 會使用 Siri，讓你能以語音指令向本機角色提問。</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UIAppFonts</key>
