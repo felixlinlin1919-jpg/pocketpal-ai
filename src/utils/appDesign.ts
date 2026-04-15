@@ -94,11 +94,11 @@ export const getAppDesign = (theme: Theme) => {
       ? '#f8f1e8'
       : 'rgba(255, 255, 255, 0.98)';
   const sectionBackground = theme.variant === 'anime'
-    ? 'rgba(23, 26, 50, 0.94)'
+    ? '#171a32'
     : theme.variant === 'dark'
     ? 'rgba(14, 16, 20, 0.94)'
     : theme.variant === 'cream'
-      ? 'rgba(91, 69, 50, 0.06)'
+      ? '#f6efe6'
       : 'rgba(255, 255, 255, 0.94)';
   const mutedSurface = theme.variant === 'anime'
     ? 'rgba(255, 159, 202, 0.07)'
@@ -115,11 +115,11 @@ export const getAppDesign = (theme: Theme) => {
       ? 'rgba(255, 248, 239, 0.96)'
       : 'rgba(255, 255, 255, 0.86)';
   const elevatedSurface = theme.variant === 'anime'
-    ? 'rgba(32, 37, 67, 0.96)'
+    ? '#202543'
     : theme.variant === 'dark'
     ? 'rgba(18, 23, 33, 0.96)'
     : theme.variant === 'cream'
-      ? 'rgba(255, 248, 239, 0.94)'
+      ? '#fbf6ef'
       : 'rgba(255, 255, 255, 0.98)';
   const heroOverlay = theme.variant === 'anime'
     ? 'rgba(7, 9, 24, 0.62)'
@@ -147,14 +147,14 @@ export const getAppDesign = (theme: Theme) => {
     : theme.variant === 'dark'
     ? palette.surfaceRaised
     : theme.variant === 'cream'
-      ? '#fff8ef'
+      ? '#fbf6ef'
       : palette.surfaceRaised;
   const rowSurfaceMuted = theme.variant === 'anime'
-    ? 'rgba(143, 216, 255, 0.07)'
+    ? '#24294a'
     : theme.variant === 'dark'
     ? palette.surfaceSoft
     : theme.variant === 'cream'
-      ? '#f4eadc'
+      ? '#f2e8dc'
       : 'rgba(15, 23, 42, 0.03)';
   const iconSurface = theme.variant === 'anime'
     ? 'rgba(255, 159, 202, 0.1)'
@@ -185,7 +185,17 @@ export const getAppDesign = (theme: Theme) => {
       ? 'rgba(70, 50, 32, 0.22)'
       : 'rgba(15, 23, 42, 0.18)';
 
-  const shadow: ViewStyle = theme.variant === 'dark' || theme.variant === 'anime'
+  const isFlatWarmTheme =
+    theme.variant === 'cream' || theme.variant === 'anime';
+  const shadow: ViewStyle = isFlatWarmTheme
+    ? {
+        shadowColor: 'transparent',
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        elevation: 0,
+      }
+    : theme.variant === 'dark'
     ? {
         shadowColor: '#000000',
         shadowOffset: {width: 0, height: 12},
@@ -207,6 +217,18 @@ export const getAppDesign = (theme: Theme) => {
     borderWidth: 1,
     borderColor: cardBorderColor,
     ...shadow,
+  };
+
+  const flatCardStyle: ViewStyle = {
+    backgroundColor: rowSurface,
+    borderRadius: cardRadius,
+    borderWidth: 1,
+    borderColor: subtleBorderColor,
+    shadowColor: 'transparent',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
   };
 
   return {
@@ -234,6 +256,7 @@ export const getAppDesign = (theme: Theme) => {
     modalBackdrop,
     shadow,
     cardStyle,
+    flatCardStyle,
     heroCardStyle: {
       ...cardStyle,
       backgroundColor: heroBackground,

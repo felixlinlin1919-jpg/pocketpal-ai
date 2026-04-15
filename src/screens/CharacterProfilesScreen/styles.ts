@@ -7,6 +7,8 @@ export const createStyles = (theme: Theme) =>
   StyleSheet.create((() => {
     const design = getAppDesign(theme);
     const isDarkSurface = theme.variant === 'dark' || theme.variant === 'anime';
+    const isLayeredTheme =
+      theme.variant === 'cream' || theme.variant === 'anime';
 
     return {
     safeArea: {
@@ -303,13 +305,22 @@ export const createStyles = (theme: Theme) =>
       lineHeight: 40,
     },
     editorCard: {
-      ...design.cardStyle,
-      padding: 16,
-      gap: 20,
+      ...(isLayeredTheme
+        ? {
+            backgroundColor: 'transparent',
+            borderWidth: 0,
+            shadowColor: 'transparent',
+            shadowOpacity: 0,
+            shadowRadius: 0,
+            elevation: 0,
+          }
+        : design.cardStyle),
+      padding: isLayeredTheme ? 0 : 16,
+      gap: isLayeredTheme ? 16 : 20,
     },
     sectionBlock: {
       gap: 16,
-      padding: 14,
+      padding: isLayeredTheme ? 18 : 14,
       borderRadius: 20,
       backgroundColor: design.rowSurface,
       borderWidth: 1,
@@ -406,7 +417,7 @@ export const createStyles = (theme: Theme) =>
       marginTop: 8,
     },
     helperCard: {
-      ...design.cardStyle,
+      ...(isLayeredTheme ? design.flatCardStyle : design.cardStyle),
       padding: 16,
       gap: 8,
     },

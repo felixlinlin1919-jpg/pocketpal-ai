@@ -6,6 +6,11 @@ import {getAppDesign} from '../../utils/appDesign';
 export const createStyles = (theme: Theme, insets: EdgeInsets) =>
   StyleSheet.create((() => {
     const design = getAppDesign(theme);
+    const isLayeredTheme =
+      theme.variant === 'cream' || theme.variant === 'anime';
+    const aboutCardStyle = isLayeredTheme
+      ? design.flatCardStyle
+      : design.cardStyle;
 
     return {
     safeArea: {
@@ -56,7 +61,7 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       ...design.bodyMuted,
     },
     card: {
-      ...design.cardStyle,
+      ...aboutCardStyle,
       padding: theme.spacing.default,
       gap: theme.spacing.default / 1.25,
     },
@@ -176,7 +181,7 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       lineHeight: 18,
     },
     noticeCard: {
-      ...design.cardStyle,
+      ...aboutCardStyle,
       borderRadius: design.innerRadius,
       padding: theme.spacing.default,
       gap: theme.spacing.default / 2,
@@ -201,7 +206,7 @@ export const createStyles = (theme: Theme, insets: EdgeInsets) =>
       ...design.bodyMuted,
     },
     detailCard: {
-      ...design.cardStyle,
+      ...aboutCardStyle,
       padding: theme.spacing.default,
       gap: theme.spacing.default * 1.25,
     },
