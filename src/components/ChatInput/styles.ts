@@ -86,7 +86,7 @@ export const createStyles = ({
     },
     input: {
       ...theme.fonts.inputTextStyle,
-      color: theme.colors.inverseOnSurface,
+      color: theme.colors.onSurface,
       flex: 1,
       maxHeight: 160,
       paddingVertical: 0,
@@ -165,24 +165,24 @@ export const createStyles = ({
     },
     palNameWrapper: {
       ...fontStyles.regular,
-      color: theme.colors.inverseOnSurface,
+      color: theme.colors.onSurfaceVariant,
       fontSize: 12,
     },
     palName: {
       fontSize: 12,
-      color: theme.colors.inverseOnSurface,
+      color: theme.colors.onSurface,
       ...fontStyles.semibold,
     },
     // New compact pal name styles for control bar
     palNameCompact: {
       fontSize: 10,
       ...fontStyles.regular,
-      color: theme.colors.inverseOnSurface,
+      color: theme.colors.onSurfaceVariant,
     },
     palNameValueCompact: {
       fontSize: 10,
       ...fontStyles.semibold,
-      color: theme.colors.inverseOnSurface,
+      color: theme.colors.onSurface,
     },
     // Image preview styles
     imagePreviewContainer: {

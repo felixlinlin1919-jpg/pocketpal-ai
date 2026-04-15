@@ -57,7 +57,7 @@ export const createStyles = (theme: Theme) =>
       opacity: 0.6,
     },
     activeParent: {
-      backgroundColor: design.rowSurfaceMuted,
+      backgroundColor: theme.colors.menuBackgroundActive,
     },
     };
   })());

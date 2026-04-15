@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, StatusBar, StyleSheet} from 'react-native';
 
 import {observer} from 'mobx-react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -67,6 +67,10 @@ const App = observer(() => {
 
   return (
     <GestureHandlerRootView style={styles.root}>
+      <StatusBar
+        barStyle={theme.dark ? 'light-content' : 'dark-content'}
+        backgroundColor={theme.colors.background}
+      />
       {isDebugMode && <MemorySnapshotTrigger />}
       <SafeAreaProvider>
         <KeyboardProvider statusBarTranslucent navigationBarTranslucent>

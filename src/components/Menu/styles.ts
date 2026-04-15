@@ -9,11 +9,12 @@ export const createStyles = (theme: Theme) =>
 
     return {
     menu: {
-      shadowColor: theme.variant === 'dark' ? '#000000' : '#433326',
-      shadowRadius: 32,
-      shadowOffset: {width: 0, height: 12},
-      shadowOpacity: theme.variant === 'dark' ? 0.28 : 0.14,
-      elevation: 10,
+      backgroundColor: 'transparent',
+      shadowColor: theme.variant === 'dark' ? '#000000' : '#5f4631',
+      shadowRadius: theme.variant === 'cream' ? 18 : 28,
+      shadowOffset: {width: 0, height: 10},
+      shadowOpacity: theme.variant === 'dark' ? 0.28 : 0.1,
+      elevation: theme.variant === 'dark' ? 10 : 5,
       borderRadius: 22,
       maxWidth: '90%',
     },
@@ -23,14 +24,13 @@ export const createStyles = (theme: Theme) =>
     },
     content: {
       paddingVertical: 8,
-      backgroundColor: design.elevatedSurface,
+      backgroundColor: theme.colors.menuBackground,
       borderRadius: 22,
-      marginRight: 10,
       borderWidth: 1,
       borderColor: design.cardBorderColor,
     },
     contentWithSubmenu: {
-      backgroundColor: design.elevatedSurface,
+      backgroundColor: theme.colors.menuBackground,
     },
     groupSeparator: {
       height: 6,

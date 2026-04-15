@@ -24,13 +24,13 @@ describe('ChatHeaderTitle', () => {
     });
   });
 
-  it('renders "Chat" when no active session exists', () => {
+  it('renders new chat title when no active session exists', () => {
     runInAction(() => {
       chatSessionStore.resetActiveSession();
       chatSessionStore.sessions = [];
     });
     const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
-    expect(getByText('Chat')).toBeTruthy();
+    expect(getByText('新的對話')).toBeTruthy();
   });
 
   it('renders session title when active session exists', () => {

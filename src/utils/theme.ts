@@ -193,8 +193,12 @@ const createSemanticColors = (
   focusStateOpacity: stateLayerOpacity.focus,
 
   // Menu specific
-  menuBackground: isDark ? '#2a2a2a' : isCream ? '#fff8ef' : baseColors.surface,
-  menuBackgroundDimmed: withOpacity(baseColors.surface, 0.9),
+  menuBackground: isDark ? '#202635' : isCream ? '#fff8ef' : '#ffffff',
+  menuBackgroundDimmed: isDark
+    ? 'rgba(10, 13, 20, 0.68)'
+    : isCream
+      ? 'rgba(73, 53, 35, 0.16)'
+      : 'rgba(15, 23, 42, 0.12)',
   menuBackgroundActive: withOpacity(baseColors.primary, isCream ? 0.12 : 0.08),
   menuSeparator: withOpacity(baseColors.primary, 0.5),
   menuGroupSeparator: isDark
@@ -204,7 +208,32 @@ const createSemanticColors = (
   menuDangerText: baseColors.error,
 
   // Message specific
-  authorBubbleBackground: isDark ? '#212121' : '#f2f2f2',
+  authorBubbleBackground: isDark ? '#212121' : isCream ? '#f5eadc' : '#f2f2f2',
+  assistantBubbleBackground: isDark
+    ? '#171c26'
+    : isCream
+      ? '#fff9f0'
+      : '#ffffff',
+  assistantBubbleBorder: isDark
+    ? 'rgba(255, 255, 255, 0.08)'
+    : isCream
+      ? 'rgba(91, 69, 50, 0.12)'
+      : 'rgba(15, 23, 42, 0.08)',
+  userBubbleBackground: isDark
+    ? '#1b2b44'
+    : isCream
+      ? '#ead8c4'
+      : '#dbeafe',
+  userBubbleBorder: isDark
+    ? 'rgba(143, 184, 255, 0.18)'
+    : isCream
+      ? 'rgba(122, 90, 60, 0.22)'
+      : 'rgba(37, 99, 235, 0.16)',
+  messageOverlay: isDark
+    ? 'rgba(4, 6, 11, 0.7)'
+    : isCream
+      ? 'rgba(239, 230, 219, 0.68)'
+      : 'rgba(248, 250, 252, 0.72)',
   receivedMessageDocumentIcon: baseColors.primary,
   sentMessageDocumentIcon: baseColors.onSurface,
   userAvatarImageBackground: 'transparent',

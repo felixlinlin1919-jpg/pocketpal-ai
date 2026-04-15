@@ -928,9 +928,7 @@ export const ChatView = observer(
     }, []);
 
     // ============ COMPUTED VALUES ============
-    const inputBackgroundColor = activePal?.color?.[1]
-      ? activePal.color?.[1]
-      : theme.colors.surface;
+    const inputBackgroundColor = theme.colors.background;
     const selectedCharacter = characterProfileStore.selectedCharacter;
     const backgroundSource = getCharacterImageSource(
       selectedCharacter?.background,
@@ -974,7 +972,6 @@ export const ChatView = observer(
               style={[
                 styles.inputContainer,
                 inputContainerAnimatedStyle,
-                {backgroundColor: inputBackgroundColor},
               ]}>
               <ChatInput
                 {...{

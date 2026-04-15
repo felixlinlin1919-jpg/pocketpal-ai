@@ -68,6 +68,7 @@ export const Menu: React.FC<MenuProps> & {
       contentStyle={[
         styles.content,
         hasActiveSubmenu && styles.contentWithSubmenu,
+        menuProps.contentStyle,
       ]}>
       {React.Children.map(children, child => {
         if (!React.isValidElement<MenuItemProps>(child)) {

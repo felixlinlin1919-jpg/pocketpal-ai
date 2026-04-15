@@ -1,5 +1,5 @@
-import {View, Animated} from 'react-native';
-import React, {useRef, useState, useEffect} from 'react';
+import {View} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 import {Menu as PaperMenu, Icon} from 'react-native-paper';
@@ -51,17 +51,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const [submenuPosition, setSubmenuPosition] = useState({x: 0, y: 0});
   const itemRef = useRef<View>(null);
-  const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const theme = useTheme();
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: isSubmenuOpen ? 0.6 : 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim, isSubmenuOpen]);
 
   const styles = createStyles(theme);
 
@@ -150,7 +141,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   };
 
   return (
-    <Animated.View ref={itemRef} style={{opacity: fadeAnim}}>
+    <View ref={itemRef}>
       <PaperMenu.Item
         {...menuItemProps}
         onPress={handlePress}
@@ -191,6 +182,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({
           {submenu}
         </SubMenu>
       )}
-    </Animated.View>
+    </View>
   );
 };

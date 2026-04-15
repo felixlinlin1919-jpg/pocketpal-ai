@@ -217,6 +217,11 @@ export interface SemanticColors {
 
   // Message specific
   authorBubbleBackground: string;
+  assistantBubbleBackground: string;
+  assistantBubbleBorder: string;
+  userBubbleBackground: string;
+  userBubbleBorder: string;
+  messageOverlay: string;
   receivedMessageDocumentIcon: string;
   sentMessageDocumentIcon: string;
   userAvatarImageBackground: string;

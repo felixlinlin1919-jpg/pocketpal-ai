@@ -83,12 +83,12 @@ export const getAppDesign = (theme: Theme) => {
   const overlaySurface = theme.variant === 'dark'
     ? 'rgba(9, 12, 18, 0.82)'
     : theme.variant === 'cream'
-      ? 'rgba(251, 246, 239, 0.98)'
+      ? 'rgba(255, 248, 239, 0.96)'
       : 'rgba(255, 255, 255, 0.86)';
   const elevatedSurface = theme.variant === 'dark'
     ? 'rgba(18, 23, 33, 0.96)'
     : theme.variant === 'cream'
-      ? 'rgba(248, 241, 232, 0.82)'
+      ? 'rgba(255, 248, 239, 0.94)'
       : 'rgba(255, 255, 255, 0.98)';
   const heroOverlay = theme.variant === 'dark'
     ? 'rgba(8, 11, 18, 0.68)'
@@ -108,12 +108,12 @@ export const getAppDesign = (theme: Theme) => {
   const rowSurface = theme.variant === 'dark'
     ? palette.surfaceRaised
     : theme.variant === 'cream'
-      ? palette.surfaceFloating
+      ? '#fff8ef'
       : palette.surfaceRaised;
   const rowSurfaceMuted = theme.variant === 'dark'
     ? palette.surfaceSoft
     : theme.variant === 'cream'
-      ? 'rgba(122, 90, 60, 0.05)'
+      ? '#f4eadc'
       : 'rgba(15, 23, 42, 0.03)';
   const iconSurface = theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.06)'
@@ -128,8 +128,13 @@ export const getAppDesign = (theme: Theme) => {
   const inputSurface = theme.variant === 'dark'
     ? 'rgba(255, 255, 255, 0.05)'
     : theme.variant === 'cream'
-      ? '#f8f1e8'
+      ? '#fff8ef'
       : '#f8fafc';
+  const modalBackdrop = theme.variant === 'dark'
+    ? 'rgba(3, 6, 12, 0.72)'
+    : theme.variant === 'cream'
+      ? 'rgba(70, 50, 32, 0.22)'
+      : 'rgba(15, 23, 42, 0.18)';
 
   const shadow: ViewStyle = theme.variant === 'dark'
     ? {
@@ -177,6 +182,7 @@ export const getAppDesign = (theme: Theme) => {
     iconSurface,
     dividerColor,
     inputSurface,
+    modalBackdrop,
     shadow,
     cardStyle,
     heroCardStyle: {

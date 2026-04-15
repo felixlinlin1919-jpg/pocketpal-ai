@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Image, Pressable, View} from 'react-native';
 import {observer} from 'mobx-react';
 import {Text} from 'react-native-paper';
@@ -15,11 +15,9 @@ import {Menu} from '..';
 import {characterText} from '../../constants/characterText';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
 import {ROUTES} from '../../utils/navigationConstants';
-import {L10nContext} from '../../utils';
 import {UserCircleIcon} from '../../assets/icons';
 
 export const ChatHeaderTitle: React.FC = observer(() => {
-  const l10n = useContext(L10nContext);
   const navigation = useNavigation<any>();
   const theme = useTheme();
   const styles = React.useMemo(() => createStyles(theme), [theme]);
@@ -37,8 +35,11 @@ export const ChatHeaderTitle: React.FC = observer(() => {
     false;
   const selectedCharacterName =
     selectedCharacter?.name?.trim() || characterText.noneSelected;
+  const sessionTitle = activeSession?.title?.trim();
   const resolvedChatTitle =
-    activeSession?.title?.trim() || l10n.components.chatHeaderTitle.defaultTitle;
+    sessionTitle && sessionTitle !== 'New Session'
+      ? sessionTitle
+      : '新的對話';
   const modelStatusText = activeModel?.name?.trim() ? undefined : '尚未載入模型';
   const metaText = [
     resolvedThinkingEnabled ? 'Thinking 開啟' : 'Thinking 關閉',
@@ -111,7 +112,11 @@ export const ChatHeaderTitle: React.FC = observer(() => {
                   </View>
                 ) : (
                   <View style={styles.identityAvatarFallback}>
-                    <UserCircleIcon width={16} height={16} stroke="#8c9abb" />
+                    <UserCircleIcon
+                      width={16}
+                      height={16}
+                      stroke={theme.colors.onSurfaceVariant}
+                    />
                   </View>
                 )}
                 <View style={styles.titleBlock}>
@@ -167,41 +172,48 @@ export const ChatHeaderTitle: React.FC = observer(() => {
           const profileAvatarSource = getCharacterImageSource(profile.avatar);
           const isCurrent = profile.id === selectedCharacter?.id;
           return (
-            <Menu.Item
+            <Pressable
               key={profile.id}
-              label={profile.name}
               onPress={() => handleSelectCharacter(profile.id)}
-              style={isCurrent ? styles.selectedMenuItem : undefined}
-              leadingIcon={() =>
-                profileAvatarSource ? (
-                  <Image source={profileAvatarSource} style={styles.menuAvatar} />
-                ) : profile.emoji?.trim() ? (
-                  <View style={styles.menuAvatarFallback}>
-                    <Text style={styles.menuEmoji}>{profile.emoji.trim()}</Text>
-                  </View>
-                ) : (
-                  <View style={styles.menuAvatarFallback}>
-                    <UserCircleIcon
-                      width={16}
-                      height={16}
-                      stroke="#6b7280"
-                    />
-                  </View>
-                )
-              }
-              trailingIcon={
-                isCurrent
-                  ? () => (
-                      <View style={styles.menuTrailing}>
-                        <Text style={styles.menuStatusText} variant="bodySmall">
-                          {characterText.currentlyActive}
-                        </Text>
-                        <Text style={styles.menuCheck}>✓</Text>
-                      </View>
-                    )
-                  : undefined
-              }
-            />
+              accessibilityRole="button"
+              accessibilityLabel={`切換到${profile.name}`}
+              style={[
+                styles.characterMenuRow,
+                isCurrent && styles.selectedMenuItem,
+              ]}>
+              {profileAvatarSource ? (
+                <Image source={profileAvatarSource} style={styles.menuAvatar} />
+              ) : profile.emoji?.trim() ? (
+                <View style={styles.menuAvatarFallback}>
+                  <Text style={styles.menuEmoji}>{profile.emoji.trim()}</Text>
+                </View>
+              ) : (
+                <View style={styles.menuAvatarFallback}>
+                  <UserCircleIcon
+                    width={16}
+                    height={16}
+                    stroke={theme.colors.onSurfaceVariant}
+                  />
+                </View>
+              )}
+              <View style={styles.characterMenuTextBlock}>
+                <Text
+                  numberOfLines={1}
+                  style={styles.characterMenuName}
+                  variant="bodyMedium">
+                  {profile.name}
+                </Text>
+                <Text
+                  numberOfLines={1}
+                  style={styles.menuStatusText}
+                  variant="bodySmall">
+                  {isCurrent
+                    ? characterText.currentlyActive
+                    : profile.description?.trim() || '點一下切換角色'}
+                </Text>
+              </View>
+              {isCurrent && <Text style={styles.menuCheck}>✓</Text>}
+            </Pressable>
           );
         })}
         <Menu.Separator />

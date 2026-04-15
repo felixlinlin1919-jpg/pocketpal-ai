@@ -26,8 +26,7 @@ export const createStyles = ({
         alignItems: 'center',
         gap: 10,
         backgroundColor: design.heroBackground,
-        borderBottomWidth: 1,
-        borderBottomColor: design.dividerColor,
+        borderBottomWidth: 0,
       },
       leftSection: {
         flexDirection: 'row',

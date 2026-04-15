@@ -7,6 +7,7 @@ import {getUserAvatarNameColor, getUserInitials} from '../../utils';
 import {characterProfileStore, uiStore} from '../../store';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
 import {UserCircleIcon} from '../../assets/icons';
+import {getAppDesign} from '../../utils/appDesign';
 
 // TDOD: Add model name and the user's name?
 export const Avatar = React.memo(
@@ -24,6 +25,7 @@ export const Avatar = React.memo(
     showUserAvatars?: boolean;
     theme: Theme;
   }) => {
+    const styles = React.useMemo(() => createStyles(theme), [theme]);
     const [characterAvatarFailed, setCharacterAvatarFailed] = React.useState(false);
     const selectedCharacter = characterProfileStore.selectedCharacter;
     const characterAvatarSource = getCharacterImageSource(
@@ -83,7 +85,11 @@ export const Avatar = React.memo(
               styles.avatarIconFallback,
               currentUserIsAuthor ? styles.selfSpacing : styles.peerSpacing,
             ]}>
-            <UserCircleIcon width={18} height={18} stroke="#cbd5e1" />
+            <UserCircleIcon
+              width={18}
+              height={18}
+              stroke={theme.colors.onSurfaceVariant}
+            />
           </View>
         );
       }
@@ -120,7 +126,10 @@ export const Avatar = React.memo(
   }),
 );
 
-const styles = StyleSheet.create({
+const createStyles = (theme: Theme) => {
+  const design = getAppDesign(theme);
+
+  return StyleSheet.create({
   avatarBackground: {
     alignItems: 'center',
     borderRadius: 18,
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     width: 36,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
+    borderColor: design.cardBorderColor,
   },
   image: {
     alignItems: 'center',
@@ -138,7 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 36,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
+    borderColor: design.cardBorderColor,
   },
   peerSpacing: {
     marginRight: 10,
@@ -156,8 +165,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 36,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    borderColor: design.cardBorderColor,
+    backgroundColor: design.iconSurface,
   },
   initialsText: {
     color: '#0f172a',
@@ -168,3 +177,4 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 });
+};

@@ -15,12 +15,13 @@ export const styles = ({
   theme: Theme;
 }) => {
   const design = getAppDesign(theme);
+  const isUserMessage = currentUserIsAuthor && message.type !== 'image';
+
   return StyleSheet.create({
     contentContainer: {
-      backgroundColor:
-        !currentUserIsAuthor || message.type === 'image'
-          ? `${String(theme.colors.surface)}F0`
-          : 'rgba(15, 23, 42, 0.94)',
+      backgroundColor: isUserMessage
+        ? theme.colors.userBubbleBackground
+        : theme.colors.assistantBubbleBackground,
       borderRadius: 24,
       borderBottomLeftRadius: currentUserIsAuthor
         ? 24
@@ -34,9 +35,9 @@ export const styles = ({
         : 24,
       borderTopLeftRadius: 22,
       borderTopRightRadius: 22,
-      borderColor: !currentUserIsAuthor
-        ? design.cardBorderColor
-        : 'rgba(96, 165, 250, 0.18)',
+      borderColor: isUserMessage
+        ? theme.colors.userBubbleBorder
+        : theme.colors.assistantBubbleBorder,
       borderWidth: 1,
       overflow: 'hidden',
       paddingTop: 2,
@@ -45,7 +46,7 @@ export const styles = ({
         width: 0,
         height: 6,
       },
-      shadowOpacity: currentUserIsAuthor ? 0.18 : 0.1,
+      shadowOpacity: theme.variant === 'dark' ? (currentUserIsAuthor ? 0.18 : 0.1) : 0.08,
       shadowRadius: 14,
       elevation: 3,
     },

@@ -82,14 +82,14 @@ export const createStyles = (theme: Theme) =>
     },
     cardBackgroundFallback: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
     },
     cardBackgroundOverlay: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor: theme.variant === 'dark'
-        ? 'rgba(10, 12, 18, 0.44)'
+          ? 'rgba(10, 12, 18, 0.44)'
         : theme.variant === 'cream'
-          ? 'rgba(239, 230, 219, 0.32)'
+          ? 'rgba(244, 234, 220, 0.54)'
           : 'rgba(255,255,255,0.36)',
     },
     visualGlow: {
@@ -98,7 +98,7 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.variant === 'dark'
         ? 'rgba(16, 20, 28, 0.22)'
         : theme.variant === 'cream'
-          ? 'rgba(122, 90, 60, 0.08)'
+          ? 'rgba(122, 90, 60, 0.05)'
           : 'rgba(255,255,255,0.12)',
     },
     visualAvatarShell: {
@@ -257,12 +257,12 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.variant === 'dark'
         ? 'rgba(10, 12, 18, 0.74)'
         : theme.variant === 'cream'
-          ? 'rgba(248, 241, 232, 0.84)'
+          ? 'rgba(255, 248, 239, 0.78)'
           : 'rgba(255,255,255,0.80)',
     },
     editorHeroFallback: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: design.mutedSurface,
+      backgroundColor: design.rowSurfaceMuted,
     },
     editorHeroContent: {
       gap: 8,
@@ -277,7 +277,7 @@ export const createStyles = (theme: Theme) =>
       height: 84,
       borderRadius: 42,
       borderWidth: 2,
-      borderColor: 'rgba(255,255,255,0.14)',
+      borderColor: design.cardBorderColor,
       backgroundColor: theme.colors.surfaceVariant,
     },
     editorAvatarFallback: {
@@ -353,7 +353,7 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'center',
       gap: 6,
       padding: 8,
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.iconSurface,
     },
     backgroundPreview: {
       height: 120,
@@ -361,7 +361,7 @@ export const createStyles = (theme: Theme) =>
       overflow: 'hidden',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.rowSurfaceMuted,
     },
     backgroundPreviewImage: {
       opacity: 0.28,
@@ -383,7 +383,7 @@ export const createStyles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       paddingHorizontal: 16,
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: design.rowSurfaceMuted,
     },
     switchRow: {
       flexDirection: 'row',

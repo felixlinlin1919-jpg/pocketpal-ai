@@ -10,6 +10,7 @@ import {
   DuplicateIcon,
   EditIcon,
   GridIcon,
+  PlusIcon,
   SettingsIcon,
   ShareIcon,
   TrashIcon,
@@ -62,6 +63,11 @@ export const HeaderRight: React.FC = observer(() => {
   const onPressGenerationSettings = () => {
     setChatGenerationSettingsVisible(true);
     closeMenu();
+  };
+
+  const onPressNewChat = () => {
+    Keyboard.dismiss();
+    chatSessionStore.resetActiveSession();
   };
 
   const onPressDelete = () => {
@@ -144,6 +150,13 @@ export const HeaderRight: React.FC = observer(() => {
   return (
     <View style={styles.headerRightContainer}>
       {uiStore.displayMemUsage && <UsageStats width={40} height={20} />}
+      <IconButton
+        accessibilityLabel="新增對話"
+        icon={() => <PlusIcon stroke={theme.colors.primary} />}
+        style={styles.newChatBtn}
+        onPress={onPressNewChat}
+        testID="reset-button"
+      />
       <Menu
         visible={menuVisible}
         onDismiss={closeMenu}
