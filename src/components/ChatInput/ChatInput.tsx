@@ -32,6 +32,7 @@ import {chatSessionStore, modelStore, palStore} from '../../store';
 
 import {MessageType} from '../../utils/types';
 import {L10nContext, UserContext} from '../../utils';
+import {t} from '../../locales';
 
 import {SendButton, StopButton} from '..';
 
@@ -308,6 +309,13 @@ export const ChatInput = observer(
       setSelectedImages(newImages);
     };
 
+    const handleAudioInfoPress = () => {
+      Alert.alert(
+        l10n.components.chatInput.attachments.audioUnsupportedTitle,
+        l10n.components.chatInput.attachments.audioUnsupportedMessage,
+      );
+    };
+
     const handleCancel = () => {
       setText('');
       onCancelEdit?.();
@@ -325,7 +333,7 @@ export const ChatInput = observer(
     const onSurfaceColor = currentActivePal?.color?.[0] || theme.colors.text;
     const onSurfaceColorVariant = onSurfaceColor + '55'; // for disabled state or placeholder text
     // // Plus button state
-    const isPlusButtonEnabled = !isStreaming && isVisionEnabled;
+    const isPlusButtonEnabled = !isStreaming;
     const plusColor = isPlusButtonEnabled
       ? onSurfaceColor
       : onSurfaceColorVariant;
@@ -343,7 +351,7 @@ export const ChatInput = observer(
                 },
               ]}>
               <Text variant="labelSmall" style={styles.editBarText}>
-                正在編輯訊息
+                {l10n.components.chatInput.editingMessage}
               </Text>
               <IconButton
                 icon="close"
@@ -381,7 +389,10 @@ export const ChatInput = observer(
                       iconColor={theme.colors.error}
                       style={styles.removeImageButton}
                       onPress={() => handleRemoveImage(index)}
-                      accessibilityLabel={`移除圖片 ${index + 1}`}
+                      accessibilityLabel={t(
+                        l10n.components.chatInput.removeImageLabel,
+                        {index: index + 1},
+                      )}
                     />
                   </View>
                 ))}
@@ -445,23 +456,58 @@ export const ChatInput = observer(
           {showAttachmentTray && showImageUpload && !isVideoCapable && (
             <View style={styles.attachmentTray}>
               <Text variant="labelSmall" style={styles.attachmentTrayTitle}>
-                加入圖片
+                {l10n.components.chatInput.attachments.title}
               </Text>
-              <View style={styles.attachmentActions}>
-                <TouchableOpacity
-                  style={styles.attachmentAction}
-                  onPress={handleTakePhoto}
-                  accessibilityRole="button"
-                  accessibilityLabel="拍照">
-                  <Text style={styles.attachmentActionText}>拍照</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.attachmentAction}
-                  onPress={handleSelectImages}
-                  accessibilityRole="button"
-                  accessibilityLabel="從相簿選擇">
-                  <Text style={styles.attachmentActionText}>相簿</Text>
-                </TouchableOpacity>
+              <View style={styles.attachmentSection}>
+                <Text style={styles.attachmentSectionLabel}>
+                  {l10n.components.chatInput.attachments.imageSection}
+                </Text>
+                <View style={styles.attachmentActions}>
+                  <TouchableOpacity
+                    style={styles.attachmentAction}
+                    onPress={handleTakePhoto}
+                    accessibilityRole="button"
+                    accessibilityLabel={
+                      l10n.components.chatInput.attachments.takePhoto
+                    }>
+                    <Text style={styles.attachmentActionText}>
+                      {l10n.components.chatInput.attachments.takePhoto}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.attachmentAction}
+                    onPress={handleSelectImages}
+                    accessibilityRole="button"
+                    accessibilityLabel={
+                      l10n.components.chatInput.attachments.photoLibrary
+                    }>
+                    <Text style={styles.attachmentActionText}>
+                      {l10n.components.chatInput.attachments.photoLibrary}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.attachmentDivider} />
+              <View style={styles.attachmentSection}>
+                <Text style={styles.attachmentSectionLabel}>
+                  {l10n.components.chatInput.attachments.audioSection}
+                </Text>
+                <View style={styles.attachmentActions}>
+                  <TouchableOpacity
+                    style={[styles.attachmentAction, styles.attachmentActionMuted]}
+                    onPress={handleAudioInfoPress}
+                    accessibilityRole="button"
+                    accessibilityLabel={
+                      l10n.components.chatInput.attachments.audioFiles
+                    }>
+                    <Text style={styles.attachmentActionText}>
+                      {l10n.components.chatInput.attachments.audioFiles}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.attachmentHint}>
+                  {l10n.components.chatInput.attachments.audioCapabilityHint}
+                </Text>
               </View>
             </View>
           )}
@@ -481,7 +527,7 @@ export const ChatInput = observer(
                   onPress={
                     isPlusButtonEnabled ? handlePlusButtonPress : () => {}
                   }
-                  accessibilityLabel="加入圖片"
+                  accessibilityLabel={l10n.components.chatInput.attachments.title}
                   accessibilityRole="button">
                   <PlusIcon width={20} height={20} stroke={plusColor} />
                 </TouchableOpacity>

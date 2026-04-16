@@ -175,5 +175,65 @@ export const createStyles = (theme: Theme) =>
       themeSegmentButton: {
         borderRadius: 14,
       },
+      themeSelectorGrid: {
+        marginTop: 14,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
+      },
+      themeOptionCard: {
+        width: '48%',
+        minWidth: 132,
+        borderRadius: 18,
+        borderWidth: 1,
+        borderColor: design.subtleBorderColor,
+        backgroundColor: design.rowSurface,
+        padding: 10,
+        gap: 10,
+      },
+      themeOptionCardSelected: {
+        borderColor: theme.colors.primary,
+        backgroundColor: design.accentSoft,
+      },
+      themePreview: {
+        height: 46,
+        borderRadius: 14,
+        padding: 8,
+        justifyContent: 'space-between',
+        borderWidth: 1,
+        borderColor: design.subtleBorderColor,
+      },
+      themePreviewAccent: {
+        width: 18,
+        height: 18,
+        borderRadius: 9,
+      },
+      themePreviewChipRow: {
+        flexDirection: 'row',
+        gap: 6,
+      },
+      themePreviewChip: {
+        height: 6,
+        width: 28,
+        borderRadius: 999,
+        backgroundColor: 'rgba(255,255,255,0.58)',
+      },
+      themePreviewChipShort: {
+        width: 16,
+      },
+      themeOptionTextRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 8,
+      },
+      themeOptionLabel: {
+        color: theme.colors.onSurface,
+        fontWeight: '700',
+      },
+      themeOptionBadge: {
+        color: theme.colors.primary,
+        fontWeight: '700',
+      },
     };
   })());

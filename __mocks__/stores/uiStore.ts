@@ -24,10 +24,16 @@ export const mockUiStore = {
   language: 'en',
   supportedLanguages: [...supportedLanguages],
   l10n: l10n.en,
+  _language: 'en',
   setValue: jest.fn(),
   displayMemUsage: false,
   setAutoNavigateToChat: jest.fn(),
   setColorScheme: jest.fn(),
+  setLanguage: jest.fn((language: keyof typeof l10n) => {
+    mockUiStore._language = language;
+    mockUiStore.language = language in l10n ? language : 'en';
+    mockUiStore.l10n = l10n[mockUiStore.language];
+  }),
   setDisplayMemUsage: jest.fn(),
   setBenchmarkShareDialogPreference: jest.fn(),
   showError: jest.fn(),

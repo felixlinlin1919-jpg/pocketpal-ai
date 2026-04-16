@@ -1,6 +1,20 @@
 {
   "about": {
     "screenTitle": "關於 KyoKyoNook",
+    "versionLabel": "版本",
+    "buildLabel": "Build",
+    "runtimeLabel": "執行核心",
+    "loadingLabel": "讀取中",
+    "sections": {
+      "version": "版本資訊",
+      "infoCenter": "資訊中心"
+    },
+    "infoCenter": {
+      "openSourceLicensesSubtitle": "PocketPal AI MIT License 與基礎專案資訊",
+      "thirdPartyNoticesSubtitle": "主要依賴分類與後續 notices 結構",
+      "customBuildNotesSubtitle": "自訂版本定位與主要調整",
+      "privacySubtitle": "本機資料、附件與外部服務使用說明"
+    },
     "description": "一個能把語言模型直接帶到你手機上的本機 AI 聊天 app。",
     "supportProject": "支援此專案",
     "supportProjectDescription": "如果你喜歡這個自訂版本，可以透過原始專案頁面了解更多：",
@@ -155,6 +169,82 @@
     "multimodalNotEnabled": "此模型未啟用多模態功能。圖片將會顯示，但不會被 AI 處理。",
     "cannotSendWithoutModel": "請先載入模型"
   },
+  "characterLibrary": {
+    "title": "角色",
+    "noneSelected": "未選擇角色",
+    "currentlyActive": "目前使用中",
+    "currentlyActiveName": "目前使用中：{{name}}",
+    "addCharacter": "新增角色",
+    "searchPlaceholder": "搜尋名稱、提示詞或角色設定",
+    "emptyTitle": "尚未建立角色卡",
+    "emptyDescription": "建立第一張角色後，就能把提示詞、頭像與背景帶進聊天。",
+    "emptyFilteredTitle": "找不到符合的角色",
+    "emptyFilteredDescription": "試試其他關鍵字，或直接建立新的角色。",
+    "deleteConfirmTitle": "刪除角色",
+    "deleteConfirmMessage": "確定要刪除「{{name}}」嗎？",
+    "edit": "編輯",
+    "delete": "刪除",
+    "avatarReady": "有頭像",
+    "avatarMissing": "無頭像",
+    "emojiOnly": "Emoji 角色",
+    "backgroundReady": "已設定背景",
+    "backgroundMissing": "未設定背景圖",
+    "backgroundInvalid": "背景路徑失效",
+    "currentRoleDescription": "這個角色正在陪你聊天。",
+    "tapToSwitchDescription": "點一下即可切換到這個角色。"
+  },
+  "characterEditor": {
+    "createCharacter": "建立角色",
+    "editCharacter": "編輯角色",
+    "untitledCharacter": "未命名角色",
+    "thinkingEnabledStatus": "Thinking 已啟用",
+    "thinkingDisabledStatus": "Thinking 已關閉",
+    "nameRequiredTitle": "名稱未填寫",
+    "nameRequiredMessage": "請輸入角色名稱。",
+    "promptRequiredTitle": "系統提示詞未填寫",
+    "promptRequiredMessage": "請輸入系統提示詞。",
+    "profileMissingTitle": "找不到角色卡",
+    "profileMissingMessage": "這張角色卡可能已被刪除，請返回列表重新選擇。",
+    "backToLibrary": "返回角色卡管理",
+    "sections": {
+      "basicInfo": "基本資料",
+      "chatStyle": "聊天風格",
+      "appearance": "角色外觀"
+    },
+    "fields": {
+      "name": "名稱",
+      "description": "描述",
+      "emoji": "Emoji 頭像",
+      "systemPrompt": "角色提示詞",
+      "thinkingEnabled": "啟用 Thinking",
+      "avatar": "頭像",
+      "background": "背景圖"
+    },
+    "placeholders": {
+      "name": "請輸入角色名稱",
+      "description": "用一句話描述這個角色",
+      "emoji": "例如：🦊",
+      "systemPrompt": "請輸入角色提示詞",
+      "imagePath": "可輸入圖片網址或本機路徑"
+    },
+    "thinkingSupportHint": "須模型支援思考模式",
+    "pickAvatar": "選擇頭像",
+    "clearAvatar": "清除頭像",
+    "pickBackground": "選擇背景圖",
+    "clearBackground": "清除背景圖",
+    "avatarPreview": "頭像預覽",
+    "backgroundPreview": "背景預覽",
+    "avatarLoadFailed": "無法載入頭像",
+    "backgroundLoadFailed": "無法載入背景圖",
+    "avatarMissing": "未設定頭像",
+    "backgroundMissing": "未設定背景圖",
+    "avatarPickErrorTitle": "無法選擇頭像",
+    "backgroundPickErrorTitle": "無法選擇背景圖",
+    "imagePathNotFound": "找不到可用的圖片路徑。",
+    "tryAgainLater": "請稍後再試。",
+    "saveCharacter": "儲存角色",
+    "addCharacter": "新增角色"
+  },
   "common": {
     "cancel": "取消",
     "delete": "刪除",
@@ -223,16 +313,29 @@
       "attachmentButtonAccessibilityLabel": "發送媒體"
     },
     "chatEmptyPlaceholder": {
-      "noModelsTitle": "無可用模型",
-      "noModelsDescription": "下載模型後即可開始本機聊天",
-      "noModelsButton": "下載模型",
-      "activateModelTitle": "啟動模型以開始",
-      "activateModelDescription": "請先選擇模型並下載。下載完成後，點擊模型右側的「載入」按鈕即可開始對話。",
+      "noModelsTitle": "尚未加入模型",
+      "noModelsDescription": "先加入一個模型，這裡就會變成你的聊天首頁。",
+      "noModelsButton": "前往模型庫",
+      "activateModelTitle": "選擇要聊天的模型",
+      "activateModelDescription": "先載入一個模型，就能開始新的對話。",
       "activateModelButton": "選擇模型",
       "loading": "正在載入..."
     },
     "chatInput": {
       "inputPlaceholder": "訊息",
+      "editingMessage": "正在編輯訊息",
+      "removeImageLabel": "移除圖片 {{index}}",
+      "attachments": {
+        "title": "加入附件",
+        "imageSection": "圖片",
+        "audioSection": "音訊",
+        "takePhoto": "拍照",
+        "photoLibrary": "相簿",
+        "audioFiles": "音訊檔案",
+        "audioCapabilityHint": "目前聊天流程尚未把音訊檔案送入模型理解。",
+        "audioUnsupportedTitle": "音訊附件尚未可用",
+        "audioUnsupportedMessage": "目前已可把圖片送進支援的模型，但音訊檔案還沒有接進聊天推理流程。"
+      },
       "thinkingToggle": {
         "enableThinking": "啟用思考模式",
         "disableThinking": "停用思考模式",
@@ -287,7 +390,19 @@
       "fileButtonAccessibilityLabel": "檔案"
     },
     "chatHeaderTitle": {
-      "defaultTitle": "聊天"
+      "defaultTitle": "聊天",
+      "defaultSessionTitle": "新的對話",
+      "noCharacterSelected": "未選擇角色",
+      "modelNotLoaded": "尚未載入模型",
+      "thinkingOn": "Thinking 開啟",
+      "thinkingOff": "Thinking 關閉",
+      "quickSwitch": "快速切換角色",
+      "noRole": "不使用角色",
+      "defaultChatSettings": "使用預設聊天設定",
+      "addCharacter": "新增角色",
+      "manageCharacters": "管理角色卡",
+      "currentlyActive": "目前使用中",
+      "tapToSwitch": "點一下切換角色"
     },
     "sidebarContent": {
       "dateGroups": {
@@ -964,7 +1079,23 @@
     "autoNavigateToChat": "自動導向聊天",
     "autoNavigateToChatDescription": "開始載入即跳轉到聊天。",
     "appSettings": "應用程式設定",
+    "userAvatar": "個人頭像",
+    "userAvatarDescription": "顯示在聊天頁右側訊息與個人識別位置。",
+    "userAvatarPickErrorTitle": "無法選擇頭像",
+    "userAvatarPathNotFound": "找不到可用的圖片。",
+    "userAvatarPickErrorMessage": "請稍後再試。",
     "language": "語系",
+    "select": "選擇",
+    "clearSelection": "清除",
+    "theme": "主題",
+    "themeDescription": "切換深色、淺色、紙色或科幻介面。",
+    "themeSelected": "目前使用中",
+    "themeOptions": {
+      "dark": "深色",
+      "light": "淺色",
+      "cream": "紙色",
+      "anime": "科幻"
+    },
     "darkMode": "深色模式",
     "displayMemoryUsage": "顯示記憶體使用量",
     "displayMemoryUsageDescription": "在聊天頁面顯示記憶體使用量。",

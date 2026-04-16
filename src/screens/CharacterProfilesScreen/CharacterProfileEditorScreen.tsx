@@ -8,10 +8,10 @@ import {launchImageLibrary} from 'react-native-image-picker';
 
 import {UserCircleIcon} from '../../assets/icons';
 import {TextInput} from '../../components';
-import {characterText} from '../../constants/characterText';
 import {useCharacterProfiles, useTheme} from '../../hooks';
 import {ROUTES} from '../../utils/navigationConstants';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
+import {L10nContext} from '../../utils';
 
 import {createStyles} from './styles';
 
@@ -27,6 +27,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
+  const l10n = React.useContext(L10nContext);
   const route =
     useRoute<RouteProp<EditorRouteParams, 'CharacterProfileEditor'>>();
   const {
@@ -91,8 +92,10 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
       if (!selectedUri) {
         Alert.alert(
-          type === 'avatar' ? '無法選擇頭像' : '無法選擇背景圖',
-          '找不到可用的圖片路徑。',
+          type === 'avatar'
+            ? l10n.characterEditor.avatarPickErrorTitle
+            : l10n.characterEditor.backgroundPickErrorTitle,
+          l10n.characterEditor.imagePathNotFound,
         );
         return;
       }
@@ -105,8 +108,10 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
     } catch (error) {
       console.error(`Failed to pick ${type} image:`, error);
       Alert.alert(
-        type === 'avatar' ? '無法選擇頭像' : '無法選擇背景圖',
-        '請稍後再試。',
+        type === 'avatar'
+          ? l10n.characterEditor.avatarPickErrorTitle
+          : l10n.characterEditor.backgroundPickErrorTitle,
+        l10n.characterEditor.tryAgainLater,
       );
     }
   };
@@ -124,12 +129,18 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
   const handleSave = () => {
     if (!name.trim()) {
-      Alert.alert('名稱未填寫', '請輸入角色名稱。');
+      Alert.alert(
+        l10n.characterEditor.nameRequiredTitle,
+        l10n.characterEditor.nameRequiredMessage,
+      );
       return;
     }
 
     if (!systemPrompt.trim()) {
-      Alert.alert('系統提示詞未填寫', '請輸入系統提示詞。');
+      Alert.alert(
+        l10n.characterEditor.promptRequiredTitle,
+        l10n.characterEditor.promptRequiredMessage,
+      );
       return;
     }
 
@@ -170,13 +181,15 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
     return (
       <SafeAreaView style={styles.safeArea} edges={['bottom']}>
         <View style={styles.contentContainer}>
-          <Card style={styles.helperCard}>
-            <Text variant="titleMedium">找不到角色卡</Text>
+          <Card elevation={0} style={styles.helperCard}>
+            <Text variant="titleMedium">
+              {l10n.characterEditor.profileMissingTitle}
+            </Text>
             <Text variant="bodyMedium" style={styles.fieldHint}>
-              這張角色卡可能已被刪除，請返回列表重新選擇。
+              {l10n.characterEditor.profileMissingMessage}
             </Text>
             <Button mode="contained" onPress={() => navigation.goBack()}>
-              返回角色卡管理
+              {l10n.characterEditor.backToLibrary}
             </Button>
           </Card>
         </View>
@@ -187,7 +200,7 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>
       <ScrollView contentContainerStyle={styles.editorScrollContent}>
-        <Card style={styles.summaryCard}>
+        <Card elevation={0} style={styles.summaryCard}>
           {backgroundSource && !backgroundPreviewFailed ? (
             <ImageBackground
               source={backgroundSource}
@@ -223,53 +236,57 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
               )}
             </View>
             <Text variant="labelMedium" style={styles.summaryEyebrow}>
-              {isEditing ? '編輯角色' : '建立角色'}
+              {isEditing
+                ? l10n.characterEditor.editCharacter
+                : l10n.characterEditor.createCharacter}
             </Text>
             <Text variant="headlineSmall" style={styles.summaryHeading}>
-              {name.trim() || '未命名角色'}
+              {name.trim() || l10n.characterEditor.untitledCharacter}
             </Text>
             <Text variant="bodySmall" style={styles.summaryCaption}>
               {description.trim() ||
-                (thinkingEnabled ? 'Thinking 已啟用' : 'Thinking 已關閉')}
+                (thinkingEnabled
+                  ? l10n.characterEditor.thinkingEnabledStatus
+                  : l10n.characterEditor.thinkingDisabledStatus)}
             </Text>
           </View>
         </Card>
 
-        <Card style={styles.editorCard}>
+        <Card elevation={0} style={styles.editorCard}>
           <View style={styles.sectionBlock}>
             <Text variant="labelMedium" style={styles.searchLabel}>
-              基本資料
+              {l10n.characterEditor.sections.basicInfo}
             </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
-                名稱
+                {l10n.characterEditor.fields.name}
               </Text>
               <TextInput
                 value={name}
                 onChangeText={setName}
-                placeholder="請輸入角色名稱"
+                placeholder={l10n.characterEditor.placeholders.name}
               />
             </View>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
-                描述
+                {l10n.characterEditor.fields.description}
               </Text>
               <TextInput
                 value={description}
                 onChangeText={setDescription}
-                placeholder="用一句話描述這個角色"
+                placeholder={l10n.characterEditor.placeholders.description}
                 multiline
                 numberOfLines={3}
               />
             </View>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
-                Emoji 頭像
+                {l10n.characterEditor.fields.emoji}
               </Text>
               <TextInput
                 value={emoji}
                 onChangeText={setEmoji}
-                placeholder="例如：🦊"
+                placeholder={l10n.characterEditor.placeholders.emoji}
                 maxLength={2}
               />
             </View>
@@ -277,16 +294,16 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
           <View style={styles.sectionBlock}>
             <Text variant="labelMedium" style={styles.searchLabel}>
-              聊天風格
+              {l10n.characterEditor.sections.chatStyle}
             </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
-                角色提示詞
+                {l10n.characterEditor.fields.systemPrompt}
               </Text>
               <TextInput
                 value={systemPrompt}
                 onChangeText={setSystemPrompt}
-                placeholder="請輸入角色提示詞"
+                placeholder={l10n.characterEditor.placeholders.systemPrompt}
                 multiline
                 numberOfLines={6}
               />
@@ -295,7 +312,10 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
             <View style={styles.switchRow}>
               <View style={styles.switchTextContainer}>
                 <Text variant="titleSmall" style={styles.fieldLabel}>
-                  啟用 Thinking
+                  {l10n.characterEditor.fields.thinkingEnabled}
+                </Text>
+                <Text variant="bodySmall" style={styles.fieldHint}>
+                  {l10n.characterEditor.thinkingSupportHint}
                 </Text>
               </View>
               <Switch value={thinkingEnabled} onValueChange={setThinkingEnabled} />
@@ -304,28 +324,28 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
           <View style={styles.sectionBlock}>
             <Text variant="labelMedium" style={styles.searchLabel}>
-              角色外觀
+              {l10n.characterEditor.sections.appearance}
             </Text>
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
-                頭像
+                {l10n.characterEditor.fields.avatar}
               </Text>
               <TextInput
                 value={avatar}
                 onChangeText={setAvatar}
-                placeholder="可輸入圖片網址或本機路徑"
+                placeholder={l10n.characterEditor.placeholders.imagePath}
               />
               <View style={styles.pickerActionRow}>
                 <Button mode="outlined" onPress={() => handlePickImage('avatar')}>
-                  選擇頭像
+                  {l10n.characterEditor.pickAvatar}
                 </Button>
                 <Button mode="text" onPress={() => handleClearImage('avatar')}>
-                  清除頭像
+                  {l10n.characterEditor.clearAvatar}
                 </Button>
               </View>
               <View style={styles.previewSection}>
                 <Text variant="labelMedium" style={styles.previewLabel}>
-                  頭像預覽
+                  {l10n.characterEditor.avatarPreview}
                 </Text>
                 {avatarSource && !avatarPreviewFailed ? (
                   <Image
@@ -346,8 +366,8 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                     />
                     <Text variant="bodySmall" style={styles.previewHint}>
                       {avatar.trim()
-                        ? '無法載入頭像'
-                        : characterText.noAvatar}
+                        ? l10n.characterEditor.avatarLoadFailed
+                        : l10n.characterEditor.avatarMissing}
                     </Text>
                   </View>
                 )}
@@ -356,28 +376,28 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
 
             <View style={styles.fieldGroup}>
               <Text variant="titleSmall" style={styles.fieldLabel}>
-                背景圖
+                {l10n.characterEditor.fields.background}
               </Text>
               <TextInput
                 value={background}
                 onChangeText={setBackground}
-                placeholder="可輸入圖片網址或本機路徑"
+                placeholder={l10n.characterEditor.placeholders.imagePath}
               />
               <View style={styles.pickerActionRow}>
                 <Button
                   mode="outlined"
                   onPress={() => handlePickImage('background')}>
-                  選擇背景圖
+                  {l10n.characterEditor.pickBackground}
                 </Button>
                 <Button
                   mode="text"
                   onPress={() => handleClearImage('background')}>
-                  清除背景圖
+                  {l10n.characterEditor.clearBackground}
                 </Button>
               </View>
               <View style={styles.previewSection}>
                 <Text variant="labelMedium" style={styles.previewLabel}>
-                  背景預覽
+                  {l10n.characterEditor.backgroundPreview}
                 </Text>
                 {backgroundSource && !backgroundPreviewFailed ? (
                   <ImageBackground
@@ -388,15 +408,15 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
                     onError={() => setBackgroundPreviewFailed(true)}>
                     <View style={styles.backgroundPreviewOverlay} />
                     <Text variant="bodySmall" style={styles.backgroundPreviewText}>
-                      背景預覽
+                      {l10n.characterEditor.backgroundPreview}
                     </Text>
                   </ImageBackground>
                 ) : (
                   <View style={styles.backgroundPreviewPlaceholder}>
                     <Text variant="bodySmall" style={styles.previewHint}>
                       {background.trim()
-                        ? '無法載入背景圖'
-                        : characterText.noBackground}
+                        ? l10n.characterEditor.backgroundLoadFailed
+                        : l10n.characterEditor.backgroundMissing}
                     </Text>
                   </View>
                 )}
@@ -408,7 +428,9 @@ export const CharacterProfileEditorScreen: React.FC = observer(() => {
             mode="contained"
             style={styles.submitButton}
             onPress={handleSave}>
-            {isEditing ? '儲存角色' : '新增角色'}
+            {isEditing
+              ? l10n.characterEditor.saveCharacter
+              : l10n.characterEditor.addCharacter}
           </Button>
         </Card>
       </ScrollView>

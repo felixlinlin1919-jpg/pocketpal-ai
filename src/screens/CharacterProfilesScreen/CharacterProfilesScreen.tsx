@@ -13,10 +13,11 @@ import {useNavigation} from '@react-navigation/native';
 
 import {CheckCircleIcon, UserCircleIcon} from '../../assets/icons';
 import {TextInput} from '../../components';
-import {characterText} from '../../constants/characterText';
 import {useCharacterProfiles, useTheme} from '../../hooks';
 import {CharacterProfile} from '../../types/character';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
+import {L10nContext} from '../../utils';
+import {t} from '../../locales';
 
 import {createStyles} from './styles';
 
@@ -37,6 +38,7 @@ const CharacterProfileCard = ({
 }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const l10n = React.useContext(L10nContext);
   const avatarSource = getCharacterImageSource(profile.avatar);
   const backgroundSource = getCharacterImageSource(profile.background);
   const [avatarLoadFailed, setAvatarLoadFailed] = React.useState(false);
@@ -54,13 +56,15 @@ const CharacterProfileCard = ({
   const hasBackgroundPath = !!profile.background?.trim();
   const hasResolvedBackground = !!backgroundSource;
   const backgroundStatusText = !hasBackgroundPath
-    ? characterText.noBackground
+    ? l10n.characterLibrary.backgroundMissing
     : !hasResolvedBackground || backgroundLoadFailed
-      ? '背景路徑失效'
-      : '已設定背景';
+      ? l10n.characterLibrary.backgroundInvalid
+      : l10n.characterLibrary.backgroundReady;
   const descriptionText =
     profile.description?.trim() ||
-    (isSelected ? '這個角色正在陪你聊天' : '點一下即可切換到這個角色');
+    (isSelected
+      ? l10n.characterLibrary.currentRoleDescription
+      : l10n.characterLibrary.tapToSwitchDescription);
 
   return (
     <Card style={[styles.card, isSelected && styles.selectedCard]}>
@@ -128,7 +132,7 @@ const CharacterProfileCard = ({
                   stroke={theme.colors.onPrimary}
                 />
                 <Text variant="labelSmall" style={styles.selectedBadgeText}>
-                  目前使用中
+                  {l10n.characterLibrary.currentlyActive}
                 </Text>
               </View>
             )}
@@ -137,20 +141,24 @@ const CharacterProfileCard = ({
           <View style={styles.statusRow}>
             <View style={styles.statusChip}>
               <Text variant="labelSmall" style={styles.statusChipText}>
-                {hasValidAvatar ? '有頭像' : profile.emoji?.trim() ? 'Emoji 角色' : '無頭像'}
+                {hasValidAvatar
+                  ? l10n.characterLibrary.avatarReady
+                  : profile.emoji?.trim()
+                    ? l10n.characterLibrary.emojiOnly
+                    : l10n.characterLibrary.avatarMissing}
               </Text>
             </View>
             <View
               style={[
                 styles.statusChip,
-                backgroundStatusText === '背景路徑失效' &&
+                backgroundStatusText === l10n.characterLibrary.backgroundInvalid &&
                   styles.statusChipWarning,
               ]}>
               <Text
                 variant="labelSmall"
                 style={[
                   styles.statusChipText,
-                  backgroundStatusText === '背景路徑失效' &&
+                  backgroundStatusText === l10n.characterLibrary.backgroundInvalid &&
                     styles.statusChipWarningText,
                 ]}>
                 {backgroundStatusText}
@@ -168,10 +176,10 @@ const CharacterProfileCard = ({
 
           <View style={styles.actionRow}>
             <Button mode="text" onPress={onEdit}>
-              編輯
+              {l10n.characterLibrary.edit}
             </Button>
             <Button mode="text" textColor={theme.colors.error} onPress={onDelete}>
-              刪除
+              {l10n.characterLibrary.delete}
             </Button>
           </View>
         </View>
@@ -184,6 +192,7 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
+  const l10n = React.useContext(L10nContext);
   const {
     profiles,
     selectedCharacter,
@@ -206,10 +215,13 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
   }, [profiles, searchQuery]);
 
   const handleDelete = (profile: CharacterProfile) => {
-    Alert.alert('刪除角色', `確定要刪除「${profile.name}」嗎？`, [
-      {text: '取消', style: 'cancel'},
+    Alert.alert(
+      l10n.characterLibrary.deleteConfirmTitle,
+      t(l10n.characterLibrary.deleteConfirmMessage, {name: profile.name}),
+      [
+      {text: l10n.common.cancel, style: 'cancel'},
       {
-        text: '刪除角色',
+        text: l10n.characterLibrary.delete,
         style: 'destructive',
         onPress: () => deleteCharacterProfile(profile.id),
       },
@@ -227,19 +239,21 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
             <View style={styles.pageHeaderRow}>
               <View style={styles.pageTitleBlock}>
                 <Text variant="headlineMedium" style={styles.pageTitle}>
-                  角色
+                  {l10n.characterLibrary.title}
                 </Text>
                 <Text variant="bodySmall" style={styles.pageMeta}>
                   {selectedCharacter?.name
-                    ? `目前使用中：${selectedCharacter.name}`
-                    : characterText.noneSelected}
+                    ? t(l10n.characterLibrary.currentlyActiveName, {
+                        name: selectedCharacter.name,
+                      })
+                    : l10n.characterLibrary.noneSelected}
                 </Text>
               </View>
               <Button
                 mode="contained"
                 style={styles.addButton}
                 onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
-                {characterText.addCharacter}
+                {l10n.characterLibrary.addCharacter}
               </Button>
             </View>
 
@@ -247,7 +261,7 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
               <TextInput
                 value={searchQuery}
                 onChangeText={setSearchQuery}
-                placeholder="搜尋名稱、提示詞或角色設定"
+                placeholder={l10n.characterLibrary.searchPlaceholder}
               />
             </View>
           </View>
@@ -255,17 +269,19 @@ export const CharacterProfilesScreen: React.FC = observer(() => {
         ListEmptyComponent={
           <Card style={styles.emptyCard}>
             <Text variant="titleMedium">
-              {profiles.length === 0 ? '尚未建立角色卡' : '找不到符合的角色'}
+              {profiles.length === 0
+                ? l10n.characterLibrary.emptyTitle
+                : l10n.characterLibrary.emptyFilteredTitle}
             </Text>
             <Text variant="bodyMedium" style={styles.emptyText}>
               {profiles.length === 0
-                ? '建立第一張角色後，就能把提示詞、頭像與背景帶進聊天。'
-                : '試試其他關鍵字，或直接建立新的角色。'}
+                ? l10n.characterLibrary.emptyDescription
+                : l10n.characterLibrary.emptyFilteredDescription}
             </Text>
             <Button
               mode="contained"
               onPress={() => navigation.navigate(CHARACTER_EDIT_ROUTE)}>
-              {characterText.addCharacter}
+              {l10n.characterLibrary.addCharacter}
             </Button>
           </Card>
         }

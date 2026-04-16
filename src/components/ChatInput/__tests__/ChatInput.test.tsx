@@ -265,7 +265,9 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('加入圖片');
+    const plusButton = getByLabelText(
+      l10n.en.components.chatInput.attachments.title,
+    );
     expect(plusButton).toBeDefined();
   });
 
@@ -284,7 +286,9 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = queryByLabelText('加入圖片');
+    const plusButton = queryByLabelText(
+      l10n.en.components.chatInput.attachments.title,
+    );
     expect(plusButton).toBeNull();
   });
 
@@ -304,7 +308,9 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('加入圖片');
+    const plusButton = getByLabelText(
+      l10n.en.components.chatInput.attachments.title,
+    );
     expect(plusButton).toBeTruthy();
     expect(plusButton.props.accessibilityState.disabled).toBe(false);
   });
@@ -455,7 +461,7 @@ describe('input', () => {
     }
   });
 
-  it('disables plus button when vision is not enabled', () => {
+  it('keeps plus button available even when vision is not enabled', () => {
     expect.assertions(1);
     const onSendPress = jest.fn();
     const {getByLabelText} = render(
@@ -471,8 +477,10 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('加入圖片');
-    expect(plusButton.props.accessibilityState.disabled).toBe(true);
+    const plusButton = getByLabelText(
+      l10n.en.components.chatInput.attachments.title,
+    );
+    expect(plusButton.props.accessibilityState.disabled).toBe(false);
   });
 
   it('enables plus button when vision is enabled', () => {
@@ -491,7 +499,9 @@ describe('input', () => {
       </UserContext.Provider>,
     );
 
-    const plusButton = getByLabelText('加入圖片');
+    const plusButton = getByLabelText(
+      l10n.en.components.chatInput.attachments.title,
+    );
     expect(plusButton.props.accessibilityState.disabled).toBe(false);
   });
 
@@ -569,11 +579,17 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('加入圖片');
+      const plusButton = getByLabelText(
+        l10n.en.components.chatInput.attachments.title,
+      );
       fireEvent.press(plusButton);
 
-      expect(getByLabelText('拍照')).toBeTruthy();
-      expect(getByLabelText('從相簿選擇')).toBeTruthy();
+      expect(
+        getByLabelText(l10n.en.components.chatInput.attachments.takePhoto),
+      ).toBeTruthy();
+      expect(
+        getByLabelText(l10n.en.components.chatInput.attachments.photoLibrary),
+      ).toBeTruthy();
     });
 
     it('handles camera photo capture successfully', async () => {
@@ -596,9 +612,13 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('加入圖片');
+      const plusButton = getByLabelText(
+        l10n.en.components.chatInput.attachments.title,
+      );
       fireEvent.press(plusButton);
-      fireEvent.press(getByLabelText('拍照'));
+      fireEvent.press(
+        getByLabelText(l10n.en.components.chatInput.attachments.takePhoto),
+      );
 
       expect(plusButton).toBeTruthy();
     });
@@ -621,9 +641,13 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('加入圖片');
+      const plusButton = getByLabelText(
+        l10n.en.components.chatInput.attachments.title,
+      );
       fireEvent.press(plusButton);
-      fireEvent.press(getByLabelText('拍照'));
+      fireEvent.press(
+        getByLabelText(l10n.en.components.chatInput.attachments.takePhoto),
+      );
 
       expect(plusButton).toBeTruthy();
     });
@@ -648,9 +672,13 @@ describe('input', () => {
         </UserContext.Provider>,
       );
 
-      const plusButton = getByLabelText('加入圖片');
+      const plusButton = getByLabelText(
+        l10n.en.components.chatInput.attachments.title,
+      );
       fireEvent.press(plusButton);
-      fireEvent.press(getByLabelText('從相簿選擇'));
+      fireEvent.press(
+        getByLabelText(l10n.en.components.chatInput.attachments.photoLibrary),
+      );
 
       expect(plusButton).toBeTruthy();
     });

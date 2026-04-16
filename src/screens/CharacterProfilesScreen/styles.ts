@@ -231,19 +231,15 @@ export const createStyles = (theme: Theme) =>
     },
     editorScrollContent: {
       padding: 16,
-      gap: 16,
-      paddingBottom: 32,
+      gap: 22,
+      paddingBottom: 40,
     },
     summaryCard: {
-      ...design.heroCardStyle,
-      backgroundColor:
-        theme.variant === 'cream' ? design.rowSurface : design.heroBackground,
-      borderColor:
-        theme.variant === 'cream'
-          ? design.subtleBorderColor
-          : design.cardBorderColor,
+      ...design.flatCardStyle,
+      backgroundColor: design.elevatedSurface,
       overflow: 'hidden',
-      padding: 20,
+      padding: 22,
+      gap: 10,
     },
     summaryEyebrow: {
       ...design.sectionTitle,
@@ -264,10 +260,10 @@ export const createStyles = (theme: Theme) =>
     editorHeroOverlay: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor: isDarkSurface
-        ? 'rgba(10, 12, 18, 0.74)'
+        ? 'rgba(10, 12, 18, 0.68)'
         : theme.variant === 'cream'
-          ? 'rgba(255, 248, 239, 0.68)'
-          : 'rgba(255,255,255,0.80)',
+          ? 'rgba(255, 248, 239, 0.58)'
+          : 'rgba(255,255,255,0.72)',
     },
     editorHeroFallback: {
       ...StyleSheet.absoluteFillObject,
@@ -275,7 +271,7 @@ export const createStyles = (theme: Theme) =>
         theme.variant === 'cream' ? design.rowSurface : design.rowSurfaceMuted,
     },
     editorHeroContent: {
-      gap: 8,
+      gap: 10,
       position: 'relative',
       zIndex: 1,
     },
@@ -305,29 +301,25 @@ export const createStyles = (theme: Theme) =>
       lineHeight: 40,
     },
     editorCard: {
-      ...(isLayeredTheme
-        ? {
-            backgroundColor: 'transparent',
-            borderWidth: 0,
-            shadowColor: 'transparent',
-            shadowOpacity: 0,
-            shadowRadius: 0,
-            elevation: 0,
-          }
-        : design.cardStyle),
-      padding: isLayeredTheme ? 0 : 16,
-      gap: isLayeredTheme ? 16 : 20,
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      shadowColor: 'transparent',
+      shadowOpacity: 0,
+      shadowRadius: 0,
+      elevation: 0,
+      padding: 0,
+      gap: 20,
     },
     sectionBlock: {
-      gap: 16,
-      padding: isLayeredTheme ? 18 : 14,
-      borderRadius: 20,
+      gap: 18,
+      padding: isLayeredTheme ? 20 : 18,
+      borderRadius: 22,
       backgroundColor: design.rowSurface,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
     },
     fieldGroup: {
-      gap: 8,
+      gap: 10,
     },
     fieldLabel: {
       color: theme.colors.onSurface,
@@ -338,12 +330,12 @@ export const createStyles = (theme: Theme) =>
     pickerActionRow: {
       flexDirection: 'row',
       justifyContent: 'flex-start',
-      gap: 8,
+      gap: 10,
       flexWrap: 'wrap',
     },
     previewSection: {
-      gap: 8,
-      marginTop: 4,
+      gap: 10,
+      marginTop: 6,
     },
     previewLabel: {
       color: theme.colors.onSurfaceVariant,
@@ -418,8 +410,8 @@ export const createStyles = (theme: Theme) =>
     },
     helperCard: {
       ...(isLayeredTheme ? design.flatCardStyle : design.cardStyle),
-      padding: 16,
-      gap: 8,
+      padding: 18,
+      gap: 10,
     },
     };
   })());

@@ -12,15 +12,16 @@ import {
   modelStore,
 } from '../../store';
 import {Menu} from '..';
-import {characterText} from '../../constants/characterText';
 import {getCharacterImageSource} from '../../utils/characterImageSource';
 import {ROUTES} from '../../utils/navigationConstants';
 import {UserCircleIcon} from '../../assets/icons';
+import {L10nContext} from '../../utils';
 
 export const ChatHeaderTitle: React.FC = observer(() => {
   const navigation = useNavigation<any>();
   const theme = useTheme();
   const styles = React.useMemo(() => createStyles(theme), [theme]);
+  const l10n = React.useContext(L10nContext);
   const activeSessionId = chatSessionStore.activeSessionId;
   const activeSession = chatSessionStore.sessions.find(
     session => session.id === activeSessionId,
@@ -34,15 +35,20 @@ export const ChatHeaderTitle: React.FC = observer(() => {
     chatSessionStore.newChatCompletionSettings?.enable_thinking ??
     false;
   const selectedCharacterName =
-    selectedCharacter?.name?.trim() || characterText.noneSelected;
+    selectedCharacter?.name?.trim() ||
+    l10n.components.chatHeaderTitle.noCharacterSelected;
   const sessionTitle = activeSession?.title?.trim();
   const resolvedChatTitle =
     sessionTitle && sessionTitle !== 'New Session'
       ? sessionTitle
-      : '新的對話';
-  const modelStatusText = activeModel?.name?.trim() ? undefined : '尚未載入模型';
+      : l10n.components.chatHeaderTitle.defaultSessionTitle;
+  const modelStatusText = activeModel?.name?.trim()
+    ? undefined
+    : l10n.components.chatHeaderTitle.modelNotLoaded;
   const metaText = [
-    resolvedThinkingEnabled ? 'Thinking 開啟' : 'Thinking 關閉',
+    resolvedThinkingEnabled
+      ? l10n.components.chatHeaderTitle.thinkingOn
+      : l10n.components.chatHeaderTitle.thinkingOff,
     modelStatusText,
   ]
     .filter(Boolean)
@@ -92,7 +98,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
         anchor={
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="快速切換角色"
+            accessibilityLabel={l10n.components.chatHeaderTitle.quickSwitch}
             onPress={() => setMenuVisible(true)}
             style={styles.pressable}
             testID="chat-header-role-trigger">
@@ -145,16 +151,16 @@ export const ChatHeaderTitle: React.FC = observer(() => {
             </View>
           </Pressable>
         }>
-        <Menu.Item label="快速切換角色" isGroupLabel />
+        <Menu.Item label={l10n.components.chatHeaderTitle.quickSwitch} isGroupLabel />
         <Menu.Item
-          label={characterText.noRole}
+          label={l10n.components.chatHeaderTitle.noRole}
           onPress={handleClearCharacter}
           leadingIcon="account-off-outline"
           trailingIcon={
             !selectedCharacter
               ? () => (
                   <Text style={styles.menuStatusText} variant="bodySmall">
-                    {characterText.defaultChatSettings}
+                    {l10n.components.chatHeaderTitle.defaultChatSettings}
                   </Text>
                 )
               : undefined
@@ -162,7 +168,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
           style={styles.clearRoleItem}
         />
         <Menu.Item
-          label={characterText.addCharacter}
+          label={l10n.components.chatHeaderTitle.addCharacter}
           onPress={handleCreateCharacter}
           leadingIcon="account-plus-outline"
           style={styles.createRoleItem}
@@ -208,8 +214,9 @@ export const ChatHeaderTitle: React.FC = observer(() => {
                   style={styles.menuStatusText}
                   variant="bodySmall">
                   {isCurrent
-                    ? characterText.currentlyActive
-                    : profile.description?.trim() || '點一下切換角色'}
+                    ? l10n.components.chatHeaderTitle.currentlyActive
+                    : profile.description?.trim() ||
+                      l10n.components.chatHeaderTitle.tapToSwitch}
                 </Text>
               </View>
               {isCurrent && <Text style={styles.menuCheck}>✓</Text>}
@@ -218,7 +225,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
         })}
         <Menu.Separator />
         <Menu.Item
-          label={characterText.manageCharacters}
+          label={l10n.components.chatHeaderTitle.manageCharacters}
           onPress={handleOpenManager}
           leadingIcon="account-cog-outline"
         />

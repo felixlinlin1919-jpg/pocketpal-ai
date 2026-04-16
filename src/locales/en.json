@@ -93,7 +93,23 @@
     "autoNavigateToChat": "Auto-Navigate to Chat",
     "autoNavigateToChatDescription": "Navigate to chat when loading starts.",
     "appSettings": "App Settings",
+    "userAvatar": "User Avatar",
+    "userAvatarDescription": "Shown next to your messages and profile identity inside chat.",
+    "userAvatarPickErrorTitle": "Unable to choose avatar",
+    "userAvatarPathNotFound": "No usable image was found.",
+    "userAvatarPickErrorMessage": "Please try again later.",
     "language": "Language",
+    "select": "Select",
+    "clearSelection": "Clear",
+    "theme": "Theme",
+    "themeDescription": "Switch between dark, light, paper, and sci-fi looks.",
+    "themeSelected": "Current",
+    "themeOptions": {
+      "dark": "Dark",
+      "light": "Light",
+      "cream": "Paper",
+      "anime": "Sci-Fi"
+    },
     "darkMode": "Dark Mode",
     "displayMemoryUsage": "Display Memory Usage",
     "displayMemoryUsageDescription": "Display memory usage in the chat page.",
@@ -437,6 +453,20 @@
   },
   "about": {
     "screenTitle": "App Info",
+    "versionLabel": "Version",
+    "buildLabel": "Build",
+    "runtimeLabel": "Runtime",
+    "loadingLabel": "Loading",
+    "sections": {
+      "version": "Version Info",
+      "infoCenter": "Information Center"
+    },
+    "infoCenter": {
+      "openSourceLicensesSubtitle": "PocketPal AI MIT License and project attribution",
+      "thirdPartyNoticesSubtitle": "Primary dependency groups and expandable notices structure",
+      "customBuildNotesSubtitle": "What makes this custom build different",
+      "privacySubtitle": "How local data, attachments, and external services are handled"
+    },
     "description": "An app that brings language models directly to your phone. Sits on the shoulders of llama.cpp and llama.rn.",
     "supportProject": "Support the Project",
     "supportProjectDescription": "If you enjoy using PocketPal AI, please consider supporting the project by:",
@@ -518,16 +548,29 @@
       "reasoning": "Reasoning"
     },
     "chatEmptyPlaceholder": {
-      "noModelsTitle": "No Models Available",
-      "noModelsDescription": "Download a model to start chatting with PocketPal",
-      "noModelsButton": "Download Model",
-      "activateModelTitle": "Activate Model To Get Started",
-      "activateModelDescription": "Select the model and download it. After downloading, tap Load next to the model and start chatting.",
+      "noModelsTitle": "No model yet",
+      "noModelsDescription": "Add one model and this becomes your chat home.",
+      "noModelsButton": "Open Models",
+      "activateModelTitle": "Choose a model to begin",
+      "activateModelDescription": "Load one model and start a new conversation right away.",
       "activateModelButton": "Select Model",
       "loading": "Loading..."
     },
     "chatInput": {
       "inputPlaceholder": "Message",
+      "editingMessage": "Editing message",
+      "removeImageLabel": "Remove image {{index}}",
+      "attachments": {
+        "title": "Add attachment",
+        "imageSection": "Images",
+        "audioSection": "Audio",
+        "takePhoto": "Camera",
+        "photoLibrary": "Photo Library",
+        "audioFiles": "Audio Files",
+        "audioCapabilityHint": "Audio files are not wired into the chat model pipeline yet.",
+        "audioUnsupportedTitle": "Audio attachments are not available yet",
+        "audioUnsupportedMessage": "The current chat flow can send images to supported models, but audio files are not yet passed into model understanding."
+      },
       "thinkingToggle": {
         "enableThinking": "Enable thinking mode",
         "disableThinking": "Disable thinking mode",
@@ -627,7 +670,19 @@
       "inheritedSettingsFor": "Inherited settings for {{palName}}"
     },
     "chatHeaderTitle": {
-      "defaultTitle": "Chat"
+      "defaultTitle": "Chat",
+      "defaultSessionTitle": "New Chat",
+      "noCharacterSelected": "No character selected",
+      "modelNotLoaded": "Model not loaded",
+      "thinkingOn": "Thinking on",
+      "thinkingOff": "Thinking off",
+      "quickSwitch": "Quick switch character",
+      "noRole": "Use default chat settings",
+      "defaultChatSettings": "Default chat settings",
+      "addCharacter": "Add character",
+      "manageCharacters": "Manage characters",
+      "currentlyActive": "Currently active",
+      "tapToSwitch": "Tap to switch character"
     },
     "fileMessage": {
       "fileButtonAccessibilityLabel": "File"
@@ -1061,6 +1116,82 @@
     "pleaseLoadModel": "Load a model to chat.",
     "multimodalNotEnabled": "Multimodal is not enabled for this model. Images will be displayed but not processed by the AI.",
     "cannotSendWithoutModel": "Load a model first"
+  },
+  "characterLibrary": {
+    "title": "Characters",
+    "noneSelected": "No character selected",
+    "currentlyActive": "Currently active",
+    "currentlyActiveName": "Current: {{name}}",
+    "addCharacter": "Add Character",
+    "searchPlaceholder": "Search by name, prompt, or role settings",
+    "emptyTitle": "No characters yet",
+    "emptyDescription": "Create your first character to bring prompts, avatars, and backgrounds into chat.",
+    "emptyFilteredTitle": "No matching characters",
+    "emptyFilteredDescription": "Try another keyword or create a new character.",
+    "deleteConfirmTitle": "Delete character",
+    "deleteConfirmMessage": "Delete “{{name}}”?",
+    "edit": "Edit",
+    "delete": "Delete",
+    "avatarReady": "Avatar ready",
+    "avatarMissing": "No avatar",
+    "emojiOnly": "Emoji only",
+    "backgroundReady": "Background ready",
+    "backgroundMissing": "No background",
+    "backgroundInvalid": "Background path invalid",
+    "currentRoleDescription": "This character is active in chat right now.",
+    "tapToSwitchDescription": "Tap once to switch to this character."
+  },
+  "characterEditor": {
+    "createCharacter": "Create Character",
+    "editCharacter": "Edit Character",
+    "untitledCharacter": "Untitled Character",
+    "thinkingEnabledStatus": "Thinking enabled",
+    "thinkingDisabledStatus": "Thinking disabled",
+    "nameRequiredTitle": "Name required",
+    "nameRequiredMessage": "Please enter a character name.",
+    "promptRequiredTitle": "Prompt required",
+    "promptRequiredMessage": "Please enter a system prompt.",
+    "profileMissingTitle": "Character not found",
+    "profileMissingMessage": "This character may have been removed. Please return to the list and choose another one.",
+    "backToLibrary": "Back to characters",
+    "sections": {
+      "basicInfo": "Basic Info",
+      "chatStyle": "Chat Style",
+      "appearance": "Appearance"
+    },
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "emoji": "Emoji Avatar",
+      "systemPrompt": "Character Prompt",
+      "thinkingEnabled": "Enable Thinking",
+      "avatar": "Avatar",
+      "background": "Background"
+    },
+    "placeholders": {
+      "name": "Enter a character name",
+      "description": "Describe this character in one sentence",
+      "emoji": "For example: 🦊",
+      "systemPrompt": "Enter a character prompt",
+      "imagePath": "Image URL or local path"
+    },
+    "thinkingSupportHint": "Requires a model that supports thinking mode.",
+    "pickAvatar": "Choose Avatar",
+    "clearAvatar": "Clear Avatar",
+    "pickBackground": "Choose Background",
+    "clearBackground": "Clear Background",
+    "avatarPreview": "Avatar Preview",
+    "backgroundPreview": "Background Preview",
+    "avatarLoadFailed": "Unable to load avatar",
+    "backgroundLoadFailed": "Unable to load background",
+    "avatarMissing": "No avatar set",
+    "backgroundMissing": "No background set",
+    "avatarPickErrorTitle": "Unable to choose avatar",
+    "backgroundPickErrorTitle": "Unable to choose background",
+    "imagePathNotFound": "No usable image path was found.",
+    "tryAgainLater": "Please try again later.",
+    "saveCharacter": "Save Character",
+    "addCharacter": "Add Character"
   },
   "benchmark": {
     "title": "Benchmark",

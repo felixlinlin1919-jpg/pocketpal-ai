@@ -6,9 +6,11 @@ import {
   chatSessionStore,
   modelStore,
   palStore,
+  uiStore,
 } from '../../../store';
 import {runInAction} from 'mobx';
 import {basicModel, downloadedModel} from '../../../../jest/fixtures/models';
+import {l10n} from '../../../locales';
 
 describe('ChatHeaderTitle', () => {
   beforeEach(() => {
@@ -17,6 +19,7 @@ describe('ChatHeaderTitle', () => {
       characterProfileStore.profiles = [];
       characterProfileStore.selectedCharacterId = undefined;
       palStore.pals = [] as any;
+      uiStore.setLanguage('en');
       chatSessionStore.newChatCompletionSettings = {
         ...chatSessionStore.newChatCompletionSettings,
         enable_thinking: false,
@@ -30,7 +33,7 @@ describe('ChatHeaderTitle', () => {
       chatSessionStore.sessions = [];
     });
     const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
-    expect(getByText('新的對話')).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.defaultSessionTitle)).toBeTruthy();
   });
 
   it('renders session title when active session exists', () => {
@@ -58,20 +61,30 @@ describe('ChatHeaderTitle', () => {
     });
 
     const {queryByText} = render(<ChatHeaderTitle />, {withNavigation: true});
-    expect(queryByText('尚未載入模型')).toBeFalsy();
+    expect(queryByText(l10n.en.components.chatHeaderTitle.modelNotLoaded)).toBeFalsy();
   });
 
   it('keeps header stable when active model changes', () => {
+    const mockSession = {
+      id: 'session-stable',
+      title: 'Test Session',
+      date: new Date().toISOString(),
+      messages: [],
+    };
     // Initial model
     runInAction(() => {
       modelStore.models = [basicModel];
       modelStore.setActiveModel(basicModel.id);
+      Object.assign(chatSessionStore, {
+        activeSessionId: mockSession.id,
+        sessions: [mockSession],
+      });
     });
 
     const {getByText, queryByText, rerender} = render(<ChatHeaderTitle />, {
       withNavigation: true,
     });
-    expect(queryByText('尚未載入模型')).toBeFalsy();
+    expect(queryByText(l10n.en.components.chatHeaderTitle.modelNotLoaded)).toBeFalsy();
 
     // Change model
     runInAction(() => {
@@ -81,7 +94,7 @@ describe('ChatHeaderTitle', () => {
 
     rerender(<ChatHeaderTitle />);
     expect(getByText('Test Session')).toBeTruthy();
-    expect(queryByText('尚未載入模型')).toBeFalsy();
+    expect(queryByText(l10n.en.components.chatHeaderTitle.modelNotLoaded)).toBeFalsy();
   });
 
   it('renders selected character name when available', () => {
@@ -101,7 +114,7 @@ describe('ChatHeaderTitle', () => {
 
     const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
     expect(getByText('測試角色')).toBeTruthy();
-    expect(getByText('Thinking 開啟')).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.thinkingOn)).toBeTruthy();
   });
 
   it('falls back to current settings when no selected character exists', () => {
@@ -135,8 +148,8 @@ describe('ChatHeaderTitle', () => {
     });
 
     const {getByText} = render(<ChatHeaderTitle />, {withNavigation: true});
-    expect(getByText('未選擇角色')).toBeTruthy();
-    expect(getByText('Thinking 開啟')).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.noCharacterSelected)).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.thinkingOn)).toBeTruthy();
   });
 
   it('clears selected character from quick switch menu', () => {
@@ -163,11 +176,11 @@ describe('ChatHeaderTitle', () => {
     });
 
     fireEvent.press(getByTestId('chat-header-role-trigger'));
-    fireEvent.press(getByText('不使用角色'));
+    fireEvent.press(getByText(l10n.en.components.chatHeaderTitle.noRole));
 
     expect(characterProfileStore.selectedCharacterId).toBeUndefined();
-    expect(getByText('未選擇角色')).toBeTruthy();
-    expect(getByText('Thinking 開啟')).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.noCharacterSelected)).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.thinkingOn)).toBeTruthy();
   });
 
   it('shows create and manage actions in quick switch menu', () => {
@@ -177,8 +190,8 @@ describe('ChatHeaderTitle', () => {
 
     fireEvent.press(getByTestId('chat-header-role-trigger'));
 
-    expect(getByText('新增角色')).toBeTruthy();
-    expect(getByText('管理角色卡')).toBeTruthy();
-    expect(getByText('使用預設聊天設定')).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.addCharacter)).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.manageCharacters)).toBeTruthy();
+    expect(getByText(l10n.en.components.chatHeaderTitle.defaultChatSettings)).toBeTruthy();
   });
 });

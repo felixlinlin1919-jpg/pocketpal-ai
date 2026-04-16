@@ -4,21 +4,17 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
-  Linking,
   Image,
 } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {Text, Button, Icon} from 'react-native-paper';
+import {Text, Icon} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {BuildInfo} from 'llama.rn';
 
-import {
-  CopyIcon,
-  GithubIcon,
-} from '../../assets/icons';
+import {CopyIcon} from '../../assets/icons';
 
 import {appVariant} from '../../config/appVariant';
 import {
@@ -27,15 +23,10 @@ import {
   APP_BRAND_TAGLINE,
   APP_CUSTOM_BUILD_DESCRIPTION,
   AboutDetailKey,
-  POCKETPAL_SOURCE_URL,
 } from '../../constants/brand';
 import {useTheme} from '../../hooks';
 import {createStyles} from './styles';
 import {L10nContext} from '../../utils';
-
-const GithubButtonIcon = ({color}: {color: string}) => (
-  <GithubIcon stroke={color} />
-);
 
 export const AboutScreen: React.FC = () => {
   const theme = useTheme();
@@ -73,15 +64,15 @@ export const AboutScreen: React.FC = () => {
 
   const infoRows = [
     {
-      label: '版本',
-      value: appInfo.version ? `v${appInfo.version}` : '讀取中',
+      label: l10n.about.versionLabel,
+      value: appInfo.version ? `v${appInfo.version}` : l10n.about.loadingLabel,
     },
     {
-      label: 'Build',
-      value: appInfo.build || '讀取中',
+      label: l10n.about.buildLabel,
+      value: appInfo.build || l10n.about.loadingLabel,
     },
     {
-      label: '執行核心',
+      label: l10n.about.runtimeLabel,
       value: `llama.cpp ${BuildInfo.number} (${BuildInfo.commit.substring(
         0,
         7,
@@ -97,25 +88,25 @@ export const AboutScreen: React.FC = () => {
   }> = [
     {
       title: ABOUT_DETAIL_CONTENT.openSourceLicenses.title,
-      subtitle: 'PocketPal AI MIT License 與基礎專案資訊',
+      subtitle: l10n.about.infoCenter.openSourceLicensesSubtitle,
       icon: 'scale-balance',
       detailKey: 'openSourceLicenses',
     },
     {
       title: ABOUT_DETAIL_CONTENT.thirdPartyNotices.title,
-      subtitle: '主要依賴分類與後續 notices 結構',
+      subtitle: l10n.about.infoCenter.thirdPartyNoticesSubtitle,
       icon: 'package-variant-closed',
       detailKey: 'thirdPartyNotices',
     },
     {
       title: ABOUT_DETAIL_CONTENT.customBuildNotes.title,
-      subtitle: '自訂版本定位與主要調整',
+      subtitle: l10n.about.infoCenter.customBuildNotesSubtitle,
       icon: 'sparkles',
       detailKey: 'customBuildNotes',
     },
     {
       title: ABOUT_DETAIL_CONTENT.privacy.title,
-      subtitle: '本機資料、附件與外部服務使用說明',
+      subtitle: l10n.about.infoCenter.privacySubtitle,
       icon: 'shield-lock-outline',
       detailKey: 'privacy',
     },
@@ -161,7 +152,7 @@ export const AboutScreen: React.FC = () => {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>版本資訊</Text>
+          <Text style={styles.sectionTitle}>{l10n.about.sections.version}</Text>
           {infoRows.map(row => (
             <View key={row.label} style={styles.infoRow}>
               <Text style={styles.infoLabel}>{row.label}</Text>
@@ -171,7 +162,9 @@ export const AboutScreen: React.FC = () => {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>資訊中心</Text>
+          <Text style={styles.sectionTitle}>
+            {l10n.about.sections.infoCenter}
+          </Text>
           {detailRows.map(row => (
             <TouchableOpacity
               key={row.detailKey}
@@ -196,27 +189,6 @@ export const AboutScreen: React.FC = () => {
               />
             </TouchableOpacity>
           ))}
-        </View>
-
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>基礎專案</Text>
-          <Text style={styles.noticeText}>
-            此自訂版本基於 PocketPal AI，並依本機自用聊天方向整理介面與功能。
-          </Text>
-          <Button
-            mode="outlined"
-            onPress={() => Linking.openURL(POCKETPAL_SOURCE_URL)}
-            style={styles.actionButton}
-            icon={GithubButtonIcon}>
-            查看基礎專案
-          </Button>
-        </View>
-
-        <View style={styles.noticeCard}>
-          <Text style={styles.noticeTitle}>自訂版本狀態</Text>
-          <Text style={styles.noticeText}>
-            {`${appVariant.label} · ${appVariant.unavailableMessage}。`}
-          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>

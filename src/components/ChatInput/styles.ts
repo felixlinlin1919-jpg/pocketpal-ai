@@ -129,17 +129,26 @@ export const createStyles = ({
     attachmentTray: {
       marginHorizontal: 14,
       marginBottom: 10,
-      padding: 12,
+      padding: 14,
       borderRadius: 20,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
       backgroundColor: design.rowSurface,
-      gap: 10,
+      gap: 12,
     },
     attachmentTrayTitle: {
       color: theme.colors.onSurfaceVariant,
       fontWeight: '700',
       letterSpacing: 0.8,
+    },
+    attachmentSection: {
+      gap: 10,
+    },
+    attachmentSectionLabel: {
+      color: theme.colors.onSurface,
+      fontSize: 12,
+      lineHeight: 16,
+      fontWeight: '700',
     },
     attachmentActions: {
       flexDirection: 'row',
@@ -154,10 +163,23 @@ export const createStyles = ({
       borderColor: design.cardBorderColor,
       backgroundColor: design.iconSurface,
     },
+    attachmentActionMuted: {
+      backgroundColor: design.rowSurfaceMuted,
+      borderColor: design.subtleBorderColor,
+    },
     attachmentActionText: {
       color: theme.colors.onSurface,
       fontSize: 13,
       fontWeight: '700',
+    },
+    attachmentHint: {
+      color: theme.colors.onSurfaceVariant,
+      fontSize: 12,
+      lineHeight: 18,
+    },
+    attachmentDivider: {
+      height: 1,
+      backgroundColor: design.dividerColor,
     },
     leftControls: {
       flexDirection: 'row',

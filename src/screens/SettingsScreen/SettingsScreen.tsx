@@ -115,6 +115,42 @@ export const SettingsScreen: React.FC = observer(() => {
     }, 500),
   ).current;
   const userAvatarSource = getCharacterImageSource(uiStore.userAvatar);
+  const themeOptions: Array<{
+    value: AppThemeVariant;
+    label: string;
+    previewColor: string;
+    previewAccent: string;
+    testID: string;
+  }> = [
+    {
+      value: 'dark',
+      label: l10n.settings.themeOptions.dark,
+      previewColor: '#15171c',
+      previewAccent: '#d7dae3',
+      testID: 'theme-option-dark',
+    },
+    {
+      value: 'light',
+      label: l10n.settings.themeOptions.light,
+      previewColor: '#f6f7fb',
+      previewAccent: '#4d5567',
+      testID: 'theme-option-light',
+    },
+    {
+      value: 'cream',
+      label: l10n.settings.themeOptions.cream,
+      previewColor: '#f3eadf',
+      previewAccent: '#7a5e46',
+      testID: 'theme-option-cream',
+    },
+    {
+      value: 'anime',
+      label: l10n.settings.themeOptions.anime,
+      previewColor: '#191d35',
+      previewAccent: '#ff9fca',
+      testID: 'theme-option-anime',
+    },
+  ];
 
   useEffect(() => {
     setUserAvatarPreviewFailed(false);
@@ -296,14 +332,20 @@ export const SettingsScreen: React.FC = observer(() => {
 
       const selectedUri = result.assets?.[0]?.uri;
       if (!selectedUri) {
-        Alert.alert('無法選擇頭像', '找不到可用的圖片。');
+        Alert.alert(
+          l10n.settings.userAvatarPickErrorTitle,
+          l10n.settings.userAvatarPathNotFound,
+        );
         return;
       }
 
       uiStore.setUserAvatar(selectedUri);
     } catch (error) {
       console.error('Failed to pick user avatar:', error);
-      Alert.alert('無法選擇頭像', '請稍後再試。');
+      Alert.alert(
+        l10n.settings.userAvatarPickErrorTitle,
+        l10n.settings.userAvatarPickErrorMessage,
+      );
     }
   };
 
@@ -315,7 +357,7 @@ export const SettingsScreen: React.FC = observer(() => {
           keyboardShouldPersistTaps="handled">
           <View style={styles.screenHeader}>
             <Text variant="headlineMedium" style={styles.screenTitle}>
-              設定
+              {l10n.screenTitles.settings}
             </Text>
           </View>
 
@@ -923,10 +965,10 @@ export const SettingsScreen: React.FC = observer(() => {
                 <View style={styles.switchContainer}>
                   <View style={styles.textContainer}>
                     <Text variant="titleMedium" style={styles.textLabel}>
-                      個人頭像
+                      {l10n.settings.userAvatar}
                     </Text>
                     <Text variant="labelSmall" style={styles.textDescription}>
-                      顯示在聊天頁右側訊息與個人識別位置。
+                      {l10n.settings.userAvatarDescription}
                     </Text>
                   </View>
                   <View style={styles.avatarActions}>
@@ -946,11 +988,11 @@ export const SettingsScreen: React.FC = observer(() => {
                       </View>
                     )}
                     <Button mode="outlined" onPress={handlePickUserAvatar}>
-                      選擇
+                      {l10n.settings.select}
                     </Button>
                     {uiStore.userAvatar ? (
                       <Button mode="text" onPress={() => uiStore.setUserAvatar(undefined)}>
-                        清除
+                        {l10n.settings.clearSelection}
                       </Button>
                     ) : null}
                   </View>
@@ -1018,47 +1060,66 @@ export const SettingsScreen: React.FC = observer(() => {
                         stroke={theme.colors.onSurface}
                       />
                       <Text variant="titleMedium" style={styles.textLabel}>
-                        主題
+                        {l10n.settings.theme}
                       </Text>
                     </View>
                     <Text variant="labelSmall" style={styles.textDescription}>
-                      切換深色、淺色、紙色或動漫夜色介面。
+                      {l10n.settings.themeDescription}
                     </Text>
                   </View>
-                  <SegmentedButtons
-                    style={styles.themeSegmented}
-                    density="small"
-                    value={uiStore.colorScheme}
-                    onValueChange={value =>
-                      uiStore.setColorScheme(value as AppThemeVariant)
-                    }
-                    buttons={[
-                      {
-                        value: 'dark',
-                        label: '深色',
-                        testID: 'theme-option-dark',
-                        style: styles.themeSegmentButton,
-                      },
-                      {
-                        value: 'light',
-                        label: '淺色',
-                        testID: 'theme-option-light',
-                        style: styles.themeSegmentButton,
-                      },
-                      {
-                        value: 'cream',
-                        label: '紙色',
-                        testID: 'theme-option-cream',
-                        style: styles.themeSegmentButton,
-                      },
-                      {
-                        value: 'anime',
-                        label: '動漫夜色',
-                        testID: 'theme-option-anime',
-                        style: styles.themeSegmentButton,
-                      },
-                    ]}
-                  />
+                  <View style={styles.themeSelectorGrid}>
+                    {themeOptions.map(option => {
+                      const selected = uiStore.colorScheme === option.value;
+                      return (
+                        <TouchableOpacity
+                          key={option.value}
+                          testID={option.testID}
+                          accessibilityRole="button"
+                          accessibilityLabel={option.label}
+                          style={[
+                            styles.themeOptionCard,
+                            selected && styles.themeOptionCardSelected,
+                          ]}
+                          onPress={() => uiStore.setColorScheme(option.value)}>
+                          <View
+                            style={[
+                              styles.themePreview,
+                              {backgroundColor: option.previewColor},
+                            ]}>
+                            <View
+                              style={[
+                                styles.themePreviewAccent,
+                                {backgroundColor: option.previewAccent},
+                              ]}
+                            />
+                            <View style={styles.themePreviewChipRow}>
+                              <View style={styles.themePreviewChip} />
+                              <View
+                                style={[
+                                  styles.themePreviewChip,
+                                  styles.themePreviewChipShort,
+                                ]}
+                              />
+                            </View>
+                          </View>
+                          <View style={styles.themeOptionTextRow}>
+                            <Text
+                              variant="titleSmall"
+                              style={styles.themeOptionLabel}>
+                              {option.label}
+                            </Text>
+                            {selected ? (
+                              <Text
+                                variant="labelSmall"
+                                style={styles.themeOptionBadge}>
+                                {l10n.settings.themeSelected}
+                              </Text>
+                            ) : null}
+                          </View>
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </View>
                 </View>
 
                 {/* Display Memory Usage (iOS only) */}
