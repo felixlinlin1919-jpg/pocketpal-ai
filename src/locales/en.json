@@ -452,11 +452,13 @@
     "typical_p": "Enable locally typical sampling with parameter p. 1.0 is disabled"
   },
   "about": {
-    "screenTitle": "App Info",
+    "screenTitle": "About KyoKyoNook",
     "versionLabel": "Version",
     "buildLabel": "Build",
     "runtimeLabel": "Runtime",
     "loadingLabel": "Loading",
+    "heroTagline": "On-device AI chat with customizable characters",
+    "heroDescription": "A local-first chat space for private AI conversations and customizable characters.",
     "sections": {
       "version": "Version Info",
       "infoCenter": "Information Center"
@@ -475,7 +477,54 @@
     "orBy": "or by",
     "sponsorButton": "Become a Sponsor",
     "versionCopiedTitle": "Version copied",
-    "versionCopiedDescription": "Version information has been copied to clipboard"
+    "versionCopiedDescription": "Version information has been copied to clipboard",
+    "detailPages": {
+      "openSourceLicenses": {
+        "title": "Open Source Licenses",
+        "subtitle": "Core open-source licensing and attribution for this custom build.",
+        "baseProjectTitle": "Base project",
+        "footer": "PocketPal AI's MIT license is included in full here. Third-party license coverage can be expanded later through the notices structure."
+      },
+      "thirdPartyNotices": {
+        "title": "Third-Party Notices",
+        "subtitle": "Primary dependency groups with a structure ready for fuller notices later.",
+        "appLayerTitle": "App and interface layer",
+        "appLayerBody": "This custom build is primarily assembled with these React Native ecosystem tools:",
+        "localAiTitle": "Local AI and chat stack",
+        "localAiBody": "On-device inference and local chat capabilities mainly rely on:",
+        "mediaTitle": "Media and device integrations",
+        "mediaBody": "Images, files, and native device integrations mainly rely on:",
+        "footer": "This page does not claim to include every third-party license in full yet. If you plan to distribute this build, add an automated notices pipeline later."
+      },
+      "customBuildNotes": {
+        "title": "Custom Build Notes",
+        "subtitle": "A custom build shaped around private, local AI chat.",
+        "positioningTitle": "Positioning",
+        "positioningBody": "KyoKyoNook is a custom build based on PocketPal AI, with a cleaner product identity centered on local use and character chat.",
+        "highlightsTitle": "Highlights",
+        "highlightsBody": "This build focuses on a more cohesive product experience and character system:",
+        "highlightsItems": [
+          "Chat, character, settings, and model screens have been visually reworked.",
+          "Character cards, prompts, thinking, avatars, and backgrounds are wired into chat.",
+          "User avatars, quick character switching, and local-first chat flow are supported.",
+          "Official-cloud and experimental entry points have been reduced for this personal build."
+        ],
+        "usageTitle": "Intended use",
+        "usageBody": "This build is intended for personal use and private testing. A wider release would still need fuller licensing, privacy, and brand review."
+      },
+      "privacy": {
+        "title": "Privacy",
+        "subtitle": "A short overview of how chat, characters, and settings are handled.",
+        "localFirstTitle": "Local first",
+        "localFirstBody": "Chat history, character cards, the user avatar, and most settings stay on your device by default to support the local chat experience.",
+        "modelsAttachmentsTitle": "Models and attachments",
+        "modelsAttachmentsBody": "Your local models, image attachments, and character backgrounds are primarily used on-device. If you connect external services, their own handling rules apply.",
+        "noCloudTitle": "No cloud telemetry by default",
+        "noCloudBody": "This custom build does not re-enable Firebase or official cloud reporting flows. Chat content is not automatically sent to an official backend by this build itself.",
+        "dataControlTitle": "Data you can manage",
+        "dataControlBody": "You can manage character cards, clear avatars or backgrounds, delete chat history, and decide which models stay on your device."
+      }
+    }
   },
   "feedback": {
     "title": "Send Feedback",
@@ -900,13 +949,20 @@
       }
     },
     "sidebarContent": {
+      "mainFeatures": "Main Features",
+      "devTools": "Developer Tools",
+      "history": "Chat History",
+      "searchPlaceholder": "Search chat history",
+      "emptySearchTitle": "No matching chats",
+      "emptySearchHint": "Try another keyword.",
       "menuItems": {
         "chat": "Chat",
+        "characterLibrary": "Character Library",
         "models": "Models",
         "pals": "Pals",
         "benchmark": "Benchmark",
         "settings": "Settings",
-        "appInfo": "App Info",
+        "appInfo": "About KyoKyoNook",
         "testCompletion": "Test Completion"
       },
       "deleteChatTitle": "Delete Chat",

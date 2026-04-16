@@ -11,8 +11,8 @@ export const createStyles = (theme: Theme) => {
       flexShrink: 1,
       borderRadius: 20,
       backgroundColor: 'transparent',
-      paddingHorizontal: 6,
-      paddingVertical: 4,
+      paddingHorizontal: 8,
+      paddingVertical: 5,
       minWidth: 0,
     },
     container: {
@@ -21,7 +21,7 @@ export const createStyles = (theme: Theme) => {
     identityRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 12,
+      gap: 10,
       minWidth: 0,
     },
     identityAvatar: {
@@ -48,7 +48,7 @@ export const createStyles = (theme: Theme) => {
     titleBlock: {
       flex: 1,
       minWidth: 0,
-      gap: 1,
+      gap: 2,
     },
     title: {
       flexShrink: 1,

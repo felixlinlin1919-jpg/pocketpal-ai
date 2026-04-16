@@ -5,6 +5,8 @@
     "buildLabel": "Build",
     "runtimeLabel": "執行核心",
     "loadingLabel": "讀取中",
+    "heroTagline": "可自訂角色的本機 AI 聊天",
+    "heroDescription": "以本機對話、可自訂角色與私人使用體驗為核心的自訂版本。",
     "sections": {
       "version": "版本資訊",
       "infoCenter": "資訊中心"
@@ -23,7 +25,54 @@
     "orBy": "或通過",
     "sponsorButton": "成為贊助商",
     "versionCopiedTitle": "版本已複製",
-    "versionCopiedDescription": "版本資訊已複製至剪貼板"
+    "versionCopiedDescription": "版本資訊已複製至剪貼板",
+    "detailPages": {
+      "openSourceLicenses": {
+        "title": "開源授權",
+        "subtitle": "整理此自訂版本的核心開源授權與基礎專案資訊。",
+        "baseProjectTitle": "基礎專案",
+        "footer": "此頁保留 PocketPal AI 主專案的完整 MIT 授權內容；第三方授權全文可在後續 notices 結構中持續補齊。"
+      },
+      "thirdPartyNotices": {
+        "title": "第三方 Notices",
+        "subtitle": "主要依賴分類與後續可擴充的 notices 結構。",
+        "appLayerTitle": "App 與介面層",
+        "appLayerBody": "此自訂版本主要建立於以下 React Native 生態系工具：",
+        "localAiTitle": "本機 AI 與聊天能力",
+        "localAiBody": "本機推理與聊天能力主要依賴：",
+        "mediaTitle": "媒體與裝置整合",
+        "mediaBody": "圖片、檔案與裝置能力主要依賴：",
+        "footer": "此頁目前不宣稱已涵蓋所有第三方授權全文；若未來要上架，建議再補自動 notices 流程。"
+      },
+      "customBuildNotes": {
+        "title": "改版資訊",
+        "subtitle": "以私人本機聊天體驗為核心整理的自訂版本。",
+        "positioningTitle": "版本定位",
+        "positioningBody": "KyoKyoNook 是基於 PocketPal AI 的自訂版本，主介面已收斂原品牌露出，並以本機使用與角色聊天為核心。",
+        "highlightsTitle": "主要調整",
+        "highlightsBody": "這個版本聚焦在更一致的產品體驗與角色系統：",
+        "highlightsItems": [
+          "聊天頁、角色頁、設定頁與模型頁已重新整理視覺語言。",
+          "角色卡、角色提示詞、Thinking、頭像與背景圖已接入聊天流程。",
+          "支援使用者頭像、快速切換角色與本機優先的聊天流程。",
+          "降低了不適合這個自用版的官方雲端與實驗性入口。"
+        ],
+        "usageTitle": "使用範圍",
+        "usageBody": "此版本以個人使用與私人測試為主；若要進一步對外發布，仍建議補齊完整授權、隱私與品牌審核。"
+      },
+      "privacy": {
+        "title": "隱私說明",
+        "subtitle": "簡要說明聊天、角色與設定資料如何被處理。",
+        "localFirstTitle": "本機優先",
+        "localFirstBody": "聊天紀錄、角色卡、使用者頭像與大多數設定預設儲存在裝置上，用於維持本機聊天體驗。",
+        "modelsAttachmentsTitle": "模型與附件",
+        "modelsAttachmentsBody": "你選擇的本機模型、圖片附件與角色背景主要在裝置上使用；若主動連接外部服務，資料處理方式會依該服務而定。",
+        "noCloudTitle": "不預設啟用雲端回傳",
+        "noCloudBody": "此自訂版本不重新啟用 Firebase 或官方雲端回報流程；聊天內容不會因本版本本身而自動送往官方後端。",
+        "dataControlTitle": "你可以管理的資料",
+        "dataControlBody": "你可以管理角色卡、清除頭像或背景圖、刪除聊天紀錄，並自行決定要保留哪些模型。"
+      }
+    }
   },
   "benchmark": {
     "title": "基準",
@@ -405,6 +454,12 @@
       "tapToSwitch": "點一下切換角色"
     },
     "sidebarContent": {
+      "mainFeatures": "主要功能",
+      "devTools": "開發工具",
+      "history": "聊天紀錄",
+      "searchPlaceholder": "搜尋聊天紀錄",
+      "emptySearchTitle": "找不到符合的聊天紀錄",
+      "emptySearchHint": "換個關鍵字再試一次。",
       "dateGroups": {
         "older": "較舊",
         "lastMonth": "上個月",
@@ -425,7 +480,8 @@
         "benchmark": "基準測試",
         "pals": "Pal",
         "models": "模型",
-        "chat": "聊天"
+        "chat": "聊天",
+        "characterLibrary": "角色卡管理"
       },
       "select": "選擇",
       "nSelected": "已選取 {{count}}",

@@ -89,6 +89,11 @@ export const ChatHeaderTitle: React.FC = observer(() => {
     characterProfileStore.setSelectedCharacter(undefined);
     setMenuVisible(false);
   }, []);
+  const getSwitchCharacterLabel = React.useCallback(
+    (name: string) =>
+      `${l10n.components.chatHeaderTitle.tapToSwitch}: ${name}`,
+    [l10n.components.chatHeaderTitle.tapToSwitch],
+  );
 
   return (
     <>
@@ -182,7 +187,7 @@ export const ChatHeaderTitle: React.FC = observer(() => {
               key={profile.id}
               onPress={() => handleSelectCharacter(profile.id)}
               accessibilityRole="button"
-              accessibilityLabel={`切換到${profile.name}`}
+              accessibilityLabel={getSwitchCharacterLabel(profile.name)}
               style={[
                 styles.characterMenuRow,
                 isCurrent && styles.selectedMenuItem,

@@ -6,11 +6,12 @@ import {Text} from 'react-native-paper';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {
-  ABOUT_DETAIL_CONTENT,
+  getAboutDetailContent,
   AboutDetailKey,
 } from '../../constants/brand';
 import {useTheme} from '../../hooks';
 import {createStyles} from './styles';
+import {L10nContext} from '../../utils';
 
 type AboutDetailRouteParams = {
   AboutDetail: {
@@ -22,8 +23,10 @@ export const AboutDetailScreen: React.FC = () => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const styles = createStyles(theme, insets);
+  const l10n = React.useContext(L10nContext);
   const route = useRoute<RouteProp<AboutDetailRouteParams, 'AboutDetail'>>();
-  const content = ABOUT_DETAIL_CONTENT[route.params.detailKey];
+  const detailContent = React.useMemo(() => getAboutDetailContent(l10n), [l10n]);
+  const content = detailContent[route.params.detailKey];
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>

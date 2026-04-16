@@ -500,12 +500,12 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
       () => (
         <View style={styles.listHeader}>
           <Text variant="titleMedium" style={styles.sidebarTitle}>
-            聊天
+            {l10n.screenTitles.chat}
           </Text>
 
           <View style={styles.navSection}>
             <Text variant="labelMedium" style={styles.sectionLabel}>
-              主要功能
+              {l10n.components.sidebarContent.mainFeatures}
             </Text>
             <Drawer.Section showDivider={false} style={styles.navCard}>
               <Drawer.Item
@@ -516,7 +516,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
                 testID="drawer-item-chat"
               />
               <Drawer.Item
-                label="角色卡管理"
+                label={l10n.components.sidebarContent.menuItems.characterLibrary}
                 icon={() => (
                   <UserCircleIcon
                     width={24}
@@ -551,7 +551,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
                 testID="drawer-item-settings"
               />
               <Drawer.Item
-                label="關於 KyoKyoNook"
+                label={l10n.components.sidebarContent.menuItems.appInfo}
                 icon={() => (
                   <AppInfoIcon
                     width={24}
@@ -568,11 +568,11 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
           {isDebugMode && (
             <View style={styles.navSection}>
               <Text variant="labelMedium" style={styles.sectionLabel}>
-                開發工具
+                {l10n.components.sidebarContent.devTools}
               </Text>
               <Drawer.Section showDivider={false} style={styles.navCard}>
                 <Drawer.Item
-                  label="開發工具"
+                  label={l10n.components.sidebarContent.devTools}
                   icon={() => (
                     <SettingsIcon
                       width={24}
@@ -589,13 +589,13 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
 
           <Divider style={styles.divider} />
           <Text variant="labelMedium" style={styles.historyLabel}>
-            聊天紀錄
+            {l10n.components.sidebarContent.history}
           </Text>
           <View style={styles.historySearchBox}>
             <TextInput
               value={historyQuery}
               onChangeText={setHistoryQuery}
-              placeholder="搜尋聊天紀錄"
+              placeholder={l10n.components.sidebarContent.searchPlaceholder}
               placeholderTextColor={theme.colors.onSurfaceVariant}
               style={styles.historySearchInput}
               autoCorrect={false}
@@ -613,10 +613,10 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
         normalizedHistoryQuery ? (
           <View style={styles.historyEmptyState}>
             <Text variant="bodyMedium" style={styles.historyEmptyTitle}>
-              找不到符合的聊天紀錄
+              {l10n.components.sidebarContent.emptySearchTitle}
             </Text>
             <Text variant="bodySmall" style={styles.historyEmptyHint}>
-              換個關鍵字再試一次。
+              {l10n.components.sidebarContent.emptySearchHint}
             </Text>
           </View>
         ) : null,

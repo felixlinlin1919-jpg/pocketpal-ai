@@ -25,7 +25,8 @@ describe('AboutScreen', () => {
     const {getByText} = render(<AboutScreen />, {withNavigation: true});
 
     expect(getByText(APP_BRAND_NAME)).toBeTruthy();
-    expect(getByText('本機 AI 聊天與角色空間')).toBeTruthy();
+    expect(getByText(l10n.en.about.heroTagline)).toBeTruthy();
+    expect(getByText(l10n.en.about.heroDescription)).toBeTruthy();
     expect(getByText('v1.0.0 (100)')).toBeTruthy();
     expect(getByText(l10n.en.about.sections.version)).toBeTruthy();
     expect(getByText(l10n.en.about.sections.infoCenter)).toBeTruthy();

@@ -60,15 +60,16 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         zIndex: 10,
         left: 10,
         right: 10,
-        bottom: 10,
+        bottom: 12,
         borderWidth: 1,
         borderColor: design.cardBorderColor,
-        backgroundColor: design.overlaySurface,
+        backgroundColor:
+          theme.variant === 'cream' ? design.rowSurface : design.overlaySurface,
         shadowColor: theme.variant === 'cream' ? '#60462f' : '#000',
         shadowOffset: {width: 0, height: 10},
-        shadowOpacity: isDarkSurface ? 0.24 : 0.1,
+        shadowOpacity: isDarkSurface ? 0.22 : 0.06,
         shadowRadius: 20,
-        elevation: 8,
+        elevation: theme.variant === 'cream' ? 4 : 8,
       },
       chatContainer: {
         flex: 1,
@@ -82,18 +83,25 @@ export const createStyles = ({theme}: {theme: Theme}) =>
       },
       characterBackgroundImage: {
         opacity: isDarkSurface
-          ? 0.2
+          ? 0.18
           : theme.variant === 'cream'
-            ? 0.34
-            : 0.24,
+            ? 0.24
+            : 0.2,
       },
       characterBackgroundOverlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: theme.colors.messageOverlay,
+        backgroundColor:
+          theme.variant === 'cream'
+            ? 'rgba(245, 237, 226, 0.86)'
+            : theme.variant === 'light'
+              ? 'rgba(248, 249, 252, 0.84)'
+              : theme.colors.messageOverlay,
       },
       headerWrapper: {
         zIndex: 100,
         backgroundColor: design.heroBackground,
+        borderBottomWidth: 1,
+        borderBottomColor: design.dividerColor,
       },
       customBottomComponent: {
         position: 'absolute',

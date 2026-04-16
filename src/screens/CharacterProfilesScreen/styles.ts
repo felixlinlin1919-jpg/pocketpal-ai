@@ -231,8 +231,8 @@ export const createStyles = (theme: Theme) =>
     },
     editorScrollContent: {
       padding: 16,
-      gap: 22,
-      paddingBottom: 40,
+      gap: 28,
+      paddingBottom: 56,
     },
     summaryCard: {
       ...design.flatCardStyle,
@@ -308,18 +308,19 @@ export const createStyles = (theme: Theme) =>
       shadowRadius: 0,
       elevation: 0,
       padding: 0,
-      gap: 20,
+      gap: 28,
     },
     sectionBlock: {
-      gap: 18,
-      padding: isLayeredTheme ? 20 : 18,
+      gap: 22,
+      paddingHorizontal: isLayeredTheme ? 24 : 22,
+      paddingVertical: isLayeredTheme ? 24 : 22,
       borderRadius: 22,
       backgroundColor: design.rowSurface,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
     },
     fieldGroup: {
-      gap: 10,
+      gap: 14,
     },
     fieldLabel: {
       color: theme.colors.onSurface,
@@ -330,12 +331,12 @@ export const createStyles = (theme: Theme) =>
     pickerActionRow: {
       flexDirection: 'row',
       justifyContent: 'flex-start',
-      gap: 10,
+      gap: 12,
       flexWrap: 'wrap',
     },
     previewSection: {
-      gap: 10,
-      marginTop: 6,
+      gap: 12,
+      marginTop: 10,
     },
     previewLabel: {
       color: theme.colors.onSurfaceVariant,
@@ -406,7 +407,7 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
     },
     submitButton: {
-      marginTop: 8,
+      marginTop: 14,
     },
     helperCard: {
       ...(isLayeredTheme ? design.flatCardStyle : design.cardStyle),

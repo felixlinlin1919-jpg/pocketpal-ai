@@ -3,7 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {HeaderLeft} from '../../components';
 import {useTheme} from '../../hooks';
-import {ABOUT_DETAIL_CONTENT} from '../../constants/brand';
+import {getAboutDetailContent} from '../../constants/brand';
+import {L10nContext} from '../../utils';
 
 import {AboutScreen} from './AboutScreen';
 import {AboutDetailScreen} from './AboutDetailScreen';
@@ -12,6 +13,8 @@ const Stack = createStackNavigator();
 
 export const AboutNavigator: React.FC = () => {
   const theme = useTheme();
+  const l10n = React.useContext(L10nContext);
+  const detailContent = React.useMemo(() => getAboutDetailContent(l10n), [l10n]);
 
   return (
     <Stack.Navigator
@@ -29,7 +32,7 @@ export const AboutNavigator: React.FC = () => {
         name="AboutHome"
         component={AboutScreen}
         options={{
-          title: '關於 KyoKyoNook',
+          title: l10n.about.screenTitle,
           headerLeft: () => <HeaderLeft />,
         }}
       />
@@ -38,8 +41,7 @@ export const AboutNavigator: React.FC = () => {
         component={AboutDetailScreen}
         options={({route}: any) => ({
           title:
-            ABOUT_DETAIL_CONTENT[route.params?.detailKey]?.title ??
-            '關於 KyoKyoNook',
+            detailContent[route.params?.detailKey]?.title ?? l10n.about.screenTitle,
         })}
       />
     </Stack.Navigator>

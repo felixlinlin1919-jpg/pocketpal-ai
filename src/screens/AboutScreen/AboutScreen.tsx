@@ -18,10 +18,8 @@ import {CopyIcon} from '../../assets/icons';
 
 import {appVariant} from '../../config/appVariant';
 import {
-  ABOUT_DETAIL_CONTENT,
   APP_BRAND_NAME,
-  APP_BRAND_TAGLINE,
-  APP_CUSTOM_BUILD_DESCRIPTION,
+  getAboutDetailContent,
   AboutDetailKey,
 } from '../../constants/brand';
 import {useTheme} from '../../hooks';
@@ -34,6 +32,7 @@ export const AboutScreen: React.FC = () => {
   const styles = createStyles(theme, insets);
   const l10n = useContext(L10nContext);
   const navigation = useNavigation<any>();
+  const detailContent = React.useMemo(() => getAboutDetailContent(l10n), [l10n]);
 
   const [appInfo, setAppInfo] = React.useState({
     version: '',
@@ -87,25 +86,25 @@ export const AboutScreen: React.FC = () => {
     detailKey: AboutDetailKey;
   }> = [
     {
-      title: ABOUT_DETAIL_CONTENT.openSourceLicenses.title,
+      title: detailContent.openSourceLicenses.title,
       subtitle: l10n.about.infoCenter.openSourceLicensesSubtitle,
       icon: 'scale-balance',
       detailKey: 'openSourceLicenses',
     },
     {
-      title: ABOUT_DETAIL_CONTENT.thirdPartyNotices.title,
+      title: detailContent.thirdPartyNotices.title,
       subtitle: l10n.about.infoCenter.thirdPartyNoticesSubtitle,
       icon: 'package-variant-closed',
       detailKey: 'thirdPartyNotices',
     },
     {
-      title: ABOUT_DETAIL_CONTENT.customBuildNotes.title,
+      title: detailContent.customBuildNotes.title,
       subtitle: l10n.about.infoCenter.customBuildNotesSubtitle,
       icon: 'sparkles',
       detailKey: 'customBuildNotes',
     },
     {
-      title: ABOUT_DETAIL_CONTENT.privacy.title,
+      title: detailContent.privacy.title,
       subtitle: l10n.about.infoCenter.privacySubtitle,
       icon: 'shield-lock-outline',
       detailKey: 'privacy',
@@ -130,10 +129,8 @@ export const AboutScreen: React.FC = () => {
                 </Text>
               </View>
             </View>
-            <Text style={styles.brandTagline}>{APP_BRAND_TAGLINE}</Text>
-            <Text style={styles.brandDescription}>
-              {APP_CUSTOM_BUILD_DESCRIPTION}
-            </Text>
+            <Text style={styles.brandTagline}>{l10n.about.heroTagline}</Text>
+            <Text style={styles.brandDescription}>{l10n.about.heroDescription}</Text>
 
             <TouchableOpacity
               style={styles.versionButton}

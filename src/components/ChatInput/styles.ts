@@ -106,7 +106,12 @@ export const createStyles = ({
       overflow: 'hidden',
       borderWidth: 1,
       borderColor: design.cardBorderColor,
-      backgroundColor: design.overlaySurface,
+      backgroundColor:
+        theme.variant === 'cream'
+          ? design.rowSurface
+          : theme.variant === 'light'
+            ? design.elevatedSurface
+            : design.overlaySurface,
       ...design.shadow,
     },
     textInputArea: {
@@ -124,7 +129,12 @@ export const createStyles = ({
       minHeight: 42,
       borderTopWidth: 1,
       borderTopColor: design.dividerColor,
-      backgroundColor: design.rowSurfaceMuted,
+      backgroundColor:
+        theme.variant === 'anime'
+          ? design.elevatedSurface
+          : theme.variant === 'cream'
+            ? design.rowSurface
+            : design.rowSurfaceMuted,
     },
     attachmentTray: {
       marginHorizontal: 14,
@@ -133,7 +143,8 @@ export const createStyles = ({
       borderRadius: 20,
       borderWidth: 1,
       borderColor: design.subtleBorderColor,
-      backgroundColor: design.rowSurface,
+      backgroundColor:
+        theme.variant === 'anime' ? design.elevatedSurface : design.rowSurface,
       gap: 12,
     },
     attachmentTrayTitle: {
