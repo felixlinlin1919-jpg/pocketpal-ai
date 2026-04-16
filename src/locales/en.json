@@ -461,7 +461,16 @@
     "heroDescription": "A local-first chat space for private AI conversations and customizable characters.",
     "sections": {
       "version": "Version Info",
+      "buildProfile": "Build Profile",
       "infoCenter": "Information Center"
+    },
+    "buildProfileRows": {
+      "storageLabel": "Data Storage",
+      "storageValue": "Stored on-device by default",
+      "experienceLabel": "Experience",
+      "experienceValue": "Character-focused AI chat",
+      "usageLabel": "Intended Use",
+      "usageValue": "Personal use and private testing"
     },
     "infoCenter": {
       "openSourceLicensesSubtitle": "PocketPal AI MIT License and project attribution",
@@ -483,6 +492,8 @@
         "title": "Open Source Licenses",
         "subtitle": "Core open-source licensing and attribution for this custom build.",
         "baseProjectTitle": "Base project",
+        "coverageTitle": "What is included here",
+        "coverageBody": "This page keeps the base-project attribution and the full MIT license text for PocketPal AI. It is intended as an in-app reference, not a complete distribution packet for every dependency.",
         "footer": "PocketPal AI's MIT license is included in full here. Third-party license coverage can be expanded later through the notices structure."
       },
       "thirdPartyNotices": {
@@ -494,6 +505,8 @@
         "localAiBody": "On-device inference and local chat capabilities mainly rely on:",
         "mediaTitle": "Media and device integrations",
         "mediaBody": "Images, files, and native device integrations mainly rely on:",
+        "scopeTitle": "Current notices scope",
+        "scopeBody": "This in-app notices page summarizes the major technical groups already used by the product. It can be extended later if you prepare a fuller attribution package for wider distribution.",
         "footer": "This page does not claim to include every third-party license in full yet. If you plan to distribute this build, add an automated notices pipeline later."
       },
       "customBuildNotes": {
@@ -510,19 +523,28 @@
           "Official-cloud and experimental entry points have been reduced for this personal build."
         ],
         "usageTitle": "Intended use",
-        "usageBody": "This build is intended for personal use and private testing. A wider release would still need fuller licensing, privacy, and brand review."
+        "usageBody": "This build is intended for personal use and private testing. A wider release would still need fuller licensing, privacy, and brand review.",
+        "aiReminderTitle": "AI response reminder",
+        "aiReminderBody": "Model output can still be wrong, incomplete, or overly confident. Treat responses as assistance, especially when you rely on local models with different quality levels."
       },
       "privacy": {
         "title": "Privacy",
         "subtitle": "A short overview of how chat, characters, and settings are handled.",
         "localFirstTitle": "Local first",
         "localFirstBody": "Chat history, character cards, the user avatar, and most settings stay on your device by default to support the local chat experience.",
+        "localFirstItems": [
+          "Chat sessions and message history",
+          "Character cards, prompts, avatars, and backgrounds",
+          "User avatar and app preferences"
+        ],
         "modelsAttachmentsTitle": "Models and attachments",
         "modelsAttachmentsBody": "Your local models, image attachments, and character backgrounds are primarily used on-device. If you connect external services, their own handling rules apply.",
         "noCloudTitle": "No cloud telemetry by default",
         "noCloudBody": "This custom build does not re-enable Firebase or official cloud reporting flows. Chat content is not automatically sent to an official backend by this build itself.",
         "dataControlTitle": "Data you can manage",
-        "dataControlBody": "You can manage character cards, clear avatars or backgrounds, delete chat history, and decide which models stay on your device."
+        "dataControlBody": "You can manage character cards, clear avatars or backgrounds, delete chat history, and decide which models stay on your device.",
+        "aiReminderTitle": "Use reminder",
+        "aiReminderBody": "If you choose remote services or export content, those actions may follow different handling rules outside this app. Review your own setup before sharing personal data."
       }
     }
   },

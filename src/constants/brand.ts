@@ -57,6 +57,10 @@ export const getAboutDetailContent = (
           'This app is based on PocketPal AI. PocketPal AI is licensed under the MIT License.',
       },
       {
+        title: l10n.about.detailPages.openSourceLicenses.coverageTitle,
+        body: l10n.about.detailPages.openSourceLicenses.coverageBody,
+      },
+      {
         title: 'PocketPal AI MIT License',
         body: POCKETPAL_MIT_LICENSE,
       },
@@ -98,6 +102,10 @@ export const getAboutDetailContent = (
           'react-native-fs',
         ],
       },
+      {
+        title: l10n.about.detailPages.thirdPartyNotices.scopeTitle,
+        body: l10n.about.detailPages.thirdPartyNotices.scopeBody,
+      },
     ],
     footer: l10n.about.detailPages.thirdPartyNotices.footer,
   },
@@ -118,6 +126,10 @@ export const getAboutDetailContent = (
         title: l10n.about.detailPages.customBuildNotes.usageTitle,
         body: l10n.about.detailPages.customBuildNotes.usageBody,
       },
+      {
+        title: l10n.about.detailPages.customBuildNotes.aiReminderTitle,
+        body: l10n.about.detailPages.customBuildNotes.aiReminderBody,
+      },
     ],
   },
   privacy: {
@@ -127,6 +139,7 @@ export const getAboutDetailContent = (
       {
         title: l10n.about.detailPages.privacy.localFirstTitle,
         body: l10n.about.detailPages.privacy.localFirstBody,
+        items: l10n.about.detailPages.privacy.localFirstItems,
       },
       {
         title: l10n.about.detailPages.privacy.modelsAttachmentsTitle,
@@ -139,6 +152,10 @@ export const getAboutDetailContent = (
       {
         title: l10n.about.detailPages.privacy.dataControlTitle,
         body: l10n.about.detailPages.privacy.dataControlBody,
+      },
+      {
+        title: l10n.about.detailPages.privacy.aiReminderTitle,
+        body: l10n.about.detailPages.privacy.aiReminderBody,
       },
     ],
   },

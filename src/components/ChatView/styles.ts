@@ -82,24 +82,36 @@ export const createStyles = ({theme}: {theme: Theme}) =>
         zIndex: 0,
       },
       characterBackgroundImage: {
-        opacity: isDarkSurface
-          ? 0.18
-          : theme.variant === 'cream'
+        opacity:
+          theme.variant === 'anime'
             ? 0.24
-            : 0.2,
+            : theme.variant === 'dark'
+              ? 0.22
+              : theme.variant === 'cream'
+                ? 0.38
+                : 0.3,
       },
       characterBackgroundOverlay: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor:
           theme.variant === 'cream'
-            ? 'rgba(245, 237, 226, 0.86)'
+            ? 'rgba(245, 237, 226, 0.72)'
             : theme.variant === 'light'
-              ? 'rgba(248, 249, 252, 0.84)'
-              : theme.colors.messageOverlay,
+              ? 'rgba(248, 249, 252, 0.68)'
+              : theme.variant === 'anime'
+                ? 'rgba(9, 12, 31, 0.58)'
+                : 'rgba(4, 6, 11, 0.62)',
       },
       headerWrapper: {
         zIndex: 100,
-        backgroundColor: design.heroBackground,
+        backgroundColor:
+          theme.variant === 'cream'
+            ? 'rgba(248, 241, 232, 0.88)'
+            : theme.variant === 'light'
+              ? 'rgba(255, 255, 255, 0.9)'
+              : theme.variant === 'anime'
+                ? 'rgba(27, 31, 59, 0.84)'
+                : 'rgba(22, 28, 39, 0.9)',
         borderBottomWidth: 1,
         borderBottomColor: design.dividerColor,
       },

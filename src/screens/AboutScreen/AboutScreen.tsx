@@ -78,6 +78,20 @@ export const AboutScreen: React.FC = () => {
       )})`,
     },
   ];
+  const buildProfileRows = [
+    {
+      label: l10n.about.buildProfileRows.storageLabel,
+      value: l10n.about.buildProfileRows.storageValue,
+    },
+    {
+      label: l10n.about.buildProfileRows.experienceLabel,
+      value: l10n.about.buildProfileRows.experienceValue,
+    },
+    {
+      label: l10n.about.buildProfileRows.usageLabel,
+      value: l10n.about.buildProfileRows.usageValue,
+    },
+  ];
 
   const detailRows: Array<{
     title: string;
@@ -151,6 +165,18 @@ export const AboutScreen: React.FC = () => {
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>{l10n.about.sections.version}</Text>
           {infoRows.map(row => (
+            <View key={row.label} style={styles.infoRow}>
+              <Text style={styles.infoLabel}>{row.label}</Text>
+              <Text style={styles.infoValue}>{row.value}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>
+            {l10n.about.sections.buildProfile}
+          </Text>
+          {buildProfileRows.map(row => (
             <View key={row.label} style={styles.infoRow}>
               <Text style={styles.infoLabel}>{row.label}</Text>
               <Text style={styles.infoValue}>{row.value}</Text>

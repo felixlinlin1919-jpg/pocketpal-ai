@@ -2,14 +2,23 @@
   "about": {
     "screenTitle": "關於 KyoKyoNook",
     "versionLabel": "版本",
-    "buildLabel": "Build",
+    "buildLabel": "建置",
     "runtimeLabel": "執行核心",
     "loadingLabel": "讀取中",
     "heroTagline": "可自訂角色的本機 AI 聊天",
     "heroDescription": "以本機對話、可自訂角色與私人使用體驗為核心的自訂版本。",
     "sections": {
       "version": "版本資訊",
+      "buildProfile": "版本定位",
       "infoCenter": "資訊中心"
+    },
+    "buildProfileRows": {
+      "storageLabel": "資料儲存",
+      "storageValue": "預設保留在本機裝置",
+      "experienceLabel": "體驗重點",
+      "experienceValue": "以角色為核心的 AI 聊天",
+      "usageLabel": "使用方向",
+      "usageValue": "個人使用與私人測試"
     },
     "infoCenter": {
       "openSourceLicensesSubtitle": "PocketPal AI MIT License 與基礎專案資訊",
@@ -31,6 +40,8 @@
         "title": "開源授權",
         "subtitle": "整理此自訂版本的核心開源授權與基礎專案資訊。",
         "baseProjectTitle": "基礎專案",
+        "coverageTitle": "目前已收錄內容",
+        "coverageBody": "此頁目前保留基礎專案說明與 PocketPal AI 的完整 MIT 授權全文，作為 app 內參考資訊，不等同完整對外散佈包的所有授權檔。",
         "footer": "此頁保留 PocketPal AI 主專案的完整 MIT 授權內容；第三方授權全文可在後續 notices 結構中持續補齊。"
       },
       "thirdPartyNotices": {
@@ -42,6 +53,8 @@
         "localAiBody": "本機推理與聊天能力主要依賴：",
         "mediaTitle": "媒體與裝置整合",
         "mediaBody": "圖片、檔案與裝置能力主要依賴：",
+        "scopeTitle": "目前 notices 範圍",
+        "scopeBody": "這一頁先整理 app 內已使用的主要技術群組與結構，方便後續若要對外發布時再擴充成更完整的 notices 套件。",
         "footer": "此頁目前不宣稱已涵蓋所有第三方授權全文；若未來要上架，建議再補自動 notices 流程。"
       },
       "customBuildNotes": {
@@ -58,19 +71,28 @@
           "降低了不適合這個自用版的官方雲端與實驗性入口。"
         ],
         "usageTitle": "使用範圍",
-        "usageBody": "此版本以個人使用與私人測試為主；若要進一步對外發布，仍建議補齊完整授權、隱私與品牌審核。"
+        "usageBody": "此版本以個人使用與私人測試為主；若要進一步對外發布，仍建議補齊完整授權、隱私與品牌審核。",
+        "aiReminderTitle": "AI 使用提醒",
+        "aiReminderBody": "模型回覆仍可能出錯、不完整或過度自信。若要用於實際判斷，尤其是在本機模型品質差異較大的情況下，仍建議自行再次確認。"
       },
       "privacy": {
         "title": "隱私說明",
         "subtitle": "簡要說明聊天、角色與設定資料如何被處理。",
         "localFirstTitle": "本機優先",
         "localFirstBody": "聊天紀錄、角色卡、使用者頭像與大多數設定預設儲存在裝置上，用於維持本機聊天體驗。",
+        "localFirstItems": [
+          "聊天會話與訊息紀錄",
+          "角色卡、提示詞、頭像與背景圖",
+          "使用者頭像與 app 偏好設定"
+        ],
         "modelsAttachmentsTitle": "模型與附件",
         "modelsAttachmentsBody": "你選擇的本機模型、圖片附件與角色背景主要在裝置上使用；若主動連接外部服務，資料處理方式會依該服務而定。",
         "noCloudTitle": "不預設啟用雲端回傳",
         "noCloudBody": "此自訂版本不重新啟用 Firebase 或官方雲端回報流程；聊天內容不會因本版本本身而自動送往官方後端。",
         "dataControlTitle": "你可以管理的資料",
-        "dataControlBody": "你可以管理角色卡、清除頭像或背景圖、刪除聊天紀錄，並自行決定要保留哪些模型。"
+        "dataControlBody": "你可以管理角色卡、清除頭像或背景圖、刪除聊天紀錄，並自行決定要保留哪些模型。",
+        "aiReminderTitle": "使用提醒",
+        "aiReminderBody": "若你主動接入遠端服務或匯出內容，資料處理方式可能會超出本 app 本機範圍，建議在分享個人資料前自行確認設定。"
       }
     }
   },
